@@ -113,6 +113,7 @@ Route::group(['middleware' => ['admin']], function () {
 //farmer
 Route::group(['middleware'=>'farmer'],function (){
     // route::get('farmerdashboard','Frontend\Farmer\FarmerControlpostmyfarmler@getFamerDashboard');
+    route::get('farmerdashboard','Frontend\Farmer\FarmerController@getFamerDashboard');
     route::get('myfarm','Frontend\Farmer\FarmerController@loadFarm');
     route::post('postmyfarm','Frontend\Farmer\FarmerController@saveFarm');
     route::resource('myproduct','Frontend\Farmer\ProductController');

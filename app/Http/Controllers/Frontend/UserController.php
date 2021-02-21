@@ -40,6 +40,7 @@ class UserController extends Controller
     }
     public function login(Request $request){
         $field = filter_var($request->input('userId'), FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_no';
+
         if(Auth::attempt([$field => $request->input('userId'), 'password' => $request->input('password')])){
             $role = Auth::user()->role;
             if($role=='farmer'){

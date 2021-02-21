@@ -27,6 +27,7 @@
                         <th>User Name</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>Registered Date</th>
                         <th>Action</th>
 
                     </tr>
@@ -38,6 +39,11 @@
                         <td>{{$user->email}}
                         </td>
                         <td>{{$user->role}}</td>
+                        <td>
+                            {{$user->created_at->format('d,M-Y')}}
+                            <br/>
+                            {{($user->created_at->diffForHumans())}}
+                        </td>
                         <td>
                         @if($user->role!='admin')
                                 <a href="{{route('users.edit',$user->id)}}" class="btn btn-xs btn-info" style=" border-radius: 0px;"><i class="fa fa-edit"></i>edit</a>
