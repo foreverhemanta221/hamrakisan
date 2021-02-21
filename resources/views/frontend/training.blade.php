@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/venobox.min.css')}}">
 @endsection
 @section('content')
-
     <!-------------------------------------- Training PAGE WRAPPER -->
     <div class="light-bg-wrapper">
         <!-- cover section -->
@@ -17,7 +16,7 @@
             <div class="training-cover-overlay"></div>
             <div class="training-cover-info">
                 <h1>{{$trainingDetail->training_name}}</h1>
-                <p>{{$trainingDetail->short_description}}</p>
+                <p>{!!$trainingDetail->short_description!!}</p>
                 @if($trainingDetail->rel_instructor->count()>0)
                 <ul class="cover-instructor">
                     @foreach($trainingDetail->rel_instructor as $instructor)
