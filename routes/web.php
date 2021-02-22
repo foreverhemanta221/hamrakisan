@@ -1,6 +1,10 @@
 <?php
 
-Route::get('/','Frontend\PageController@getHomePageData');
+
+
+
+
+
 //basic login only here
     //adminlogin
     route::get('admin',function (){
@@ -110,60 +114,70 @@ Route::group(['middleware' => ['admin']], function () {
     route::get('report/farm','Backend\ReportController@getFarmerReportView');
     route::post('report/farm','Backend\ReportController@generateFarmReport');
 });
-//farmer
-Route::group(['middleware'=>'farmer'],function (){
-    // route::get('farmerdashboard','Frontend\Farmer\FarmerControlpostmyfarmler@getFamerDashboard');
-    route::get('myfarm','Frontend\Farmer\FarmerController@loadFarm');
-    route::post('postmyfarm','Frontend\Farmer\FarmerController@saveFarm');
-    route::resource('myproduct','Frontend\Farmer\ProductController');
-    route::get('farmreview','Frontend\Farmer\ReviewController@index');
-    route::post('changestatus','Frontend\Farmer\ReviewController@changeStatus');
-    route::resource('traingings','Frontend\Farmer\TrainingController');
-});
+
+
+Route::group(['middleware'=>['locale']],function(){
+
+    Route::get('/','Frontend\PageController@getHomePageData');
+    //farmer
+    Route::group(['middleware'=>'farmer'],function (){
+        // route::get('farmerdashboard','Frontend\Farmer\FarmerControlpostmyfarmler@getFamerDashboard');
+        route::get('myfarm','Frontend\Farmer\FarmerController@loadFarm');
+        route::post('postmyfarm','Frontend\Farmer\FarmerController@saveFarm');
+        route::resource('myproduct','Frontend\Farmer\ProductController');
+        route::get('farmreview','Frontend\Farmer\ReviewController@index');
+        route::post('changestatus','Frontend\Farmer\ReviewController@changeStatus');
+        route::resource('traingings','Frontend\Farmer\TrainingController');
+    });
 //user
-Route::group(['middleware'=>'user'],function (){
-   route::get('userdashboard','Frontend\User\UserDashboardController@getUserDashboard');
-   route::get('myreview','Frontend\User\ReviewController@index');
+    Route::group(['middleware'=>'user'],function (){
+        route::get('userdashboard','Frontend\User\UserDashboardController@getUserDashboard');
+        route::get('myreview','Frontend\User\ReviewController@index');
 
-   route::get('my-order','Frontend\User\OrderConroller@myOrder');
+        route::get('my-order','Frontend\User\OrderConroller@myOrder');
 
-});
+    });
 //eitther user and farmer
-route::group(['middleware'=>'userfarmer'],function (){
-    route::get('myaccount','Frontend\User\AccountController@myProfile');
-    route::post('myaccount','Frontend\User\AccountController@updateAccount');
+    route::group(['middleware'=>'userfarmer'],function (){
+        route::get('myaccount','Frontend\User\AccountController@myProfile');
+        route::post('myaccount','Frontend\User\AccountController@updateAccount');
 
-    //cart
-    route::post('add-to-cart','Frontend\CartController@store');
-    route::post('update-cart','Frontend\CartController@update');
-    route::get('my-cart','Frontend\CartController@index');
-    route::post('order','Frontend\OrderController@order');
+        //cart
+        route::post('add-to-cart','Frontend\CartController@store');
+        route::post('update-cart','Frontend\CartController@update');
+        route::get('my-cart','Frontend\CartController@index');
+        route::post('order','Frontend\OrderController@order');
 
-    //checkout
-    route::get('checkout','Frontend\OrderController@checkout');
-});
+        //checkout
+        route::get('checkout','Frontend\OrderController@checkout');
+    });
 
-route::post('logout','Frontend\UserController@logOut')->name('logout');
+    route::post('logout','Frontend\UserController@logOut')->name('logout');
 
 ////////////////////////////////////new version route frontend ///////////////////////
-route::get('/farm', 'Frontend\SearchController@showSearchResults')->name('farm.search');
-route::post('farmserach','Frontend\SearchController@ajaxSearch');
+    route::get('/farm', 'Frontend\SearchController@showSearchResults')->name('farm.search');
+    route::post('farmserach','Frontend\SearchController@ajaxSearch');
 //pages
-route::get('about-us','Frontend\PageController@about');
-route::get('faqs','Frontend\PageController@faqs');
+    route::get('about-us','Frontend\PageController@about');
+    route::get('faqs','Frontend\PageController@faqs');
 //new product
-route::get('allproducts','Frontend\PageController@getAllProduct');
-route::get('/product/{slug}', 'Frontend\PageController@getProductDetail');
+    route::get('allproducts','Frontend\PageController@getAllProduct');
+    route::get('/product/{slug}', 'Frontend\PageController@getProductDetail');
 //listings
-route::get('listings/{slug}','Frontend\PageController@loadListing');
+    route::get('listings/{slug}','Frontend\PageController@loadListing');
 //loan request
-//route::get('request-loan','');
+
 //forms
-route::post('farmregisterform','Forms\FarmListFormController@store');
-route::get('loanrequestform','Forms\LoanRequestFormController@create');
-route::post('loanrequestform','Forms\LoanRequestFormController@store');
+    route::post('farmregisterform','Forms\FarmListFormController@store');
+    route::get('loanrequestform','Forms\LoanRequestFormController@create');
+    route::post('loanrequestform','Forms\LoanRequestFormController@store');
 //product
-route::get('agrotraining/{id}','Frontend\PageController@getTraining');
+    route::get('agrotraining/{id}','Frontend\PageController@getTraining');
+//language
+    Route::get('_language/{locale?}','Frontend\LanguageSwitcherController@getlang');
+});
+
+
 
 ////////////////////////////new version route end /////////////////////
 

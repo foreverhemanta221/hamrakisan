@@ -1,13 +1,16 @@
 <?php
 
 return [
-  'login'=>'Log In',
-  'create_account'=>'Register',
-  'shopping_cart'=>'Cart',
-  'search'=>'Search On Hamrakisan',
-  'home'=>'Home',
-  'about'=>'About',
-  'success_farm'=>'Success Farm',
-  'product'=>'Products',
-  'contact'=>'Contact Us',
+    'home'=>'Home',
+    'farms'=>'Farms',
+    'request_loan'=>'Request Loan',
+    'about'=>'About Us',
+    'dashboard'=>'Dashboard',
+    'login'=>'Log In',
+    'list_a_farm'=>'List a Farm',
+    'create_account'=>'Register',
+    'shopping_cart'=>'Cart',
+    'success_farm'=>'Success Farm',
+    'product'=>'Products',
+    'contact'=>'Contact Us',
 ];
