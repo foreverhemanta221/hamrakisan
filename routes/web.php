@@ -115,7 +115,6 @@ Route::group(['middleware' => ['admin']], function () {
     route::post('report/farm','Backend\ReportController@generateFarmReport');
 });
 
-
 Route::group(['middleware'=>['locale']],function(){
 
     Route::get('/','Frontend\PageController@getHomePageData');

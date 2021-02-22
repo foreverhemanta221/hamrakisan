@@ -347,7 +347,8 @@
             });
         }
     </script>
-    <script>
+
+      <script>
         $(document).ready(function () {
             $('#province').change(function (e) {
                 e.preventDefault();
@@ -358,7 +359,7 @@
                 // alert($.ajaxSetup())
                 $.ajax({
                     type: 'GET',
-                    url: '{{url('api/getdistrict')}}' + '/' + province,
+                    url: '{{url('api/districts')}}',
                     dataType: 'json',
                     success: function (result) {
                         $( "#district" ).empty();
@@ -366,7 +367,9 @@
                         var jsonData1 = result.data;
                         i = 0 ;
                         $.each(jsonData1, function( index, value ) {
-                            appenddata1 += "<option value = '" + index+ " '>" + value + " </option>";
+                            if(value.province_id == province){
+                                appenddata1 += "<option value = '" + value.district_id+ " '>" + value.district_name + " </option>";
+                            }
                         });
                         $("#district").append(appenddata1);
                         $('.enableOnInput').prop('disabled',false)
