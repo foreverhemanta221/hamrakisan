@@ -56,7 +56,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('report/farm')}}"><i class="fa fa-circle-o"></i> Farm Report </a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Add Advertisment</a></li>
+                    {{--  <li><a href="#"><i class="fa fa-circle-o"></i> Add Advertisment</a></li>  --}}
 
                 </ul>
             </li>
