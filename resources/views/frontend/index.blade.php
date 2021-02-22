@@ -14,8 +14,8 @@
     <section id="farm-landing" class="farm-landing" data-aos="fade-up">
         <div class="container">
             <div class="section-title">
-                <h2>Best Farms around the Nation</h2>
-                Why you should join a growing network of enthusiasts
+                <h2>{{__('home.best_farm')}}</h2>
+                {{__('home.best_farm_sub')}}
             </div>
             <div class="row">
                 <div class="col">
@@ -161,11 +161,11 @@
                 <div class="col-md-6" data-aos="fade-up">
                     <form action="{{URL::to('farmregisterform')}}" method="POST" class="" name="listFarmFormRequest" id="listFarmFormRequest">
                         @csrf
-                        <h4>List your Farm</h4>
+                        <h4>{{__('home.list_your_farm')}}</h4>
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="form-group">
-                                    <label for="">Farm Name <small class="text-danger ">*</small></label>
+                                    <label for="">{{__('form.farm_name')}} <small class="text-danger ">*</small></label>
                                     <input type="Text" class="form-control" name="farmName" id="inputFarmName" aria-describedby="emailHelp" placeholder="eg: kantipur Farm">
                                 </div>
                                 <div class="alert alert-danger" id="errfarmName" role="alert">
@@ -176,7 +176,7 @@
                             </div>
                             <div class="col-xl-6">
                                 <div class="form-group">
-                                    <label for="">FullName of farmer <small class="text-danger ">*</small></label>
+                                    <label for="">{{__('form.full_name_of_farmer')}}<small class="text-danger ">*</small></label>
                                     <input type="Text" class="form-control" name="farmerName" id="inputFarmerName" aria-describedby="emailHelp" placeholder="eg: Rajesh Hamal">
                                 </div>
                                 <div class="alert alert-danger" id="errfarmerName" role="alert">
@@ -190,7 +190,7 @@
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email <small class="text-danger ">*</small></label>
+                                    <label for="exampleInputEmail1">{{__('form.email')}} <small class="text-danger ">*</small></label>
                                     <input type="email" class="form-control  @if($errors->has('farmEmail')) danger @endif" name="farmEmail" id="inputFarmEmail" aria-describedby="emailHelp" placeholder="eg: xyz@gmail.com">
                                 </div>
                                 <div class="alert alert-danger" id="errfarmEmail" role="alert">
@@ -202,7 +202,7 @@
 
                             <div class="col-xl-6">
                                 <div class="form-group">
-                                    <label for="">Phone <small class="text-danger ">*</small></label>
+                                    <label for="">{{__('form.phone')}} <small class="text-danger ">*</small></label>
                                     <input type="number" class="form-control" name="farmPhone" id="inputFarmPhone" placeholder="eg: 986454131">
                                 </div>
                                 <div class="alert alert-danger" id="errfarmPhone" role="alert">
@@ -214,7 +214,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="inputFarmLocation">Location <small class="text-danger ">*</small></label>
+                            <label for="inputFarmLocation">{{__('form.location')}} <small class="text-danger ">*</small></label>
                             <input type="text" class="form-control" name="farmLocation" id="inputFarmLocation" aria-describedby="emailHelp" placeholder="eg: Patan Dhoka, Lalitpur">
                         </div>
                         <div class="alert alert-danger" id="errfarmLocation" role="alert">
@@ -223,7 +223,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Description</label>
+                            <label for="exampleInputEmail1">{{__('form.description')}}</label>
                             <textarea class="form-control" name="farmDescription" id="inputFarmDescription" aria-describedby="emailHelp" placeholder="eg: Patan Dhoka, Lalitpur">
                             </textarea>
                         </div>
@@ -232,7 +232,7 @@
                                 <small>{{$message}}</small>
                             @enderror
                         </div>
-                        <input type="submit" class="btn btn-success" value="submit" id="submitform" onclick="submitFormFunction()" />
+                        <input type="submit" class="btn btn-success" value="{{__('form.submit')}}" id="submitform" onclick="submitFormFunction()" />
                         {{--  <button type="submit" value="submit">Submit</button>  --}}
                         {{--  <button type="submit" form="listFarmFormRequest" class="btn btn-success" value="Submit">Submit</button>  --}}
                     </form>
@@ -245,7 +245,7 @@
     <section id="videos-section" class="videos-section">
         <div class="container">
             <div class="section-title">
-                <h2>हक किसानको फनै कथा हु्छ</h2>
+                <h2>हक किसानको आफनै कथा हु्छ</h2>
                 <p>आउनुहोस सुनौं तिनै किसानका  प्रेरणादाय कथाहरु </p>
             </div>
             <div class="row">
@@ -269,7 +269,7 @@
     <section id="map">
         <!-- <div id="map-msg"><div class="light-47">We are</div> Here</div> -->
         <div class="section-title">
-            <h2>Locate Us</h2>
+            <h2>{{__('home.locate_us')}}</h2>
         </div>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3533.3325557306243!2d85.32183031494972!3d27.676114733470893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19c5ff9dd227%3A0xd54e8bd02cf8160b!2sLumbini%20Heritage%20Home!5e0!3m2!1sen!2snp!4v1585125550599!5m2!1sen!2snp" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     </section>

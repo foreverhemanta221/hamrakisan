@@ -10,40 +10,53 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{URL::to('/')}}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{URL::to('/')}}">{{__('header.home')}} <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{URL::to('farm')}}">Farms</a>
+                <a class="nav-link" href="{{URL::to('farm')}}">{{__('header.farms')}}</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{URL::to('loanrequestform')}}">Request Loan</a>
+                <a class="nav-link" href="{{URL::to('loanrequestform')}}">{{__('header.request_loan')}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{URL::to('about-us')}}">About us</a>
+                <a class="nav-link" href="{{URL::to('about-us')}}">{{__('header.about')}}</a>
+            </li>
+            <li class="lang_selector">
+                @if(App::getLocale()=="en")
+                    <a class="" href="{{URL::to('_language/np')}}">
+                        <img src="{{URL::asset('frontend/img/icons/nep.png')}}" alt="nepali">
+                    </a>
+                @else
+                    <a class="" href="{{URL::to('_language/en')}}">
+                        <img src="{{URL::asset('frontend/img/icons/eng.png')}}" alt="">
+                    </a>
+                @endif
             </li>
 
             @if(Auth::check()==true)
                 @if(Auth::user()->role=="farmer")
                     <li class="nav-item">
-                        <a class="nav-link" href="{{URL::asset('farmerdashboard')}}">Dashboard</a>
+                        <a class="nav-link" href="{{URL::asset('farmerdashboard')}}">{{__('header.dashboard')}}</a>
                     </li>
                 @elseif(Auth::user()->role=="user")
                     <li class="nav-item">
-                        <a class="nav-link" href="{{URL::asset('userdashboard')}}">Dashboard</a>
+                        <a class="nav-link" href="{{URL::asset('userdashboard')}}">{{__('header.dashboard')}}</a>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{URL::asset('dashboard')}}">Dashboard</a>
+                        <a class="nav-link" href="{{URL::asset('dashboard')}}">{{__('header.dashboard')}}
+                        </a>
                     </li>
                 @endif
             @else
                 <li class="nav-item">
-                    <a class="nav-link" href="{{URL::to('login')}}">Login</a>
+                    <a class="nav-link" href="{{URL::to('login')}}">{{__('header.login')}}</a>
                 </li>
             @endif
+
             <li class="nav-item">
-                <a class="nav-link cta" href="#">List a Farm</a>
+                <a class="nav-link cta" href="#">{{__('header.list_a_farm')}}</a>
             </li>
         </ul>
     </div>

@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
 
+
     ];
 
     /**
@@ -68,7 +69,8 @@ class Kernel extends HttpKernel
         'farmerApi'=>\App\Http\Middleware\FarmerApiMiddleware::class,
         'userApi'=>\App\Http\Middleware\UserApiMiddleware::class,
         'authkey'=>AuthKey::class,
-        'userfarmer'=>\App\Http\Middleware\FarmerAndUserMiddleware::class
+        'userfarmer'=>\App\Http\Middleware\FarmerAndUserMiddleware::class,
+        'locale'=>\App\Http\Middleware\LocaleMiddleware::class
     ];
 
     /**

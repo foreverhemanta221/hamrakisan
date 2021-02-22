@@ -11,7 +11,7 @@
                                    id="search-box-main" type="search"
                                    placeholder="Search farms around the country"
                                    onfocus="this.placeholder=''"
-                                   onblur="this.placeholder='Search farms around the country'"
+                                   onblur="this.placeholder='{{__('search.search')}}'"
                                    aria-label="Search">
                         </div>
                         <button class="d-lg-none filters-toggler" type="button">
@@ -21,19 +21,19 @@
                             <!-- province -->
                             <div class="input-group">
                                 <select class="custom-select province_dropdown" id="selectProvince">
-                                    <option value="" selected> Select Province</option>
+                                    <option value="" selected> {{__('search.select_province')}}</option>
                                 </select>
                             </div>
                             <!-- district -->
                             <div class="input-group">
                                 <select class="custom-select district_dropdown district" id="selectDistrict">
-                                    <option value="">Select District</option>
+                                    <option value="">{{__('search.select_district')}}</option>
                                 </select>
                             </div>
                             <!-- categories -->
                             <div class="input-group">
                                 <select class="custom-select" id="selectCategory">
-                                    <option value="">Category</option>
+                                    <option value="">{{__('search.select_category')}}</option>
                                     @foreach($allcategory as $cateogry)
                                         <option value="{{$cateogry->id}}">{{$cateogry->title}}</option>
                                     @endforeach
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <button id="indexSearch" class="btn btn-secondary" type="submit">Search</button>
+                    <button id="indexSearch" class="btn btn-secondary" type="submit">{{__('search.search_button')}}</button>
                 </form>
             </div>
         </div>
