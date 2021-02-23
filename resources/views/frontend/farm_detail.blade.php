@@ -246,195 +246,46 @@
         </section>
         <!-- ---------------------------------END FARM PRODUCTS SECTION-------------------------------------- -->
 
-
+        @isset($related_listings)
+        
         <!-- ---------------------------------RECOMMENDATIONS SECTION-------------------------------------- -->
         <section class="recommendation-section">
             <div class="container-xl">
 
                 <h2>People also bought from</h2>
                 <div id="recommendation-slider" class="owl-carousel owl-theme mt-4">
-                    <div class="farm-card">
-                        <div class="img-box">
-                            <a href="">
-                                <img src="{{URL::asset('frontend/img/farms/farm (1).png')}}" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="farm-info p-2 mt-2 mb-0">
-                            <h5><a href="">Aadhunik Krishi Farm</a></h5>
-                            <h6>Tinpatan-1, Sindhuli</h6>
-                            <div class="prod-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                    @foreach ($related_listings as $related)
+                        <div class="farm-card">
+                            <div class="img-box">
+                                <a href="{{URL::to('listings/'.$related->slug)}}">
+                                    <img src="{{$related->getFeatureImage('medium')}}" class="img-fluid" alt="{{$related->slug}}">
+                                </a>
                             </div>
-                            Sells:
-                            <ul class="sells">
-                                <li>Litchi</li>
-                                <li>Apples</li>
-                                <li>Mushrooms</li>
-                                <li>Watermelon</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="farm-card">
-                        <div class="img-box">
-                            <a href="">
-                                <img src="{{URL::asset('frontend/img/farms/farm (2).png')}}" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="farm-info p-2 mt-2 mb-0">
-                            <h5><a href="">Shiwani Agro Farm</a></h5>
-                            <h6>Chitwan</h6>
-                            <div class="prod-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            Sells:
-                            <ul class="sells">
-                                <li>Litchi</li>
-                                <li>Apples</li>
-                                <li>Mushrooms</li>
-                                <li>Watermelon</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="farm-card">
-                        <div class="img-box">
-                            <a href="">
-                                <img src="{{URL::asset('frontend/img/farms/farm (3).png')}}" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="farm-info p-2 mt-2 mb-0">
-                            <h5><a href="">Hamro Nepal Lacto Farm</a></h5>
-                            <h6>Tokha</h6>
-                            <div class="prod-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            Sells:
-                            <ul class="sells">
-                                <li>Litchi</li>
-                                <li>Apples</li>
-                                <li>Mushrooms</li>
-                                <li>Watermelon</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="farm-card">
-                        <div class="img-box">
-                            <a href="">
-                                <img src="{{URL::asset('frontend/img/farms/farm (4).png')}}" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="farm-info p-2 mt-2 mb-0">
-                            <h5><a href="">Kranti Krishi Farm</a></h5>
-                            <h6>Bhaktapur</h6>
-                            <div class="prod-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            Sells:
-                            <ul class="sells">
-                                <li>Litchi</li>
-                                <li>Apples</li>
-                                <li>Mushrooms</li>
-                                <li>Watermelon</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="farm-card">
-                        <div class="img-box">
-                            <a href="">
-                                <img src="{{URL::asset('frontend/img/farms/farm (5).png')}}" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="farm-info p-2 mt-2 mb-0">
-                            <h5><a href="">Adhikari Yekikrit Krishi Farm</a></h5>
-                            <h6>Kritipur</h6>
-                            <div class="prod-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            Sells:
-                            <ul class="sells">
-                                <li>Litchi</li>
-                                <li>Apples</li>
-                                <li>Mushrooms</li>
-                                <li>Watermelon</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="farm-card">
-                        <div class="img-box">
-                            <a href="">
-                                <img src="{{URL::asset('frontend/img/farms/farm (6).png')}}" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="farm-info p-2 mt-2 mb-0">
-                            <h5><a href="">Dhindo Krishi Farm</a></h5>
-                            <h6>Hetauda</h6>
-                            <div class="prod-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            Sells:
-                            <ul class="sells">
-                                <li>Litchi</li>
-                                <li>Apples</li>
-                                <li>Mushrooms</li>
-                                <li>Watermelon</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="farm-card">
-                        <div class="img-box">
-                            <a href="">
-                                <img src="{{URL::asset('frontend/img/farms/farm (7).png')}}" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="farm-info p-2 mt-2 mb-0">
-                            <h5><a href="">Adhikari Yekikrit Krishi Farm</a></h5>
-                            <h6>Kritipur</h6>
-                            <div class="prod-rating">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            Sells:
-                            <ul class="sells">
-                                <li>Litchi</li>
-                                <li>Apples</li>
-                                <li>Mushrooms</li>
-                                <li>Watermelon</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
+                            <div class="farm-info p-2 mt-2 mb-0">
+                                <h5><a href="{{URL::to('listings/'.$related->slug)}}">{{$related->name}}</a></h5>
+                                <h6>Chitwan</h6>
+                                <div class="prod-rating">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                @if($related->products->count()>0)
+                                Sells:
+                                    <ul class="sells">
+                                        @foreach($related->products as $product)
+                                            <li>{{$product->name}}</li>
+                                        @endforeach
+                                    </ul>
+                                    @endif
+                                </div>
+                        </div>     
+                    @endforeach
+                </div>        
             </div>
         </section>
+        @endisset
         <!-- ---------------------------------END RECOMMENDATIONS SECTION-------------------------------------- -->
     </div>
     <!-- Reviews Modal -->

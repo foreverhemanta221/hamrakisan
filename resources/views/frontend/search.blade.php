@@ -96,7 +96,7 @@
                                     </div>
 
                                         <div class="farm-info p-2 mt-2 mb-0">
-                                            <h5><a href="">{{$item->name}}</a></h5>
+                                            <h5><a href="{{URL::to('listings/'.$item->slug)}}">{{$item->name}}</a></h5>
                                             <h6>{{$item->short_address}}</h6>
                                             <div class="prod-rating">
                                                 <span class="fa fa-star checked"></span>
