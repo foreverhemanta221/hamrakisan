@@ -43,15 +43,19 @@
                         <strong>District:</strong><br>
                     </div>
                    <br>
+                   <br>
+                   <br>
+                   {{--  <hr>  --}}
 
                 </div>
 
 
             </div>
             @foreach($items as $item)
+            {{--  {{dd($item)}}  --}}
             <div class="row">
                 <div class="col-md-12" style="">
-                    <hr style="">
+                    {{--  <hr style="">  --}}
                     <strong style="">Farm Name : <span class="pull-right">{{$item->name}} </span></strong>
                     <hr style="">
                 </div>
@@ -59,15 +63,16 @@
             <div class="row" style="">
                 <div class="column farm-detail">
                     <strong>Details</strong>:
-                    <p class="farm-detail">Address &nbsp; &nbsp;: {{$item->long_address}}</p>
+                    <p class="farm-detail">Address &nbsp; &nbsp;: {{$item->short_address}}</p>
                     <p class="farm-detail">Phone &nbsp; &nbsp;&nbsp; &nbsp;: {{$item->phone}}</p>
-                    <p class="farm-detail">Category &nbsp;: {{$item->category_lists}}</p>
+                    <p class="farm-detail">Category &nbsp;: {{$item->rel_category->title}}</p>
                     <p class="farm-detail">Email &nbsp; &nbsp; &nbsp; : {{$item->email}}</p>
                 </div>
                 <div class="column farm-detail">
                     <strong>Products</strong>:
-                    <p>{{$item->product_list}}</p>
-                </div>
+                    @foreach ($item->product_list as $list)
+                        <p>{{$list}}</p>
+                    @endforeach
             </div>
         @endforeach
         </div>

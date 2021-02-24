@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -19,7 +20,18 @@ class Category extends Model
         }
         return null;
     }
+
     public function rel_listing(){
-        return $this->belongsToMany('App\Models\Listing','listing_category','category_id','listing_id');
+        return $this->belongsToMany('App\Models\Listing','listing_category','listing_id','category_id');
+    }
+
+    /**
+     * Get all of the listings for the Category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class, 'category_id', 'id');
     }
 }
