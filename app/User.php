@@ -38,6 +38,7 @@ class User extends Authenticatable
 //    private $email;
     public function rel_listing()
     {
+        // dd("here");
         return $this->hasMany(Listing::class);
     }
     public function checkSuperAdmin(){

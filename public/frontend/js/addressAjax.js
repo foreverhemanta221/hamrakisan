@@ -1,5 +1,5 @@
-let baseUrl = "http://hamrakisan.com/";
-// let baseUrl = "http://127.0.0.1:8000/";
+// let baseUrl = "http://hamrakisan.com/";
+let baseUrl = "http://127.0.0.1:8000/";
 axios.get(baseUrl + "/api/provinces").then(function (response) {
     var select = document.querySelector(".province_dropdown");
     console.log(select);

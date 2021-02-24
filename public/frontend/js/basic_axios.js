@@ -1,5 +1,5 @@
-let baseUrl = "http://hamrakisan.com/"; //it should be
-// let baseUrl = "http://127.0.0.1:8000/";
+// let baseUrl = "http://hamrakisan.com/"; //it should be
+let baseUrl = "http://127.0.0.1:8000/";
 let url_string = window.location.href;
 console.log(url_string);
 let url = new URL(url_string);

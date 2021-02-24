@@ -75,7 +75,7 @@
                 buttons: false,
                 icon: "warning",
                 timer: 2500,
-                text: '{{ session()->get('message') }}'
+                text: '{{ session()->get('danger') }}'
             });
         </script>
     @endif

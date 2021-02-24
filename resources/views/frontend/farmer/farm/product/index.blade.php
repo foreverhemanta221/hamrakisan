@@ -21,11 +21,16 @@
                 </div>
                 <!-- dashboard cards -->
                 <div class="db-body">
-                    <h1>Products</h1>
+                    <div class="d-flex justify-content-between mb-2">
+                        <h1>Products</h1>
+                        <a id="view-farm-btn" href="{{route('myproduct.create')}}" class="btn btn-outline-secondary mr-3">Add a product</a>
+                    </div>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
+                            @isset($myproducts)
                                 <?php $count=1;?>
+                                    
                                 @foreach($myproducts as $product)
                                 <div class="form-card">
                                     <div class="dbproducts">
@@ -37,14 +42,19 @@
                                             <div class="price">Rs.{{$product->price}} / {{$product->measure_unit}}</div>
                                             <div class="actions">
                                                 <label class="switch">
-                                                    <input type="checkbox" {{$product->is_available==1 ?'checked': ''}}>
+                                                    <input type="checkbox" 
+                                                    {{$product->is_available== 1 ?'checked': ''}}
+                                                     onclick="changeStatus({{$product->id}},{{$product->is_available}})" 
+                                                    />
+                                                    <td>
+                                                    </td>
                                                     <span class="slider round"></span>
                                                 </label>
                                                 <button class="btn btn-light" data-toggle="collapse" href="#productformcollapse{{$count}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                     <i class="far fa-edit mr-2"></i>
                                                     Edit
                                                 </button>
-                                                <a href="" id="deleteProduct" data-toggle="modal" data-value="{{$product->id}}" data-target="#deleteModal" class="btn btn-outline-danger">
+                                                <a id="productDelete" data-toggle="modal" data-value="{{$product->id}}" data-target="#deleteModal" class="btn btn-outline-danger productDelete">
                                                     Delete
                                                 </a>
                                             </div>
@@ -76,7 +86,7 @@
 
                                                 <div class="form-group">
                                                     <label for="">Minimum Order</label>
-                                                    <input type="number" placeholder="Minimum Order" class="form-control" name="minimum_quantity" id="">
+                                                    <input type="number" placeholder="Minimum Order" class="form-control" name="minimum_quantity"  value="{{$product->minimum_quantity}}" />
                                                 </div>
 
                                             </div>
@@ -107,8 +117,11 @@
                                         </form>
                                     </div>
                                 </div>
-                                    <?php $count++; ?>
+                                
+                                
+                                <?php $count++; ?>
                                 @endforeach
+                            @endisset
                             </div>
                         </div>
                     </div>
@@ -132,7 +145,7 @@
 
                 <div class="modal-footer">
                     <input type="hidden" name="_token" id="token" value="{{ Session::token() }}">
-                    <input type="submit" class="btn btn-danger pull-left" value="Yes, Delete this Product"
+                    <input type="submit" class="btn btn-danger pull-left delete_confirm" value="Yes, Delete this Product"
                            id="delete_confirm">
                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                 </div>
@@ -142,10 +155,10 @@
 @endsection
 
 @section('scripts')
-    <script src="{{URL::asset('frontend/js/popper.min.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/aos.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
     <script>
@@ -261,27 +274,64 @@
 
         });
     </script>
-    <script>
-        //ajax code
-        (function () {
-           document.getElementById('deleteProduct').addEventListener('click',function (e) {
-               e.preventDefault();
-               let product_id = this.getAttribute('data-value');
-               document.getElementById('delete_confirm').addEventListener('click',function () {
-                   axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-                   axios.delete('/myproduct/'+product_id,{
-                       data: {
-                           id: product_id,
-                           _method: 'DELETE',
-                       }
-                   })
-                    .then(function (response) {
-                            window.location = '{{route("myproduct.index")}}'
-                       }).catch(function (error) {
-                           console.log(error);
-                       });
-               })
-           })
-        })()
+     <script>
+        function changeStatus(product_id,status) {
+            var message = status==0  ? 'activate' : 'deactivate';
+            if( confirm('are you sure want to '+message +' status')){
+                $.ajaxSetup({
+                    headers: {'X-CSRF-TOKEN': '{{ Session::token() }}'}
+                });
+
+                $.ajax({
+                    url: '{{ url('myproduct/changestatus') }}',
+                    type: 'POST',
+                    data: {
+                        product_id: product_id,
+                        status: status
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        {{--  window.location = '{{route('myproduct.index')}}';  --}}
+                    },
+                    error: function (result) {
+                        console.log(result);
+                        {{--  window.location = '{{route('myproduct.index')}}';  --}}
+                    }
+                });
+            }
+
+        }
+    </script>
+
+     <script>
+        $(document).ready(function (e) {
+            $(document).on('click', '#productDelete', function (e) {
+                var product_id = $(this).attr('data-value');
+                $("#delete_confirm").click(function () {
+
+                    $.ajaxSetup({
+                        headers: {'X-CSRF-TOKEN': '{{ Session::token() }}'}
+                    });
+
+                    $.ajax({
+                        url: '{{ url('/myproduct') }}' + '/' + product_id,
+                        type: 'DELETE',
+                        data: {
+                            "id": product_id,
+                            "_method": 'DELETE',
+                        },
+                        success: function (result) {
+                            console.log(result)
+                            window.location = '{{route('myproduct.index')}}';
+                        },
+                        error: function (result) {
+                            console.log(result)
+                            window.location = '{{route('myproduct.index')}}';
+                        }
+                    });
+                });
+            });
+            //change status
+        });
     </script>
 @endsection
