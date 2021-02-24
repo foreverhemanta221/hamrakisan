@@ -93,7 +93,7 @@
                                         <br/>
                                         {{($listing->created_at->diffForHumans())}}
                                     </td>
-                                    <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success'}}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing'}}</span></td>
+                                    <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success'}}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing' }}</span></td>
                                     <td>
                                         <a href="{{route('listing.edit',$listing->id)}}" class="btn btn-xs btn-info" style=" border-radius: 0px;"><i class="fa fa-edit"></i>edit</a>
                                         <a href="#" class="btn btn-xs btn-danger"  data-value="{{ $listing->id }}" id="delete_image"
@@ -137,7 +137,7 @@
                                         <br/>
                                         {{($listing->created_at->diffForHumans())}}
                                     </td>
-                                    <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success'}}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing'}}</span>}</td>
+                                    <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success' }}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing'}}</span></td>
                                     <td>
                                         <a href="{{route('listing.edit',$listing->id)}}" class="btn btn-xs btn-info" style=" border-radius: 0px;"><i class="fa fa-edit"></i>edit</a>
                                         <a href="#" class="btn btn-xs btn-danger"  data-value="{{ $listing->id }}" id="delete_image"

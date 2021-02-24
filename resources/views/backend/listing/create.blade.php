@@ -75,9 +75,9 @@
                             <div class="col-md-6">
                                 <!-- Color Picker -->
                                 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <label>Email:</label>
+                                    <label>Email:<span style="color: #ff0000">*</span></label>
 
-                                    <input type="email" class="form-control" name="email">
+                                    <input type="email" class="form-control" name="email" required />
                                     @if($errors->has('email'))
                                         <span class="error">{{ $errors->first('email') }}</span>
                                 @endif
@@ -186,11 +186,11 @@
                                 <div class="col-md-6">
 
                                     <div class="form-group {{ $errors->has('city') ? ' has-error' : '' }}">
-                                        <label>City</label>
+                                        <label>City: <span style="color: #ff0000">*</span></label>
                                         @if($errors->has('city'))
                                             <span class="error">{{ $errors->first('city') }}</span>
                                         @endif
-                                        <input type="text" class="form-control" name="city">
+                                        <input type="text" class="form-control" name="city"required />
                                         <!-- /.input group -->
                                     </div>
                                     <!-- /.form group -->

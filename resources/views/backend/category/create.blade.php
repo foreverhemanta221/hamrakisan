@@ -73,7 +73,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
                         <label>Category Name</label>
-                        <input type="text" name="title" id="title" class="form-control">
+                        <input type="text" name="title" id="title" class="form-control" required>
                         @if($errors->has('title'))
                             <span class="help-block">{{ $errors->first('title') }}</span>
                         @endif
@@ -94,7 +94,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
                         <label>Image</label>
-                            <input name="image" class="form-control"  type="file"/>
+                            <input name="image" class="form-control"  type="file" required />
                     </div>
                     @if($errors->has('image'))
                         <span class="help-block">{{ $errors->first('image') }}</span>
@@ -103,7 +103,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('feature') ? ' has-error' : '' }}">
                         <label>Feature </label>
-                        <select name="feature" class="form-control">
+                        <select name="feature" class="form-control" required>
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
