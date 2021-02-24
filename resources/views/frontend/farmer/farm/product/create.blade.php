@@ -40,12 +40,12 @@
                                 <div class="input-group">
                                     <select class="custom-select" id="unitSelect" name="measure_unit" required>
                                         <option selected>Unit</option>
-                                        <option value="KG">Kg</option>
-                                        <option value="Litre">Litre</option>
-                                        <option value="Dozen">Dozen</option>
-                                        <option value="Dharni">Dharni</option>
-                                        <option value="Piece">Piece</option>
+                                         @foreach(measureUnit() as $key=>$value)
+                                            <option value="{{$value}}">{{$value}}</option>
+                                        @endforeach
                                     </select>
+
+                                    
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/popper.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/aos.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script>
         AOS.init({
@@ -104,7 +104,7 @@
                 fileList.innerHTML = "<p>No files selected!</p>";
             } else {
 
-// fileList.appendChild(list);
+            // fileList.appendChild(list);
                 for (let i = 0; i < 10; i++) {
                     let li = document.createElement("li");
                     fileList.appendChild(li);
@@ -114,13 +114,13 @@
                     img.onload = function() {
                         window.URL.revokeObjectURL(this.src);
                     }
-//li.appendChild(img);
+        //li.appendChild(img);
 
 
 
                     const info = document.createElement("div");
                     info.innerHTML = `<span class="info-image-name">` + files[i].name + `</span><p>`+ (files[i].size/1048576).toFixed(2) + " MB";
-//li.appendChild(info);
+        //li.appendChild(info);
                     const imgBox=document.createElement("div")
                     imgBox.setAttribute("class","img-Box");
                     imgBox.append(img)

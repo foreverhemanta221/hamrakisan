@@ -124,6 +124,8 @@ Route::group(['middleware'=>['locale']],function(){
         route::get('myfarm','Frontend\Farmer\FarmerController@loadFarm');
         route::post('postmyfarm','Frontend\Farmer\FarmerController@saveFarm');
         route::resource('myproduct','Frontend\Farmer\ProductController');
+        route::post('myproduct/changestatus','Frontend\Farmer\ProductController@changeStatus');
+        
         route::get('farmreview','Frontend\Farmer\ReviewController@index');
         route::post('changestatus','Frontend\Farmer\ReviewController@changeStatus');
         route::resource('traingings','Frontend\Farmer\TrainingController');
