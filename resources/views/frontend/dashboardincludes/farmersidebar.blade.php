@@ -17,11 +17,11 @@
         </div>
         <ul class="side-menu">
             <li class="active"><a href="{{URL::to('farmerdashboard')}}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href=""><i class="fas fa-clipboard-list"></i> Orders</a></li>
-            <li><a href="{{URL::to('myproduct')}}"><i class="fas fa-carrot"></i> Products</a></li>
+            {{--  <li><a href=""><i class="fas fa-clipboard-list"></i> Orders</a></li>  --}}
+            {{--  <li><a href="{{URL::to('myproduct')}}"><i class="fas fa-carrot"></i> Products</a></li>  --}}
             <li><a href="{{URL::to('myfarm')}}"> <i class="fas fa-tractor"></i> Farm</a></li>
-            <li><a href="{{URL::to('farmreview')}}"><i class="fas fa-star-half-alt"></i> Reviews </a></li>
-            <li><a href=""><i class="fas fa-certificate"></i> Trainings</a></li>
+            {{--  <li><a href="{{URL::to('farmreview')}}"><i class="fas fa-star-half-alt"></i> Reviews </a></li>  --}}
+            {{--  <li><a href=""><i class="fas fa-certificate"></i> Trainings</a></li>  --}}
             <li><a href="{{URL::asset('myaccount')}}"><i class="fas fa-user-circle"></i> Account</a></li>
             <li>
                 <form action="{{route('logout')}}" method="post">
