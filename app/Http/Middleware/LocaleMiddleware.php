@@ -18,10 +18,10 @@ class LocaleMiddleware
     public function handle($request, Closure $next)
     {
 //        dd(Session::has('locale'));
-        if(!Session::has('locale')|| Session::get('locale')=='en'){
-            App::setLocale('en');
-        }else{
+        if(!Session::has('locale')|| Session::get('locale')=='nep'){
             App::setLocale('nep');
+        }else{
+            App::setLocale('en');
         }
         return $next($request);
     }
