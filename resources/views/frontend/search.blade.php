@@ -62,12 +62,12 @@
                 <!-- Search Content -->
                 <div class="col-lg-9 search-content">
 
-                    <form action="" class="search-bar">
+                    {{--  <form action="" class="search-bar">
                         <div class="form-group sp-general-search">
                             <input type="text" class="form-control query" name="" id="query">
                             <button type="submit" class="btn btn-secondary">Search</button>
                         </div>
-                    </form>
+                    </form>  --}}
 
                     <div class="row bg-white">
                         <div class="col">
@@ -164,12 +164,12 @@
     <script src="{{URL::asset('frontend/js/owl.carousel.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/aos.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{URL::asset('frontend/js/basic_axios.js')}}"></script>
     <script>
-         // AOS.init();
-         // autocomplete(document.getElementById("search-page-district"), districtArray);
+          AOS.init();
+         {{--  autocomplete(document.getElementById("search-page-district"), districtArray);  --}}
         // switching views grid and column
         $('.view-switch li').click(function(){
             if($(this).index()=='0'){
@@ -190,7 +190,6 @@
             filter_data(1)
         });
         function filter_data() {
-            console.log('test')
             var province = document.querySelector('.province_dropdown').value;
             var district = document.querySelector('.district_dropdown').value;
             var categories = new Array();
@@ -212,19 +211,25 @@
             }else{
                 searchParams.delete("province");
             }
+            if(province==null){
+               searchParams.delete("province");
+            }
+            
             if(district!=""){
                 searchParams.set("district", district);
             }else{
                 searchParams.delete("district");
             }
-
+            if(district==null){
+               searchParams.delete("district");
+            }
 
             if(categories.length>0){
                 searchParams.set('category',categories)
             }else{
                 searchParams.delete('category');
             }
-            // console.log(searchParams.toString())
+             console.log(searchParams.toString())
             window.location.href = "{{route('farm.search')}}"+"?"+searchParams.toString()
         }
     </script>

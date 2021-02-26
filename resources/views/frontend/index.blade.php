@@ -392,6 +392,9 @@
             evt.preventDefault();
             let url_string = "{{route('farm.search')}}";
             let url = new URL(url_string);
+            var searchkeyNode = document.querySelector('#search-box-main');
+            var searchkey = searchkeyNode.value;
+
             var provinceNode = document.querySelector('#selectProvince');
             var province = provinceNode.options[provinceNode.selectedIndex].value;
 
@@ -400,16 +403,20 @@
 
             var categoryNode = document.querySelector('#selectCategory');
             var category = categoryNode.options[categoryNode.selectedIndex].value;
+
+            if(searchkey){
+                url.searchParams.set('searchkey',searchkey)
+            }
             if(province){
                 url.searchParams.set('province',province)
             }
             if(district){
-                alert(district)
                 url.searchParams.set('district',district)
             }
             if(category){
                 url.searchParams.set('category',category)
             }
+            alert(url.toString());
             window.location.href = url.toString();
 
 
