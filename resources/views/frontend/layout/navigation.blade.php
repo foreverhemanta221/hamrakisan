@@ -9,6 +9,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
+            <li class="lang_selector">
+                @if(App::getLocale()=="en")
+                    <a class="" href="{{URL::to('_language/np')}}">
+                        <img src="{{URL::asset('frontend/img/icons/nep.png')}}" alt="nepali">
+                    </a>
+                @else
+                    <a class="" href="{{URL::to('_language/en')}}">
+                        <img src="{{URL::asset('frontend/img/icons/eng.png')}}" alt="">
+                    </a>
+                @endif
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" href="{{URL::to('/')}}">{{__('header.home')}} <span class="sr-only">(current)</span></a>
             </li>
@@ -22,17 +33,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{URL::to('about-us')}}">{{__('header.about')}}</a>
             </li>
-            <li class="lang_selector">
-                @if(App::getLocale()=="en")
-                    <a class="" href="{{URL::to('_language/np')}}">
-                        <img src="{{URL::asset('frontend/img/icons/nep.png')}}" alt="nepali">
-                    </a>
-                @else
-                    <a class="" href="{{URL::to('_language/en')}}">
-                        <img src="{{URL::asset('frontend/img/icons/eng.png')}}" alt="">
-                    </a>
-                @endif
-            </li>
+            
 
             @if(Auth::check()==true)
                 @if(Auth::user()->role=="farmer")
