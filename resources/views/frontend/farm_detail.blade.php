@@ -94,7 +94,7 @@
                                             <img src="{{URL::asset($product->getFeatureImage('small'))}}" alt="">
                                             <div class="farm-product">
                                                 <h4>{{$product->name}}</h4>
-                                                <span class="price">Rs {{round($product->price/ $product->minimum_quantity,2)}} /  {{$product->measure_unit}}</span>
+                                                <span class="price">Rs {{round($product->price,2)}} /  {{$product->measure_unit}}</span>
 
                                             </div>
                                             <div class="qty-selector">
