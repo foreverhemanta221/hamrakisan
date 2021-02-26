@@ -1,4 +1,12 @@
 @extends('frontend.layout.layout')
+
+@section('og')
+    <meta property="og:title" content="Hamrakishan || Home" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="हाम्रा किशान कृषि क्षत्रमा क्रिाशिल एक निज कम्पनी हो । हाम्रो उद्देष्य नेपालक कृषि क्षत्मा अनुशन्धनमा आधारित नाफामुखि व्यवायलाई प्रो्शाहन दिइ नाँ तथा पुराा कृषकहरुलाई व्यवसायिक तथा प्राविधक सेवा प्रदन गर्नु हो ।" />
+    <meta property="og:url" content="https://hamrakisan.com/" />
+    <meta property="og:image" content="{{URL::asset('frontend/img/logo.png')}}"   />
+@endsection
 @section('styles')
     <link rel="stylesheet" href="{{URL::asset('frontend/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/animate.css')}}">

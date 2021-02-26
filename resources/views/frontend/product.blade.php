@@ -5,7 +5,14 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/aos.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/venobox.min.css')}}">
 @endsection
-@section('content')
+@section('og')
+    <meta property="og:title" content="{{ $productdetail->name}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="{!! $productdetail->description !!}| Hamrakishan" />
+    <meta property="og:url" content="{{URL::to('product/'.$productdetail->slug)}}" />
+    <meta property="og:image" content="{{ $productdetail->getFeatureImage()}}"   />
+@endsection
+@section('content')+
     <!-------------------------------------- PRODUCTS PAGE WRAPPER -->
     <section class="product-page-wrapper">
         <div class="container-xl bg-white">
