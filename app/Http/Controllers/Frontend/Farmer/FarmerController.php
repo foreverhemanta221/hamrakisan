@@ -7,6 +7,7 @@ use App\Http\Requests\Frontend\FarmerFarmListRequst;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Listing;
+use App\Modules\Order\Repositories\OrderRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,13 +16,26 @@ use Psy\Util\Str;
 class FarmerController extends Controller
 {
     public $user;
-    public function __construct()
+    protected $orderService;
+    public function __construct(OrderRepositoryInterface $orderServices)
     {
-
+        $this->orderService = $orderServices;
+        
     }
 
     public function getFamerDashboard(){
-        return view('frontend.farmer.dashboard');
+        $user = Auth::user();
+        $new_orders =$this->orderService->orderByFarmId($user->id);
+        $product_listed = 0;
+        if($user->listed_farm){
+            $product_listed = $user->listed_farm->products->count();
+        }
+        return view('frontend.farmer.dashboard')->with([
+            'orders_count'=>$new_orders->count(),
+            'new_orders'=>$new_orders,
+            'product_count'=>$product_listed,
+
+        ]);
     }
     public function loadFarm(){
         $category = Category::all();

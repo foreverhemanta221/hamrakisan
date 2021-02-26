@@ -12,7 +12,7 @@
     <meta property="og:url" content="{{URL::to('product/'.$productdetail->slug)}}" />
     <meta property="og:image" content="{{ $productdetail->getFeatureImage()}}"   />
 @endsection
-@section('content')+
+@section('content')
     <!-------------------------------------- PRODUCTS PAGE WRAPPER -->
     <section class="product-page-wrapper">
         <div class="container-xl bg-white">

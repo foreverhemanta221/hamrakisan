@@ -63,6 +63,9 @@ class Listing extends Model
     public function products(){
         return $this->hasMany('App\Models\FarmProduct','farm_id','id');
     }
+    public function rel_products(){
+        return $this->hasMany(FarmProduct::class);
+    }
     public function rel_review(){
         return $this->hasMany('App\Models\Review','farm_id','id');
     }
@@ -243,6 +246,11 @@ class Listing extends Model
     public function scopeOnlyApproved($query)
     {
         return $query->where('status',1);
+    }
+
+
+    public function newOrders(){
+        
     }
 
 }

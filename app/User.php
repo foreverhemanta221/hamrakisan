@@ -38,8 +38,10 @@ class User extends Authenticatable
 //    private $email;
     public function rel_listing()
     {
-        // dd("here");
         return $this->hasMany(Listing::class);
+    }
+    public function listed_farm(){
+        return $this->hasOne(Listing::class);
     }
     public function checkSuperAdmin(){
         if(Auth::check()==true){
