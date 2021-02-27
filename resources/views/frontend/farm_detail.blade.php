@@ -1,4 +1,11 @@
 @extends('frontend.layout.layout')
+@section('og')
+    <meta property="og:title" content="{{$listing->name}}||Hamrakishan" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="{!! strip_tags($listing->about) !!} | {!!$listing->name !!} | {{ $listing->short_address}} | {{$listing->phone}}" />
+    <meta property="og:url" content="{{URL::asset('listings/'.$listing->slug)}}" />
+    <meta property="og:image" content="{{$listing->getFeatureImage()}}"   />
+@endsection
 @section('styles')
     <link rel="stylesheet" href="{{URL::asset('frontend/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/animate.css')}}">
@@ -87,7 +94,7 @@
                                             <img src="{{URL::asset($product->getFeatureImage('small'))}}" alt="">
                                             <div class="farm-product">
                                                 <h4>{{$product->name}}</h4>
-                                                <span class="price">Rs {{round($product->price/ $product->minimum_quantity,2)}} /  {{$product->measure_unit}}</span>
+                                                <span class="price">Rs {{round($product->price,2)}} /  {{$product->measure_unit}}</span>
 
                                             </div>
                                             <div class="qty-selector">

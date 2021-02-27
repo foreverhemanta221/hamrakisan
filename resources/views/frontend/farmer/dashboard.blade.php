@@ -32,7 +32,7 @@
                                             </div>
                                             <div class="db-insight-info">
                                                 <h6>New Orders <span>5</span></h6>
-                                                <h5>Rs. 20,000</h5>
+                                                <h5>{{$orders_count}}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -42,12 +42,12 @@
                                                 <img src="{{URL::asset('frontend/img/icons/products.png')}}" alt="">
                                             </div>
                                             <div class="db-insight-info">
-                                                <h6>Products</h6>
-                                                <h5>6</h5>
+                                                <h6>Products Listed</h6>
+                                                <h5>{{$product_count}}</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-6">
+                                    {{--  <div class="col-xl-3 col-6">
                                         <div class="db-insight">
                                             <div class="db-insight-icon">
                                                 <img src="{{URL::asset('frontend/img/icons/todaysales.png')}}" alt="">
@@ -57,9 +57,9 @@
                                                 <h5>Rs. 3000</h5>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  --}}
 
-                                    <div class="col-xl-3 col-6">
+                                    {{--  <div class="col-xl-3 col-6">
                                         <div class="db-insight">
                                             <div class="db-insight-icon">
                                                 <img src="{{URL::asset('frontend/img/icons/visitors.png')}}" alt="">
@@ -69,7 +69,7 @@
                                                 <h5>90</h5>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  --}}
 
                                 </div>
                             </div>
@@ -84,107 +84,52 @@
                                 <div class="db-table-wrapper">
                                     <table id="recent-order-table" class="table table-responsive-sm dashboard-table">
                                         <thead>
+                                        @if($orders_count==0)
+                                            <tr>
+                                                <th scope="col">No Orders found</th>
+                                            </tr>
+                                        @else
                                         <tr>
                                             <th scope="col">Customer</th>
                                             <th scope="col">Orders</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Worth</th>
                                         </tr>
+                                        @endif
 
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="customer">
-                                                    <div class="name">Joe Tribbiani</div>
-                                                    <span>Chitwan</span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cus-orders">
-                                                    Tomatoes, Spinach, Mushroom
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="order-status pending">Pending</span>
-                                            </td>
-                                            <td>
-                      <span class="order-worth">
-                        Rs 11,280
-                      </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="customer">
-                                                    <div class="name">Nacho Varga</div>
-                                                    <span>Pokhara</span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cus-orders">
-                                                    Tomatoes, Spinach, Mushroom
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="order-status delivered">Delivered</span>
-                                            </td>
-                                            <td>
-                      <span class="order-worth">
-                        Rs 11,280
-                      </span>
-                                            </td>
-                                        </tr>
+                                            @foreach($new_orders as $order)
+                                            <tr>
+                                                <td>
+                                                    <div class="customer">
+                                                        <div class="name">{{$order->name}}</div>
+                                                        <span>Chitwan</span>
+                                                    </div>
+                                                </td>
 
-                                        <tr>
-                                            <td>
-                                                <div class="customer">
-                                                    <div class="name">Kim Wexler</div>
-                                                    <span>Butwal</span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cus-orders">
-                                                    Tomatoes, Spinach, Mushroom
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="order-status cancelled">cancelled</span>
-                                            </td>
-                                            <td>
-                      <span class="order-worth">
-                        Rs 11,280
-                      </span>
-                                            </td>
-                                        </tr>
+                                                <td>
+                                                    <div class="cus-orders">
+                                                        Tomatoes, Spinach, Mushroom
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="order-status pending">Pending</span>
+                                                </td>
+                                                <td>
+                                                    <span class="order-worth">
+                                                        Rs 11,280
+                                                    </span>
+                                                </td>
 
-                                        <tr>
-                                            <td>
-                                                <div class="customer">
-                                                    <div class="name">Gustavo Fring</div>
-                                                    <span>Butwal</span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="cus-orders">
-                                                    Tomatoes, Spinach, Mushroom
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="order-status pending">Pending</span>
-                                            </td>
-                                            <td>
-                      <span class="order-worth">
-                        Rs 11,280
-                      </span>
-                                            </td>
-                                        </tr>
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
-                            <div class="col-xl-6">
+                            {{--  <div class="col-xl-6">
                                 <h6>Hot Products</h6>
                                 <div class="db-table-wrapper">
                                     <table id="hotproducts-table" class="table  dashboard-table">
@@ -245,8 +190,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div>  --}}
                         </div>
+
                     </div>
                 </div>
             </div>
