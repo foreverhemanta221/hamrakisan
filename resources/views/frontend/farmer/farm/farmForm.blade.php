@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/aos.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/venobox.min.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/main.css')}}">
+    <style>    
+        #map{
+            height: 450px;
+            width: 100%;
+        }
+    </style>
 @endsection
 @section('content')
     <!-- ---------------------------farm listing form-------------------------------------- -->
@@ -94,6 +100,7 @@
                             @enderror
                         </div>
 
+                        
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -133,12 +140,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-card">
-                        <h5> <span><i class="fas fa-image"></i></span> Upload Farm Images</h5>
-                        <div class="custom-file">
-                            <input type="file" name="gallery_image[]" multiple onchange="handleFiles(this.files)"  class="custom-file-input" accept="image/*" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                        </div>
-                        
+                         <div class="form-group">
+                                <h5> <span><i class="fas fa-image"></i></span> Upload Farm Images</h5>
+                                <div class="custom-file">
+                                    <input type="file" name="gallery_image[]" multiple onchange="handleFiles(this.files)"  class="custom-file-input" accept="image/*" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                         </div>
                         {{--  <input id="upload-foto-input" type="file" name="gallery_image[]" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">  --}}
                         {{--  <div class="form-group">
                             <div class="upload-decor" id="up-img-decor">
@@ -149,6 +157,13 @@
                             <ul id="upload-img-rack">
                             </ul>
                         </div>  --}}
+                        <div class="form-group">
+                            <h5><span><i class="fas fa-map-marked"></i></span>Locate your Farm</h5>
+                            <div id="map">
+                            </div>
+                            {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14133.330835315954!2d85.324019!3d27.67611!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd54e8bd02cf8160b!2sLumbini%20Heritage%20Home!5e0!3m2!1sen!2snp!4v1592647109082!5m2!1sen!2snp"
+                            width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> --}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -277,5 +292,10 @@
 
 
     </script>
+
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5-4tii22WzJIr-iQ7_OWCwVzX12R4Fm0&callback=initMap">
+</script>
+    <script src="{{URL::asset('frontend/js/googleMap.js')}}"></script>
     <!-- scripts end -->
 @endsection

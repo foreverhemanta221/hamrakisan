@@ -187,6 +187,7 @@
                                         <label for="">Specific Location</label>
                                         <input type="text" class="form-control" name="" id="" value="{{$farmdetail->specific_address}}">
                                     </div>
+                                    
                                 </div>
                             </div>
 
@@ -244,7 +245,7 @@
                                         <input id="upload-foto-input" type="file" name="img" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">
 
                                         <div class="upload-decor" id="up-img-decor">
-                                            <img src="img/icons/img_up.png" alt="">
+                                            <img src="{{URL::asset('frontend/img/icons/img_up.png')}}" alt="">
                                             <p>upload 3-5 images of dimension 1920*1080</p>
                                             <a href="#" class="btn btn-primary">Browse</a>
                                         </div>
@@ -269,10 +270,10 @@
 @endsection
 
 @section('scripts')
-    <script src="{{URL::asset('frontend/js/popper.min.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/aos.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
 
     <script>
