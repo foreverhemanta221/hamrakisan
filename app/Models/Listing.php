@@ -161,7 +161,8 @@ class Listing extends Model
 
     //other function
     public function getFeatureImage($size=null){
-        // dd($this->image_feature->medium_thumb);
+        // dd($this->images->count());
+        // dd($this->image_feature!==null);
         if ($this->image_feature!=null){
             switch ($size){
                 case 'small':
@@ -177,7 +178,7 @@ class Listing extends Model
                     return URL::asset($this->image_feature->image);
 
             }
-        }elseif($this->images!=null){
+        }elseif($this->images->count() > 0){
             switch ($size){
                 case 'small':
                     return URL::asset($this->images->first()->small_thumb);
@@ -193,6 +194,7 @@ class Listing extends Model
 
             }
         }
+        return URL::asset('frontend/img/logo.png');
     }
     public function getGalleryImage($size=null){
         $list = [];
