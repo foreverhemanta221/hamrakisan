@@ -7,12 +7,7 @@ use Illuminate\Support\Facades\URL;
 
 class UserResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
+
     public function toArray($request)
     {
         return [
@@ -37,8 +32,10 @@ class UserResource extends JsonResource
             ],
             'phone_no'=>$this->phone_no,
             'image'=>URL::asset($this->user_image),
+            'hasfarm'=>!$this->rel_listing->isEmpty() ? 1:0,
             'role'=>$this->role,
             'joined_on'=>$this->created_at
         ];
     }
+
 }
