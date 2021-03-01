@@ -54,13 +54,13 @@
                             <p id="about-farm" class="card-text">
                                 <?php echo strip_tags($listing->about) ?>
                             </p>
-                            <a href="">Read All</a>
-                            <h6 class="mt-3">Contact Farm</h6>
+                            <a href="">{{__('farm.read_all')}}</a>
+                            <h6 class="mt-3">{{__('farm.contact_farm')}}</h6>
                             <ul class="farm-contacts">
-                                <li><a href="tel:{{$listing->phone}}"><i class="fas fa-phone-alt"></i><span> Call</span></a></li>
-                                <li><a href="mailto:{{$listing->email}}"><i class="fab fa-telegram-plane"></i><span>Email</span></a></li>
-                                <li><a id="uptoFarmMap" href=""><i class="fas fa-map-marker-alt"></i><span>Map</span></a></li>
-                                <li><a href="{{$listing->website}}" target="_blank"><i class="fas fa-globe-americas"></i><span>Website</span></a></li>
+                                <li><a href="tel:{{$listing->phone}}"><i class="fas fa-phone-alt"></i><span> {{__('farm.call')}}</span></a></li>
+                                <li><a href="mailto:{{$listing->email}}"><i class="fab fa-telegram-plane"></i><span>{{__('farm.email')}}</span></a></li>
+                                <li><a id="uptoFarmMap" href=""><i class="fas fa-map-marker-alt"></i><span>{{__('farm.map')}}</span></a></li>
+                                <li><a href="{{$listing->website}}" target="_blank"><i class="fas fa-globe-americas"></i><span>{{__('farm.website')}}</span></a></li>
                             </ul>
                             <ul class="farm-social">
                                 <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
@@ -83,7 +83,7 @@
                     <div class="col-md-8">
                         <!-- products -->
                         <div class="farm-product-section">
-                            <h2>Our Products</h2>
+                            <h2>{{__('farm.our_products')}}</h2>
                             @if($listing->products->count()==0)
                                 <img src="{{URL::asset('frontend/img/noproducts.png')}}" class="img-fluid no-product-img" alt="">
                             @else
@@ -112,7 +112,7 @@
 
                         <!-- products map -->
                         <div class="farm-map-section mt-5">
-                            <h2>Find the farm</h2>
+                            <h2>{{__('farm.find_the_farm')}}</h2>
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16463.154945539427!2d84.31807658622488!3d27.570674675022104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994f71d0107128d%3A0x86b7d511d3e1e13b!2sJagatpur%20Agro%20Pvt%20Ltd.!5e0!3m2!1sen!2snp!4v1590690320194!5m2!1sen!2snp"
                                 frameborder="0"
@@ -148,8 +148,8 @@
                             </div>
 
                             <div class="review-btns d-flex justify-content-center">
-                                <button id="readallreviews" class="btn btn-outline-primary mr-2">Read All</button>
-                                <button data-toggle="modal" data-target="#addReviewModal" id="review-form" class="btn btn-primary">Leave a review</button>
+                                <button id="readallreviews" class="btn btn-outline-primary mr-2">{{__('farm.read_all')}}</button>
+                                <button data-toggle="modal" data-target="#addReviewModal" id="review-form" class="btn btn-primary">{{__('farm.leave_a_review')}}</button>
                             </div>
                         </div>
 
@@ -161,7 +161,7 @@
                         <!-- local cart -->
                         <div class="farm-sidebar cart-section mb-5">
                             <div class="card-header">
-                                <h3>Price Calculator</h3>
+                                <h3>{{__('farm.price_calculator')}}</h3>
                             </div>
                             <form action="" method="post" id="orderFrom">
                                     @csrf
@@ -170,14 +170,14 @@
                                     </div>
                                 <div class="bill-control mt-4">
                                     <div class="cart-bill">Rs. 0</div>
-                                    <button class="btn btn-primary">Add Cart</button>
+                                    <button class="btn btn-primary">{{__('farm.add_cart')}}</button>
                                 </div>
                             </form>
                         </div>
                         <!-- farm ratings -->
                         <div class="ratings-section farm-sidebar mt-5">
                             <div class="card-header">
-                                <h3>Ratings</h3>
+                                <h3>{{__('farm.ratings')}}</h3>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
@@ -189,7 +189,7 @@
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star"></span>
                                     </div>
-                                    <div class="people-rated">300 People</div>
+                                    <div class="people-rated">300 {{__('farm.people')}}</div>
 
                                 </div>
                                 <div class="col-md-6">
@@ -243,7 +243,7 @@
                                     <span><i class="fas fa-star"></i></span>
                                     <span><i class="fas fa-star"></i></span>
                                 </div>
-                                <button class="btn btn-outline-primary">Rate this farm</button>
+                                <button class="btn btn-outline-primary">{{__('farm.rate_this_farm')}}</button>
                             </div>
                         </div>
                     </div>
@@ -254,12 +254,11 @@
         <!-- ---------------------------------END FARM PRODUCTS SECTION-------------------------------------- -->
 
         @isset($related_listings)
-        
+
         <!-- ---------------------------------RECOMMENDATIONS SECTION-------------------------------------- -->
         <section class="recommendation-section">
             <div class="container-xl">
-
-                <h2>People also bought from</h2>
+                <h2>{{__('farm.recommendations')}}</h2>
                 <div id="recommendation-slider" class="owl-carousel owl-theme mt-4">
                     @foreach ($related_listings as $related)
                         <div class="farm-card">
@@ -270,7 +269,7 @@
                             </div>
                             <div class="farm-info p-2 mt-2 mb-0">
                                 <h5><a href="{{URL::to('listings/'.$related->slug)}}">{{$related->name}}</a></h5>
-                                <h6>Chitwan</h6>
+                                <h6>{{$related->short_address}}</h6>
                                 <div class="prod-rating">
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
@@ -287,9 +286,9 @@
                                     </ul>
                                     @endif
                                 </div>
-                        </div>     
+                        </div>
                     @endforeach
-                </div>        
+                </div>
             </div>
         </section>
         @endisset

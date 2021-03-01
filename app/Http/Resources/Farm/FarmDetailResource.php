@@ -13,6 +13,7 @@ class FarmDetailResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'category'=>$this->rel_category->title,
+            'category_id'=>$this->category_id,
             'slug'=>$this->slug,
             'phone'=>$this->phone,
             'email'=>$this->email,

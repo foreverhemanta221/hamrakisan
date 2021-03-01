@@ -20,7 +20,7 @@
                 </div>
                 <!-- dashboard cards -->
                 <div class="db-body">
-                    <h1>Dashboard</h1>
+                    <h1>{{__('dashboard.dashboard')}}</h1>
                     <div class="container">
                         <div class="row">
                             <div class="col-xl-8">
@@ -31,7 +31,7 @@
                                                 <img src="{{URL::asset('frontend/img/icons/neworders.png')}}" alt="">
                                             </div>
                                             <div class="db-insight-info">
-                                                <h6>New Orders <span>5</span></h6>
+                                                <h6>{{__('dashboard.new_orders')}}</h6>
                                                 <h5>{{$orders_count}}</h5>
                                             </div>
                                         </div>
@@ -42,7 +42,7 @@
                                                 <img src="{{URL::asset('frontend/img/icons/products.png')}}" alt="">
                                             </div>
                                             <div class="db-insight-info">
-                                                <h6>Products Listed</h6>
+                                                <h6>{{__('dashboard.product_listed')}}</h6>
                                                 <h5>{{$product_count}}</h5>
                                             </div>
                                         </div>
@@ -80,69 +80,15 @@
 
                         <div class="row mt-5">
                             <div class="col-xl-6">
-                                <h6>Recent Orders</h6>
-                                <div class="db-table-wrapper">
-                                    <table id="recent-order-table" class="table table-responsive-sm dashboard-table">
-                                        <thead>
-                                        @if($orders_count==0)
-                                            <tr>
-                                                <th scope="col">No Orders found</th>
-                                            </tr>
-                                        @else
-                                        <tr>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Orders</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Worth</th>
-                                        </tr>
-                                        @endif
-
-                                        </thead>
-                                        <tbody>
-                                            @isset($new_orders)
-                                                
-                                            @foreach($new_orders as $order)
-                                            <tr>
-                                                <td>
-                                                    <div class="customer">
-                                                        <div class="name">{{$order->name}}</div>
-                                                        <span>Chitwan</span>
-                                                    </div>
-                                                </td>
-
-                                                <td>
-                                                    <div class="cus-orders">
-                                                        Tomatoes, Spinach, Mushroom
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="order-status pending">Pending</span>
-                                                </td>
-                                                <td>
-                                                    <span class="order-worth">
-                                                        Rs 11,280
-                                                    </span>
-                                                </td>
-
-                                            </tr>
-                                            @endforeach
-                                            
-                                            @endisset
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            {{--  <div class="col-xl-6">
-                                <h6>Hot Products</h6>
+                                <h6>{{__('dashboard.hot_products')}}</h6>
                                 <div class="db-table-wrapper">
                                     <table id="hotproducts-table" class="table  dashboard-table">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Sold to</th>
-                                            <th scope="col">Sales vol.</th>
-                                            <th scope="col">Sales worth</th>
+                                            <th scope="col">{{__('dashboard.products')}}</th>
+                                            <th scope="col">{{__('dashboard.sold_to')}}</th>
+                                            <th scope="col">{{__('dashboard.sales_volume')}}</th>
+                                            <th scope="col">{{__('dashboard.sales_worth')}}</th>
                                         </tr>
 
                                         </thead>
@@ -194,7 +140,62 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>  --}}
+                            </div>
+                            <div class="col-xl-6">
+                                <h6>Recent Orders</h6>
+                                <div class="db-table-wrapper">
+                                    <table id="recent-order-table" class="table table-responsive-sm dashboard-table">
+                                        <thead>
+                                        @if($orders_count==0)
+                                            <tr>
+                                                <th scope="col">{{__('dashboard.no_order_found')}}</th>
+                                            </tr>
+                                        @else
+                                        <tr>
+                                            <th scope="col">{{__('dashboard.customer')}}</th>
+                                            <th scope="col">{{__('dashboard.orders')}}</th>
+                                            <th scope="col">{{__('dashboard.status')}}</th>
+                                            <th scope="col">{{__('dashboard.worth')}}</th>
+                                        </tr>
+                                        @endif
+
+                                        </thead>
+                                        <tbody>
+                                            @isset($new_orders)
+
+                                            @foreach($new_orders as $order)
+                                            <tr>
+                                                <td>
+                                                    <div class="customer">
+                                                        <div class="name">{{$order->name}}</div>
+                                                        <span>Chitwan</span>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="cus-orders">
+                                                        Tomatoes, Spinach, Mushroom
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="order-status pending">Pending</span>
+                                                </td>
+                                                <td>
+                                                    <span class="order-worth">
+                                                        Rs 11,280
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+                                            @endforeach
+
+                                            @endisset
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
                         </div>
 
                     </div>
@@ -228,8 +229,8 @@
             });
 
         });
-    
-   
+
+
 
     </script>
 @endsection

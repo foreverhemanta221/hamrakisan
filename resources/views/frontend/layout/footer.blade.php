@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <h4>Download App</h4>
+                    <h4>{{__('footer.download_app')}}</h4>
                     <div class="app-tray">
 {{--                        <img src="{{URL::asset('frontend/img/ios.png')}}" alt="">--}}
 {{--                        <img src="{{URL::asset('frontend/img/ios.png')}}" alt="">--}}
@@ -32,28 +32,26 @@
         <div class="col-md-3">
             <div class="row">
                 <div class="col">
-                    <h3>Useful Links</h3>
+                    <h3>{{__('footer.useful_links')}}</h3>
                     <ul class="useful-links">
-                        <li><a class="actifooter" href="">Home</a></li>
-                        <li><a href="{{URL::asset('about-us')}}">About Us</a></li>
-
-                        <li><a href="{{URL::asset('/farm')}}">Farms</a></li>
-                        <li><a href="{{URL::to('loanrequestform')}}">Request Loan</a></li>
-                        <li><a href="">Events</a></li>
+                        <li><a class="actifooter" href="">{{__('footer.home')}}</a></li>
+                        <li><a href="{{URL::asset('about-us')}}">{{__('footer.about')}}</a></li>
+                        <li><a href="{{URL::asset('/farm')}}">{{__('footer.farms')}}</a></li>
+                        <li><a href="{{URL::to('loanrequestform')}}">{{__('footer.request_loan')}}</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <!-- contacts -->
         <div class="col-md-3">
-            <h3>Contacts</h3>
+            <h3>{{__('footer.contacts')}}</h3>
             <ul class="contacts">
-                <li><i class="fas fa-map-marker-alt"></i> Patan, Lalitpur</li>
+                <li><i class="fas fa-map-marker-alt"></i> {{__('footer.location')}}</li>
                 <li><i class="fas fa-phone-alt"></i> +977-1-5547257</li>
                 <li><i class="fas fa-mobile-alt"></i>+977-9840466686</li>
                 <li><i class="fas fa-envelope"></i> hamrakisan@gmail.com</li>
             </ul>
-            <h3>Follow Us on</h3>
+            <h3>{{__('footer.follow_us_on')}}</h3>
             <ul class="social-tray">
                 <li class="fb"><a href=""><i class="fab fa-facebook-f"></i></a></li>
                 <li class="youtube"><a href=""><i class="fab fa-youtube"></i></a></li>
@@ -67,11 +65,11 @@
             <!-- CHANGED HERE ADDED CLASS NEWSLETTER-FORM -->
             <div class="newsletter-form">
                 <input type="text" class="form-control"
-                       placeholder="Enter email & get notified about offers & trainings"
+                       placeholder="{{__('footer.newsletter_placeholder')}}"
                        onfocus="this.placeholder=''"
-                       onblur="this.placeholder='Enter email and get notified about offers & trainings'"
+                       onblur="this.placeholder='{{__('footer.newsletter_placeholder')}}'"
                 >
-                <button class="btn btn-success" type="submit">Subscribe</button>
+                <button class="btn btn-success" type="submit">{{__('footer.subscribe')}}</button>
             </div>
         </div>
     </div>

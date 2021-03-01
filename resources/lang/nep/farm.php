@@ -1,0 +1,26 @@
+<?php
+return [
+    'filters'=>'फिल्टरहरू',
+    'farms_found'=>'फार्महरू फेला पर्यो ',
+    'grid_view'=>'Grid View',
+    'list_view'=>'List View',
+    'province'=>'प्रदेश',
+    'district'=>'जिल्ला',
+    'categories'=>'फार्मका प्रकार',
+    'read_all'=>'पुरा पढ्नुहोस्',
+    'contact_farm'=>'फार्मलाई contact गर्नुहोस',
+    'call'=>'कल',
+    'email'=>'ईमेल',
+    'map'=>'नक्सा',
+    'website'=>'वेभसाइट',
+    'our_products'=>'हाम्रा उत्पादनहरु',
+    'find_the_farm'=>'फार्म भेटाउनुहोस',
+    'price_calculator'=>'प्राइस क्यालकुलेटर',
+    'add_cart'=>'कार्ट',
+    'ratings'=>'रेटिंग्स',
+    'people'=>'मानिस',
+    'rate_this_farm'=>'मूल्यांकन गर्नुहोस',
+    'reviews'=>'समीक्षा',
+    'leave_a_review'=>'समीक्षा गर्नुहोस',
+    'recommendations'=>'सम्वन्धित फार्महरु'
+];
