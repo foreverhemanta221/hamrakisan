@@ -68,7 +68,7 @@
 @endsection
 @section('scripts')
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/popper.min.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
     <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>

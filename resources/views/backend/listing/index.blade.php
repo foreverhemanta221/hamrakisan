@@ -31,6 +31,7 @@
                                 <th>Name</th>
                                 <th>phone</th>
                                 <th>Address</th>
+                                <th>Related User</th>
                                 <th>Listing Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -47,9 +48,12 @@
                                         @endisset
                                     </td>
                                     <td>
+                                        {{$listing->rel_user->phone_no ?? $listing->rel_user->email}}
+                                    </td>
+                                    <td>
                                         {{$listing->created_at->format('d,M-Y')}}
-                                        <br/>
-                                        {{($listing->created_at->diffForHumans())}}
+                                        {{--  <br/>
+                                        {{($listing->created_at->diffForHumans())}}  --}}
                                     </td>
                                     <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success'}}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing'}}</span></td>
                                     <td>
@@ -73,6 +77,7 @@
                                 <th>Name</th>
                                 <th>phone</th>
                                 <th>Address</th>
+                                <th>Related User</th>
                                  <th>Listing Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -88,10 +93,13 @@
                                             {{$listing->short_address}}
                                         @endisset
                                     </td>
+                                     <td>
+                                        {{$listing->rel_user->phone_no ?? $listing->rel_user->email}}
+                                    </td>
                                     <td>
                                         {{$listing->created_at->format('d,M-Y')}}
-                                        <br/>
-                                        {{($listing->created_at->diffForHumans())}}
+                                        {{--  <br/>
+                                        {{($listing->created_at->diffForHumans())}}  --}}
                                     </td>
                                     <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success'}}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing' }}</span></td>
                                     <td>
@@ -117,6 +125,7 @@
                                 <th>Name</th>
                                 <th>phone</th>
                                 <th>Address</th>
+                                <th>Related User</th>
                                  <th>Listing Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -132,10 +141,13 @@
                                             {{$listing->short_address}}
                                         @endisset
                                     </td>
+                                     <td>
+                                        {{$listing->rel_user->phone_no ?? $listing->rel_user->email}}
+                                    </td>
                                     <td>
                                         {{$listing->created_at->format('d,M-Y')}}
-                                        <br/>
-                                        {{($listing->created_at->diffForHumans())}}
+                                        {{--  <br/>
+                                        {{($listing->created_at->diffForHumans())}}  --}}
                                     </td>
                                     <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success' }}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing'}}</span></td>
                                     <td>

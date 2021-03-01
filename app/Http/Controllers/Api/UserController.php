@@ -54,7 +54,7 @@ class UserController extends Controller
                 'token_expire_at'=>$expire_date
             ]);
           $user = new UserResource(Auth::user());
-          return response()->json(['data'=>$user],200)
+          return response()->json(['data'=>$user,'api-token'=>$token],200)
               ->header('x-app-token',$token)
               ->header('x-token-expires',Carbon::now()->diffInSeconds($expire_date))
               ->header('x-app-role',Auth::user()->role);

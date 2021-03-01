@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Session;
+use App\Models\Backend\User;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Listing extends Model
 {
@@ -53,8 +55,18 @@ class Listing extends Model
     public function images()
     {
         return $this->belongsToMany('App\Models\Images', 'listing_image', 'listing_id', 'image_id');
-    }
+    } 
 
+    /**
+     * Get the user that owns the Listing
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function rel_user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    
     //feature image
     public function image_feature(){
         return $this->belongsTo('App\Models\Images','feature_image','id');

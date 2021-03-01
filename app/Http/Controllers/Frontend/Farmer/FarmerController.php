@@ -25,13 +25,19 @@ class FarmerController extends Controller
 
     public function getFamerDashboard(){
         $user = Auth::user();
-        $new_orders =$this->orderService->orderByFarmId($user->id);
+        $new_orders =null;
+        $new_orders_count =0;
+        if($user->listed_farm){
+            $new_orders =$this->orderService->orderByFarmId($user->listed_farm->id);
+            $new_orders_count =$this->orderService->orderByFarmId($user->listed_farm->id)->count();
+        }
+        // dd($new_orders);
         $product_listed = 0;
         if($user->listed_farm){
             $product_listed = $user->listed_farm->products->count();
         }
         return view('frontend.farmer.dashboard')->with([
-            'orders_count'=>$new_orders->count(),
+            'orders_count'=>$new_orders_count,
             'new_orders'=>$new_orders,
             'product_count'=>$product_listed,
 

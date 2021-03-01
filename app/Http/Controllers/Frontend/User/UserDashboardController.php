@@ -18,6 +18,8 @@ class UserDashboardController extends Controller
 
     public function getUserDashboard(){
         $myorder = $this->orderRepository->orderByUserId(Auth::user()->id);
+        // $myorder = $this->orderRepository->allOrder();
+        // dd($myorder);
         return view('frontend.user.dashboard')->with('orders',$myorder);
     }
 }
