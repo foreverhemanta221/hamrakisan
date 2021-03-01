@@ -338,7 +338,7 @@
     <script src="{{URL::asset('frontend/js/owl.carousel.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/aos.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/farm.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
 
@@ -462,7 +462,7 @@
         order_from.addEventListener('submit',(e)=>{
             e.preventDefault();
            if(confirm('are you sure want to order ?')){
-               let base_url = 'localhost:8000';
+               let base_url = 'http://127.0.0.1:8000';
                 let farmId = '{{$listing->id}}';
                 let productsIdDom = document.querySelectorAll('.productId');
                 let productsQtyDom = document.querySelectorAll('.productQty');
@@ -483,14 +483,33 @@
                         console.log(response.data.status);
                         console.log(response.data.status===false);
                      if(response.data.status===false){
+                         swal({
+                                buttons: false,
+                                icon: "warning",
+                                timer: 2500,
+                                text: 'Could Not Added To Cart !!!'
+                            });
                          window.location = '{{route('userlogin')}}'
                      }
                      if(response.data.status===true){
                          console.log('added in cart');
+                          swal({
+                                buttons: false,
+                                icon: "success",
+                                timer: 2500,
+                                text: 'Added To Cart Successfully !!!'
+                            });
                          document.getElementById('minicart').innerHTML = '';
                      }
                }).catch(function (error) {
-                       console.log(error);
+                   console.log(error);
+                   swal({
+                        buttons: false,
+                        icon: "warning",
+                        timer: 2500,
+                        text: 'Please Retry With Logging !!!'
+                    });
+                    window.location = '{{route('userlogin')}}'
                });
            }
 

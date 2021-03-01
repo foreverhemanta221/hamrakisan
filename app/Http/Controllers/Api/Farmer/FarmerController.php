@@ -26,7 +26,7 @@ class FarmerController extends Controller
         if(!$listing->isEmpty()){
             return response()->json(['data'=> new FarmDetailResource($listing->first())],200)  ;
         }
-        return response()->json(['data'=> null],200)  ;
+        return response()->json(['data'=> []],200);
     }
     public function addFarmDetail(Request $request){
         if(!$this->user->rel_listing->isEmpty()){

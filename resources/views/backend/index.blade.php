@@ -1,6 +1,5 @@
 @extends('backend.layout.layout')
 @section('body')
-    @include('backend.layout.alerts')
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>

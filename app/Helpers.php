@@ -32,10 +32,16 @@ class Helpers
         return $path;
     }
     public static function upload_api_image($imageRequest,$height = null,$width = null){
-        $ClientOriginalImage = base64_decode($imageRequest);
         $hash = bin2hex(random_bytes(8));
         $name = 'image-' . $hash . '.' . "jpeg";
-        $originalImage = Image::make($ClientOriginalImage);
+
+        // $ClientOriginalImage = str_replace('data:image/png;base64,', '', $imageRequest);
+        // $ClientOriginalImage = str_replace(' ', '+', $ClientOriginalImage);
+
+        $imageDetail = explode(',',$imageRequest)[0];
+        $image = base64_decode(explode(',',$imageRequest)[1]);
+
+        $originalImage = Image::make($image);
         $base_path =Config::get('constants.image_base_path');
         $random_char = Str::random(10);
         if($height!= null && $width != null){

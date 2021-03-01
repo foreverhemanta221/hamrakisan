@@ -99,6 +99,8 @@
 
                                         </thead>
                                         <tbody>
+                                            @isset($new_orders)
+                                                
                                             @foreach($new_orders as $order)
                                             <tr>
                                                 <td>
@@ -124,6 +126,8 @@
 
                                             </tr>
                                             @endforeach
+                                            
+                                            @endisset
                                         </tbody>
                                     </table>
                                 </div>
@@ -201,7 +205,7 @@
     <!--END  dashboard wrapper------------------------- -->
 @endsection
 @section('scripts')
-    <script src="{{URL::asset('frontend/js/popper.min.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/owl.carousel.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
@@ -221,10 +225,6 @@
                 $('#db-sidebar').toggleClass('active');
                 $(this).toggleClass('active');
                 // $(this).find('svg').css('transform','rotate(180deg)')
-
-
-
-
             });
 
         });

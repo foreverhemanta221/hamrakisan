@@ -34,7 +34,6 @@
                 <a class="nav-link" href="{{URL::to('about-us')}}">{{__('header.about')}}</a>
             </li>
             
-
             @if(Auth::check()==true)
                 @if(Auth::user()->role=="farmer")
                     <li class="nav-item">
@@ -44,6 +43,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{URL::asset('userdashboard')}}">{{__('header.dashboard')}}</a>
                     </li>
+                    
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{URL::asset('dashboard')}}">{{__('header.dashboard')}}
@@ -55,6 +55,14 @@
                     <a class="nav-link" href="{{URL::to('login')}}">{{__('header.login')}}</a>
                 </li>
             @endif
+             <li class="nav-item">
+                <a class="nav-link"
+                 {{--  data-toggle="modal" data-target="#hk-login"   --}}
+                 href="{{URL::to('my-cart')}}">
+                  <i class="fas fa-cart-arrow-down"></i>
+                </a>
+              </li>
+            
 
             <li class="nav-item">
                 <a class="nav-link cta" href="#">{{__('header.list_a_farm')}}</a>

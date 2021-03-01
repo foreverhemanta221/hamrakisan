@@ -12,13 +12,16 @@
             <div class="row">
                 <div class="col">
                     @if(isset($cartDetail))
-                            @foreach($cartDetail as $farmName=>$farmProducts)
+                    
+                            @foreach($cartDetail as $product)
+                            {{--  {{dd($product->name)}}  --}}
                             <div class="cart">
                                 <div class="cart-header">
-                                    <h4>{{\App\Models\Listing::find($farmName)->name}}</h4>
+                                    {{--  <h4>{{\App\Models\Listing::find($farmName)->name}}</h4>  --}}
+                                    <h4>{{$product->name}}</h4>
                                 </div>
                                 <div class="cart-body">
-                                    @foreach($farmProducts  as $product)
+                                    {{--  @foreach($farmProducts  as $product)  --}}
                                         @php
                                             $price = $product->quantity * $product->price;
                                         @endphp
@@ -42,7 +45,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    {{--  @endforeach  --}}
                                 </div>
                             </div>
                              @endforeach
@@ -68,7 +71,7 @@
     <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/aos.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
     <script>

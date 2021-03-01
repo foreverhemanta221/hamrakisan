@@ -19,8 +19,14 @@ class CartController extends Controller
     public function index()
     {
 
-        $allcart = \Cart::session(Auth::user()->id)->getContent()->groupBy('farm_id');
-        return view('frontend.cart')->with('cartDetail',$allcart);
+        // $allcart = \Cart::session(Auth::user()->id)->getContent()->groupBy('farm_id');
+        $user = Auth::user();
+        if($user){
+            $cartItems = \Cart::session($user->id)->getContent();
+            // dd($cartItems);
+            return view('frontend.cart')->with('cartDetail',$cartItems);
+        }
+        return abort(404);
 
     }
 
@@ -50,6 +56,7 @@ class CartController extends Controller
                     $cartItems['quantity'] = $request->productQty[$key];
                     array_push($cartArray,$cartItems);
                 }
+                // dd($cartArray);
                 \Cart::session(Auth::user()->id)->add($cartArray);
 
                 return response()->json(['message'=>'Item Added Successfully','status'=>true],200);
