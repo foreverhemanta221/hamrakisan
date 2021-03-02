@@ -31,7 +31,8 @@ class FarmerController extends Controller
             $new_orders =$this->orderService->orderByFarmId($user->listed_farm->id);
             $new_orders_count =$this->orderService->orderByFarmId($user->listed_farm->id)->count();
         }
-        // dd($new_orders);
+        $myorder = $this->orderService->orderByUserId(Auth::user()->id);
+        // dd($myorder);
         $product_listed = 0;
         if($user->listed_farm){
             $product_listed = $user->listed_farm->products->count();

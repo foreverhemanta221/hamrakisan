@@ -105,20 +105,24 @@
                                                 <span class="fa fa-star"></span>
                                                 <span class="fa fa-star"></span>
                                             </div>
-                                            Sells:
-                                            <ul class="sells">
-                                                @if($item->products!=null)
-                                                    @foreach($item->products as $product)
-                                                        <li>{{$product->name}}</li>
-                                                    @endforeach
-                                                @endif
-                                            </ul>
+                                            <div>
+                                                Sells:
+                                                <ul class="sells withPrice">
+                                                    @if($item->products!=null)
+                                                        @foreach($item->products as $product)
+                                                            <li>{{$product->name}}</li>
+                                                            <li>{{$product->price}}</li>
+                                                        @endforeach
+                                                    @endif
+                                                </ul>
+                                            </div>
                                         </div>
                                 </div>
                                 @endforeach
                             </div>
                         </div>
                     </div>
+                    
                     <div class="row bg-white">
                         <div class="col">
                             <div class="d-flex">

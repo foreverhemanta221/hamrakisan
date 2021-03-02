@@ -129,13 +129,18 @@ Route::group(['middleware'=>['locale']],function(){
         route::get('farmreview','Frontend\Farmer\ReviewController@index');
         route::post('changestatus','Frontend\Farmer\ReviewController@changeStatus');
         route::resource('traingings','Frontend\Farmer\TrainingController');
+        route::get('farmorder','Frontend\Farmer\OrderController@farmOrder');
     });
 //user
     Route::group(['middleware'=>'user'],function (){
         route::get('userdashboard','Frontend\User\UserDashboardController@getUserDashboard');
         route::get('myreview','Frontend\User\ReviewController@index');
-
         route::get('my-order','Frontend\User\OrderConroller@myOrder');
+        //cancel order
+        // route::post('cancelOrder/{order_id}','Frontend\User\OrderConroller@cancelOrder')->name('cancelOrder');
+        route::post('cancelOrder/{order_id}','Frontend\OrderController@orderCancel')->name('cancelOrder');
+
+        
 
     });
 //eitther user and farmer
@@ -146,8 +151,11 @@ Route::group(['middleware'=>['locale']],function(){
         //cart
         route::post('add-to-cart','Frontend\CartController@store');
         route::post('update-cart','Frontend\CartController@update');
-        route::get('my-cart','Frontend\CartController@index');
+        route::post('remove-cart','Frontend\CartController@remove');
+        route::get('my-cart','Frontend\CartController@index')->name('my-cart');
         route::post('order','Frontend\OrderController@order');
+
+        
 
         //checkout
         route::get('checkout','Frontend\OrderController@checkout');
