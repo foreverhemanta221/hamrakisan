@@ -24,7 +24,6 @@ class CartItem
     }
     public function add($product,$product_id,$product_qty=null){
         $storedItem = ['farmId'=>$product->farm_id,'farmName'=>$product->getFarmName(),'farmReview'=>$product->getFarmNameAvearageReview(),'productId'=>$product_id,'productQty'=>$product_qty,'productPrice'=>$product->price*$product_qty,'product'=>$product];
-
         if($this->items){
             if(array_key_exists($product_id,$this->items)){
                     $storedItem = $this->items[$product_id];

@@ -19,11 +19,13 @@ class OrderController extends Controller
     }
     public function order(Request $request){
         try{
-
             DB::transaction(function ()use($request){
                 $cart= \Cart::session(Auth::user()->id);
+                // dd($cart->getContent());
             $groupByFarmname =   $cart->getContent()->groupBy('farm_id');
+            // dd($groupByFarmname);
             foreach($groupByFarmname as $farmId=>$productArray) {
+                // dd($farmId);
                 // create order Here
                 // dd($request->payment_method);
                 $orders =   Order::create([
@@ -43,6 +45,7 @@ class OrderController extends Controller
                         ]);
                     }
                 }
+                $cart->remove($request->productId);
             });
             session()->flash('message',"Order placed successfully, You can check your oders on your dashbord also. Thank you !!!");
             return redirect()->back();
