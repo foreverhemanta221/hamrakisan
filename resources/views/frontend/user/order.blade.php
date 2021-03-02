@@ -39,8 +39,8 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="pedning-orders-tab" role="tabpanel" aria-labelledby="home-tab">
                                 <h4>New Orders</h4>
+                                <div class="orders-grid mb-5">
                                 @foreach($initialOrder as $newOrder)
-                                    <div class="orders-grid mb-5">
                                     {{--  {{dd($newOrder['farm'])}}  --}}
                                         <div class="orders-card">
                                             <div class="orders-card-header">
@@ -77,22 +77,20 @@
                                                         <li><i class="fas fa-map-marker"></i>{{$newOrder['farm']['farm_address']}}</li>
                                                         <li><i class="fas fa-phone-alt"></i> {{$newOrder['farm']['phone']}}</li>
                                                     </ul>
-                                                    {{--  {{dd($newOrder)}}  --}}
-                                                    <div class="orders">
-                                                        <form method="POST" action="{{route('cancelOrder',$newOrder['id'])}}">
-                                                            @csrf
-                                                            {{--  <input type="text" value="{{}}">  --}}
-                                                            <button type="submit" value="submit" class="btn btn-outline-danger">Cancel Order</button>
-                                                        </form>
-                                                    </div>
                                                     <div class="total-order-price">Rs. {{$newOrder['orderItem']['totalPrice']}} </div>
                                                     
+                                                </div>
+                                                <div class="orders">
+                                                    <form method="POST" action="{{route('cancelOrder',$newOrder['id'])}}">
+                                                        @csrf
+                                                        <button type="submit" value="submit" class="btn btn-outline-danger">Cancel Order</button>
+                                                    </form>
                                                 </div>
 
                                             </div>
                                         </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 <h4><span><i class="fas fa-truck-loading"></i></span> Dispatched Orders</h4>
                                 <p>These orders are dispatched from farm and could reach you soon</p>
                                 <div class="orders-grid">
