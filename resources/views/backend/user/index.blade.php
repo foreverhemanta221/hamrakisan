@@ -25,6 +25,7 @@
                     <thead>
                     <tr>
                         <th>User Name</th>
+                        <th>Phone</th>
                         <th>Email</th>
                         <th>Role</th>
                         <th>Registered Date</th>
@@ -36,6 +37,7 @@
                     @foreach($userdata as $user)
                     <tr>
                         <td>{{$user->name}}</td>
+                        <td>{{$user->phone_no}}</td>
                         <td>{{$user->email}}
                         </td>
                         <td>{{$user->role}}</td>

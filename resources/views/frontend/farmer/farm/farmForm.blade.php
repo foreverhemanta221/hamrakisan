@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/aos.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/venobox.min.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/main.css')}}">
-    <style>    
+    <style>
         #map{
             height: 450px;
             width: 100%;
@@ -100,7 +100,7 @@
                             @enderror
                         </div>
 
-                        
+
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -158,11 +158,11 @@
                             </ul>
                         </div>  --}}
                         <div class="form-group">
+                            <input type="hidden" class="form-control" name="latitude" id="latitude" placeholder="Latitude">
+                            <input type="hidden" class="form-control" name="longitude" id="longitude" placeholder="Longitude">
                             <h5><span><i class="fas fa-map-marked"></i></span>Locate your Farm</h5>
                             <div id="map">
                             </div>
-                            {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14133.330835315954!2d85.324019!3d27.67611!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd54e8bd02cf8160b!2sLumbini%20Heritage%20Home!5e0!3m2!1sen!2snp!4v1592647109082!5m2!1sen!2snp"
-                            width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> --}}
                         </div>
                     </div>
                 </div>
@@ -184,6 +184,10 @@
     <!-- ---------------------------END farm listing form-------------------------------------- -->
 @endsection
 @section('scripts')
+    <script src="{{URL::asset('frontend/js/map.js')}}">
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{config('constants.map.google_map_key')}}&callback=initMap"
+            async defer></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
@@ -192,6 +196,7 @@
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/farmerFarmLisingAjax.js')}}"></script>
     <script type="module" src="{{URL::asset('frontend/js/validations/farmerListFormValidation.js')}}"></script>
+
     <script>
         {{--  AOS.init({
             once:true,
@@ -292,10 +297,6 @@
 
 
     </script>
-
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5-4tii22WzJIr-iQ7_OWCwVzX12R4Fm0&callback=initMap">
-</script>
     <script src="{{URL::asset('frontend/js/googleMap.js')}}"></script>
     <!-- scripts end -->
 @endsection
