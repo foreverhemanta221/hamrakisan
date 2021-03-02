@@ -462,7 +462,8 @@
         order_from.addEventListener('submit',(e)=>{
             e.preventDefault();
            if(confirm('are you sure want to order ?')){
-               let base_url = 'http://127.0.0.1:8000';
+               {{--  let base_url = 'http://127.0.0.1:8000';  --}}
+               let base_url = 'https://hamrakisan.com';
                 let farmId = '{{$listing->id}}';
                 let productsIdDom = document.querySelectorAll('.productId');
                 let productsQtyDom = document.querySelectorAll('.productQty');
