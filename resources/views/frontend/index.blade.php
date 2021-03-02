@@ -49,11 +49,12 @@
                                     </div>
                                     <div>
                                         Sells:
-                                        <ul class="sells">
-                                            @if($listing->products!=null)
-                                                @foreach($listing->products as $product)
-                                                    <li>{{$product->name}}</li>
-                                                @endforeach
+                                        <ul class="sells withPrice">
+                                            @if($listing->minPriceSellsProduct()!=null)
+                                                {{--  @foreach($listing->products as $product)  --}}
+                                                    <li>{{$listing->minPriceSellsProduct()->name}}</li>
+                                                     <li>{{$listing->minPriceSellsProduct()->price}}</li>
+                                                {{--  @endforeach  --}}
                                             @endif
                                         </ul>
                                     </div>

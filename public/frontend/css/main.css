@@ -607,6 +607,16 @@ input[type=number] {
     margin: 5px 4px;
     color: #3C3C3C;
     background-color: rgba(112, 112, 112, 0.15); }
+  .sells.withPrice {
+    font-size: 16px;
+    margin: 0 -10px;
+    display: flex;
+    justify-content: space-between; }
+    .sells.withPrice li {
+      background-color: transparent; }
+    .sells.withPrice :last-child {
+      color: #28A745;
+      font-weight: 500; }
 
 .prod-rating {
   font-size: 10px; }
@@ -1568,6 +1578,7 @@ section#cart-page-section {
 .lang_selector {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-bottom: 6px; }
   .lang_selector img {
     width: 36px;

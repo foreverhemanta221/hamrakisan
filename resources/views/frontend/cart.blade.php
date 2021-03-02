@@ -34,15 +34,16 @@
                                                 </div>
                                             </div>
                                             <div class="qty-selector">
-                                                <button class="btn qty-btn qty-dec">-</button>
+                                                <button class="btn qty-btn qty-dec" onclick="decreaseProductByOne({{$product->id}} , {{$product->price}})">-</button>
                                                 <span class="qty-{{$product->id}}">{{$product->quantity}}</span>
-                                                <button class="btn qty-btn qty-inc" onclick="increateProductByOne({{$product->id}} , {{$product->price}})">+</button>
+                                                <button class="btn qty-btn qty-inc" onclick="increaseProductByOne({{$product->id}} , {{$product->price}})">+</button>
                                             </div>
                                             <div class="cart-item-price">
                                                 Rs. <span class="price-{{$product->id}}">{{$price}}</span>
-                                                <a href="" class="remove-cart-item">
+                                                <a  class="remove-cart-item" onclick="removeFromCart( {{$product->id}} )">
                                                     <i class="far fa-times-circle"></i>
                                                 </a>
+                                                {{--  <button class="far fa-times-circle" onclick="removeFromCart({{$product->id}} , {{$product->price}})"></button>  --}}
                                             </div>
                                         </div>
                                     {{--  @endforeach  --}}
@@ -75,7 +76,7 @@
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
     <script>
-        function increateProductByOne(productId,productPrice) {
+        function increaseProductByOne(productId,productPrice) {
             const currentQtyDom = document.querySelector('.qty-'+productId);
             const currentPrice = document.querySelector('.price-'+productId);
             let qty = parseInt(currentQtyDom.innerHTML);
@@ -92,6 +93,48 @@
                     currentQtyDom.innerHTML = productQty;
                     console.log(currentQtyDom.innerHTML);
                     currentPrice.innerHTML = productQty*productPrice;
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+        function decreaseProductByOne(productId,productPrice) {
+            const currentQtyDom = document.querySelector('.qty-'+productId);
+            const currentPrice = document.querySelector('.price-'+productId);
+            let qty = parseInt(currentQtyDom.innerHTML);
+            let productQty = qty-1;
+            axios.post('/update-cart', {
+                productId: productId,
+                productQty: productQty
+            }).then(function (response) {
+
+                if(response.data.status===false){
+                    window.location = '{{route('userlogin')}}'
+                }
+                if(response.data.status===true){
+                    currentQtyDom.innerHTML = productQty;
+                    console.log(currentQtyDom.innerHTML);
+                    currentPrice.innerHTML = productQty*productPrice;
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+        function removeFromCart(productId) {
+            axios.post('/remove-cart', {
+                productId: productId
+            }).then(function (response) {
+                if(response.data.status===false){
+                    window.location = '{{route('userlogin')}}'
+                }
+                if(response.data.status===true){
+                    swal({
+                                buttons: false,
+                                icon: "success",
+                                timer: 2500,
+                                text: 'product Removed From Cart Successfully !!!'
+                            });
+                     window.location = '{{route('my-cart')}}'
                 }
             }).catch(function (error) {
                 console.log(error);

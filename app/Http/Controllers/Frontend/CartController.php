@@ -104,6 +104,18 @@ class CartController extends Controller
         \Cart::session(Auth::user()->id)->update($request->productId,$cartItem);
         return response()->json(['status'=>true]);
     }
+    public function remove(Request $request)
+    {
+        \Cart::session(Auth::user()->id)->remove($request->productId);
+        // dd($request->all());
+        // $cartItem = $this->cartItem($request->productId);
+        // $cartItem['quantity']=[
+        //     'relative' => false,
+        //     'value' => $request->productQty
+        // ];
+        // \Cart::session(Auth::user()->id)->update($request->productId,$cartItem);
+        return response()->json(['status'=>true]);
+    }
 
     /**
      * Remove the specified resource from storage.

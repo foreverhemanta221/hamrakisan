@@ -33,7 +33,7 @@
                                     <label>
                                         <input type="radio" name="payment_method" value="esewa">
                                         <div>
-                                            <img src="{{URL::to('frontend/img/icons/esewa-logo-03.png')}}" alt="">
+                                            <img src="{{URL::to('frontend/img/trainings/esewa.png')}}" alt="">
                                         </div>
                                     </label>
                                 </div>

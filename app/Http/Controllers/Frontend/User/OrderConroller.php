@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Frontend\User;
 
-use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Modules\Order\Repositories\OrderRepositoryInterface;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Modules\Order\Repositories\OrderRepositoryInterface;
 
 class OrderConroller extends Controller
 {
@@ -17,8 +18,19 @@ class OrderConroller extends Controller
     }
 
     public function myOrder(){
-       $orders =  $this->orderRepository->orderByUserId(Auth::user()->id);
-      
+        $initial_order = $this->orderRepository->getUserOrderByStatus(Auth::user()->id,OrderItem::ORDER_INITIAL);
+        $dispatch_order = $this->orderRepository->getUserOrderByStatus(Auth::user()->id,OrderItem::ORDER_DISPATCH);
+        $delivered_order = $this->orderRepository->getUserOrderByStatus(Auth::user()->id,OrderItem::ORDER_DELIVERED);
+        $cancel_order = $this->orderRepository->getUserOrderByStatus(Auth::user()->id,OrderItem::ORDER_CANCEL);
+        $rejected_order = $this->orderRepository->getUserOrderByStatus(Auth::user()->id,OrderItem::ORDER_REJECT);
+        $cancelled_order = array_merge($cancel_order->toArray(),$rejected_order->toArray());
+        // dd($cancelled_order);
+
+
+        return view('frontend.user.order')->with('initialOrder',$initial_order)
+                                            ->with('dispatchOrder',$dispatch_order)
+                                            ->with('deliveredOrder',$delivered_order)
+                                            ->with('cancelOrder',$cancelled_order);
 
     }
 

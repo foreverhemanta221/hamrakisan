@@ -34,31 +34,46 @@
                                             <th scope="col">Farm</th>
                                             <th scope="col">Ordered</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
                                             <th scope="col">Worth</th>
                                         </tr>
 
                                         </thead>
                                         <tbody>
                                         @foreach($orders as $order)
+                                        {{--  {{dd($order->format()['price'])}}  --}}
                                         <tr>
                                             <td>
                                                 <div class="customer">
-                                                    <div class="name">Shiwani Agro Farm</div>
-                                                    <span>May 10,2020</span>
+                                                    <div class="name">{{$order->rel_farm->name}}</div>
+                                                    <span>{{$order->created_at->format('d,M-Y')}}</span>
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <div class="cus-orders">
-                                                    Tomatoes, Spinach, Mushroom
+                                                    @foreach ($order->rel_orderItems as $item)
+                                                       {{$item->rel_products->name}}
+                                                    @endforeach
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="order-status pending">Pending</span>
+                                                {{--  <span class="order-status pending">Pending</span>  --}}
+                                               <div class="dropdown">
+                                                    <button class="order-status btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {{$order->status}}
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                        <button class="dropdown-item info" type="button">cancel order</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                              <a href="{{URL::to('my-order')}}" class="order-status btn btn-info">View Details</a>
                                             </td>
                                             <td>
                                               <span class="order-worth">
-                                                Rs 11,280
+                                                {{$order->format()['price']}}
                                               </span>
                                             </td>
                                         </tr>
@@ -77,7 +92,10 @@
     <!--END  dashboard wrapper------------------------- -->
 @endsection
 @section('scripts')
-    <script src="{{URL::asset('frontend/js/popper.min.js')}}"></script>
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/owl.carousel.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
