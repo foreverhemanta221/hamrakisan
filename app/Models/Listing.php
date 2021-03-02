@@ -75,6 +75,11 @@ class Listing extends Model
     public function products(){
         return $this->hasMany('App\Models\FarmProduct','farm_id','id');
     }
+    public function minPriceSellsProduct(){
+        if($this->products){
+            return $this->products->where('price',$this->products->min('price'))->first();
+        }
+    }
     public function rel_products(){
         return $this->hasMany(FarmProduct::class);
     }
@@ -265,6 +270,12 @@ class Listing extends Model
 
     public function newOrders(){
         
+    }
+
+     public function getFarmNameAvearageReview(){
+            if($this->rel_review){
+                return  (int) round($this->rel_review->where('status',1)->avg('star'));
+            }
     }
 
 }
