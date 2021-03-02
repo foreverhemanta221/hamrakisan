@@ -20,7 +20,7 @@ class FarmerController extends Controller
     public function __construct(OrderRepositoryInterface $orderServices)
     {
         $this->orderService = $orderServices;
-        
+
     }
 
     public function getFamerDashboard(){
@@ -53,7 +53,7 @@ class FarmerController extends Controller
         }
     }
     public function saveFarm(FarmerFarmListRequst $request){
-        // dd($request->all());
+         dd($request->all());
         //TODO:: check user have already listed farm or not
         try {
             DB::transaction(function () use ($request) {
@@ -86,7 +86,7 @@ class FarmerController extends Controller
                             $listing->images()->attach($image_ids);
                     }
                 }
-                
+
             });
         }catch (\PDOException $e){
            // session()->flash('danger', 'Farm Could Not Be Added !!!');
