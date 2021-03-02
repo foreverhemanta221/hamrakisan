@@ -21,12 +21,12 @@
                {{--  filters aside   --}}
                 <div class="col-lg-3">
                     <div class="sp-filters mb-3">
-                        <div class="btn-typo">Filters</div>
+                        <div class="btn-typo">{{__('farm.filters')}}</div>
 
 
                         <form autocomplete="off" action="" id="search-bar" class="search-bar">
                             <div class="form-group">
-                                <label for="">Province</label>
+                                <label for="">{{__('farm.province')}}</label>
                                 <div class="input-group">
                                     <select class="custom-select province_dropdown province" id="province">
 
@@ -35,7 +35,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="">District</label>
+                                <label for="">{{__('farm.district')}}</label>
                                 <div class="input-group">
                                     <select class="custom-select district_dropdown district" id="district">
 
@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="" >Categories </label>
+                                <label for="" >{{__('farm.categories')}} </label>
                                 @php
                                     $requestCategory  = $request->has('category')  ? explode(',',$request->get('category')) : null
                                 @endphp
@@ -72,7 +72,7 @@
                     <div class="row bg-white">
                         <div class="col">
                             <div class="search-view-controls">
-                                <h3 class="result_count">{{$searchCount}} Farms found</h3>
+                                <h3 class="result_count">{{$searchCount}} {{__('farm.farms_found')}}</h3>
                                 <ul class="view-switch">
                                     <li class="active"><i class="fas fa-th-large"></i> Grid View</li>
                                     <li><i class="fas fa-th-list"></i> List View</li>
@@ -214,7 +214,7 @@
             if(province==null){
                searchParams.delete("province");
             }
-            
+
             if(district!=""){
                 searchParams.set("district", district);
             }else{

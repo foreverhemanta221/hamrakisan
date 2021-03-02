@@ -35,6 +35,7 @@ Route::group(['middleware' => ['farmerApi']], function () {
     route::resource('myfarmreview','Api\Farmer\ReviewController');
     route::post('myfarmreview/changestatus','Api\Farmer\ReviewController@ChangeStatus');
     route::get('my-stats','Api\Farmer\FarmerController@mystats');
+    route::get('hasfarm','Api\Farmer\FarmerController@hasFarm');
 });
 
 Route::group(['middleware' => ['userApi']], function () {

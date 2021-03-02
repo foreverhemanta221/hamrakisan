@@ -31,7 +31,7 @@ use Intervention\Image\Image;
     }
     return "error";
 }
-function uploadImageApi($image=null,$user_id){
+ function uploadImageApi($image=null,$user_id){
      //fetch image
     $imageDetail = explode(',',$image)[0];
     $image = base64_decode(explode(',',$image)[1]);

@@ -120,4 +120,11 @@ class FarmerController extends Controller
             return $reviewCount;
         }
     }
+    public function hasFarm(){
+        $listing =$this->user->rel_listing;
+        if(!$listing->isEmpty()){
+            return response()->json(['data'=>['hasfarm'=>1]],200);
+        }
+        return response()->json(['data'=>['hasfarm'=>0]],200);
+    }
 }
