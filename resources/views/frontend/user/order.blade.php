@@ -63,8 +63,7 @@
                                               </span>
                                             </td>
                                             <td>
-                                                <span class="order-status {{$order->status=='initial'? 'pending' :$order->status }}">{{$order->status}}</span>
-                                                {{--  <span class="order-status pending">Pending</span>  --}}
+                                             <span class="order-status {{$order->status=='initial'?? 'pending'}}{{$order->status=='success'? 'delivered' : $order->status }}">{{$order->status}}</span>
                                             </td>
                                             <td>
                                               <a href="{{URL::to('my-order/'.$order->id)}}" class="">

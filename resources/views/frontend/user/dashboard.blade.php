@@ -52,7 +52,7 @@
                                             <td>
                                                 <div class="cus-orders">
                                                     @foreach ($order->rel_orderItems as $item)
-                                                       {{$item->rel_products->name}}
+                                                       {{$item->rel_products->name}},
                                                     @endforeach
                                                 </div>
                                             </td>

@@ -32,6 +32,9 @@ class ProductController extends Controller
     }
     public function store(FarmProductRequest $request){
         try{
+            $this->validate($request,[
+                'image'=>'required',
+            ]);
             DB::transaction(function () use ($request) {
                 $user= Auth::user();
                 $listing = $user->rel_listing->first();

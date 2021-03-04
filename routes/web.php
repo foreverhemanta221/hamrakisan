@@ -130,6 +130,7 @@ Route::group(['middleware'=>['locale']],function(){
         route::post('changestatus','Frontend\Farmer\ReviewController@changeStatus');
         route::resource('traingings','Frontend\Farmer\TrainingController');
         route::get('farmorder','Frontend\Farmer\OrderController@farmOrder');
+        route::get('farmorder/{order_id}','Frontend\Farmer\OrderController@viewFarmOrders');
     });
 //user
     Route::group(['middleware'=>'user'],function (){

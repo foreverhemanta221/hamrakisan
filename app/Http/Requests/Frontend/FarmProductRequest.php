@@ -25,7 +25,7 @@ class FarmProductRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'image'=>'image',
+            'image'=>'sometimes|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'minimum_quantity'=>'required',
             'price'=>'required',
             'is_available'=>'required'
