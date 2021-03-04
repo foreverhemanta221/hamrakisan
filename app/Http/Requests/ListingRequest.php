@@ -35,7 +35,7 @@ class ListingRequest extends FormRequest
             'province'=>'required',
             'city'=>'required',
             'logo'=>'sometimes',
-            'feature_image'=>'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'feature_image'=>'sometimes|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'gallery_image.*'=>'sometimes|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }

@@ -136,6 +136,7 @@ Route::group(['middleware'=>['locale']],function(){
         route::get('userdashboard','Frontend\User\UserDashboardController@getUserDashboard');
         route::get('myreview','Frontend\User\ReviewController@index');
         route::get('my-order','Frontend\User\OrderConroller@myOrder');
+        route::get('my-order/{order_id}','Frontend\User\OrderConroller@viewmyOrder');
         //cancel order
         // route::post('cancelOrder/{order_id}','Frontend\User\OrderConroller@cancelOrder')->name('cancelOrder');
         route::post('cancelOrder/{order_id}','Frontend\OrderController@orderCancel')->name('cancelOrder');
@@ -154,6 +155,7 @@ Route::group(['middleware'=>['locale']],function(){
         route::post('remove-cart','Frontend\CartController@remove');
         route::get('my-cart','Frontend\CartController@index')->name('my-cart');
         route::post('order','Frontend\OrderController@order');
+        route::post('order/change-status','Frontend\OrderController@changestatus');
 
         
 
