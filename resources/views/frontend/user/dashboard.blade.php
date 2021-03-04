@@ -27,21 +27,20 @@
                         <div class="row mt-5">
                             <div class="col-xl-12">
                                 <h6>Recent Orders</h6>
-                                <div class="db-table-wrapper">
+                                 <div class="db-table-wrapper">
                                     <table id="asdas" class="table table-responsive-sm dashboard-table">
                                         <thead>
                                         <tr>
                                             <th scope="col">Farm</th>
                                             <th scope="col">Ordered</th>
+                                            <th scope="col">Worth</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
-                                            <th scope="col">Worth</th>
                                         </tr>
 
                                         </thead>
                                         <tbody>
                                         @foreach($orders as $order)
-                                        {{--  {{dd($order->format()['price'])}}  --}}
                                         <tr>
                                             <td>
                                                 <div class="customer">
@@ -53,29 +52,32 @@
                                             <td>
                                                 <div class="cus-orders">
                                                     @foreach ($order->rel_orderItems as $item)
-                                                       {{$item->rel_products->name}}
+                                                       {{$item->rel_products->name}},
                                                     @endforeach
                                                 </div>
-                                            </td>
-                                            <td>
-                                                {{--  <span class="order-status pending">Pending</span>  --}}
-                                               <div class="dropdown">
-                                                    <button class="order-status btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        {{$order->status}}
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                        <button class="dropdown-item info" type="button">cancel order</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                              <a href="{{URL::to('my-order')}}" class="order-status btn btn-info">View Details</a>
                                             </td>
                                             <td>
                                               <span class="order-worth">
                                                 {{$order->format()['price']}}
                                               </span>
                                             </td>
+                                            <td>
+                                                <span class="order-status {{$order->status=='initial'? 'pending' :$order->status }}">{{$order->status}}</span>
+                                                {{--  <span class="order-status pending">Pending</span>  --}}
+                                            </td>
+                                            <td>
+                                              <a href="{{URL::to('my-order/'.$order->id)}}" class="">
+                                                  <i class="fa fa-eye" aria-hidden="true"></i>
+                                                  View </a>
+                                                  <br/>
+                                                @if($order->status=='initial')
+                                                <a onclick="cancelOrder({{$order->id}})"  class="remove-cart-item"  href="">
+                                                  <i class="far fa-times-circle"></i>
+                                                  cancel
+                                                </a>
+                                                @endif
+                                            </td>
+                                            
                                         </tr>
                                         @endforeach
 
@@ -92,15 +94,14 @@
     <!--END  dashboard wrapper------------------------- -->
 @endsection
 @section('scripts')
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  
     <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
     <script src="{{URL::asset('frontend/js/owl.carousel.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
     <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
 
     <script>
         AOS.init({
@@ -116,14 +117,41 @@
                 $(this).toggleClass('active');
                 // $(this).find('svg').css('transform','rotate(180deg)')
 
-
-
-
             });
 
         });
 
+        function cancelOrder(orderId,status) {
+            if(confirm('are you sure you want to cancell this order ?')){
+                let status = '<?php echo App\Models\Order::ORDER_CANCEL ?>'
+                ajaxForStatusChange(orderId,status)
+            }
+        }
 
+         function ajaxForStatusChange(orderId,status) {
+            let base_url = 'http://127.0.0.1:8000';
+            axios.post('order/change-status', {
+                orderId: orderId,
+                orderStatus: status
+            }).then(function (response) {
+
+                if(response.data.status===false){
+                    {{--window.location = '{{route('userlogin')}}'--}}
+                }
+                if(response.data.status===true){
+                     swal({
+                                buttons: false,
+                                icon: "success",
+                                timer: 2500,
+                                text: 'Order Cancelled Successfully !!!'
+                            });
+                    window.location.reload();
+                    // document.getElementById('minicart').innerHTML = '';
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
 
     </script>
 @endsection

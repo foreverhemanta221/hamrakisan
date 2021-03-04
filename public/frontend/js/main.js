@@ -261,4 +261,3 @@ except the one passed as an argument:*/
         closeAllLists(e.target);
     });
 }
-// currentFocus;

@@ -29,7 +29,6 @@ class ListingController extends Controller
     }
     public function store(ListingRequest $request)
     {
-        dd($request->all());
         try{
             $item  = $this->_addNewRecord($request);
         }catch (\PDOException $e){

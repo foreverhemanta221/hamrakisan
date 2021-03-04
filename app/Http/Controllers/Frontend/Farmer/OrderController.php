@@ -18,16 +18,31 @@ class OrderController extends Controller
     }
 
     public function farmOrder(){
-        $farm_id = Auth::user()->rel_listing->id;
-        $initialOrder = $this->orderRepository->getFarmorderByStatus($farm_id,Order::ORDER_INITIAL);
-        $pendingOrder = $this->orderRepository->getFarmorderByStatus($farm_id,Order::ORDER_PENDING);
-        $dispatchedOrder = $this->orderRepository->getFarmorderByStatus($farm_id,Order::ORDER_DISPATCH);
-        $deliveredOrder = $this->orderRepository->getFarmorderByStatus($farm_id,Order::ORDER_DELIVERED);
 
-        return view('frontend.farmer.order')->with('initialOrder',$initialOrder)
+        $farm = Auth::user()->listed_farm;
+        if($farm){
+            $allOrders = $allOrders = $this->orderRepository->orderByFarmId($farm->id);
+            // dd($allOrders);
+            $initialOrder = $this->orderRepository->getFarmorderByStatus($farm->id,Order::ORDER_INITIAL);
+            $pendingOrder = $this->orderRepository->getFarmorderByStatus($farm->id,Order::ORDER_PENDING);
+            $dispatchedOrder = $this->orderRepository->getFarmorderByStatus($farm->id,Order::ORDER_DISPATCH);
+            $deliveredOrder = $this->orderRepository->getFarmorderByStatus($farm->id,Order::ORDER_DELIVERED);
+            
+            return view('frontend.farmer.order')->with('initialOrder',$initialOrder)
             ->with('pendingOrder',$pendingOrder)
             ->with('dispatchOrder',$dispatchedOrder)
-            ->with('deliveredOrder',$deliveredOrder);
+            ->with('deliveredOrder',$deliveredOrder)
+            ->with('orders',$allOrders);
+        }
+        // return redirect('')
+    }
+
+     public function viewFarmOrders($id){
+        $order = Order::find($id);
+        if($order){
+            return view('frontend.farmer.orderDetail')->with('order',$order);
+        }
+        abort(404);
     }
 
     public function changeStatus(Request $request){
@@ -38,4 +53,5 @@ class OrderController extends Controller
         }
         return response()->json(['message'=>'Order Status Changed Successfully','status'=>false],200);
     }
+
 }

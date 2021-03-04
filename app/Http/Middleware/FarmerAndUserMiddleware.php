@@ -16,8 +16,10 @@ class FarmerAndUserMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->role=="farmer"||Auth::user()->role=="user"){
-            return $next($request);
+        if(Auth::user()){
+            if(Auth::user()->role=="farmer"||Auth::user()->role=="user"){
+                return $next($request);
+            }
         }
         return redirect()->to('login');
 

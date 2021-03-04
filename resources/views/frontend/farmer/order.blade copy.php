@@ -11,7 +11,7 @@
     <div class="bg-light-wrapper">
         <div class="db-wrapper">
             <!-- Sidebar -->
-            @include('frontend.dashboardincludes.farmersidebar')
+            @include('frontend.dashboardincludes.usersidebar')
             <div id="db-content">
 
                 <div class="container-fluid">
@@ -21,82 +21,7 @@
                     </button>
                 </div>
                 <!-- dashboard cards -->
-                 <div class="db-body">
-                    <h1>Orders</h1>
-                    <div class="container">
-                        <div class="row mt-5">
-                            <div class="col-xl-12">
-                                <h6>Recent Orders</h6>
-                                <div class="db-table-wrapper">
-                                    <table id="asdas" class="table table-responsive-sm dashboard-table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Ordered</th>
-                                            <th scope="col">Worth</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-
-                                        </thead>
-                                        <tbody>
-                                        @foreach($orders as $order)
-                                        {{-- {{dd($order->format())}} --}}
-                                        <tr>
-                                            <td>
-                                                <div class="customer">
-                                                       <div class="name">{{$order->format()['user']['name'] ? $order->format()['user']['name'] : $order->format()['user']['phone'] ?? $order->format()['user']['email'] }}</div>
-                                                    <span>{{$order->created_at->format('d,M-Y')}}</span>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="cus-orders">
-                                                    @foreach ($order->rel_orderItems as $item)
-                                                       {{$item->rel_products->name}}
-                                                    @endforeach
-                                                </div>
-                                            </td>
-                                            <td>
-                                              <span class="order-worth">
-                                                {{$order->format()['price']}}
-                                              </span>
-                                            </td>
-                                            <td>
-                                                {{-- {{dd($order->status)}} --}}
-                                                <span class="order-status  @if($order->status=='initial') pending @elseif($order->status=='success') delivered  @else cancelled @endif ">{{$order->status}}</span>
-                                            </td>
-                                            <td>
-                                              <a href="{{URL::to('farmorder/'.$order->id)}}" class="">
-                                                  <i class="fa fa-eye" aria-hidden="true"></i>
-                                                  View </a>
-                                                  <br/>
-                                                  @if($order->status=='initial')
-                                                    <a onclick="acceptOrder({{$order->id}})"  class="remove-cart-item"  href="">
-                                                            <i class="fa fa-shopping-cart"></i>
-                                                            Accept
-                                                        </a>
-                                                        <br/>
-                                                        <a onclick="rejectOrder({{$order->id}})"  class="remove-cart-item" style="color: red"  href="">
-                                                        <i class="far fa-times-circle"  ></i>
-                                                        Reject
-                                                        </a>
-                                                    @endif
-                                            </td>
-                                            
-                                        </tr>
-                                        @endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                {{-- <div class="db-body">
+                <div class="db-body">
                     <h1>Orders</h1>
                     <div class="container">
                         <ul class="nav nav-tabs" id="orders-Tab" role="tablist">
@@ -269,7 +194,7 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <!-- dashboard cards -->
             </div>
         </div>
@@ -277,11 +202,11 @@
     <!--END  dashboard wrapper------------------------- -->
 @endsection
 @section('scripts')
-    <script src="{{URL::asset('frontend/js/popper.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/popper.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/owl.carousel.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/venobox.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/all.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/aos.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
 
@@ -300,39 +225,37 @@
             });
         });
 
-        function acceptOrder(orderId) {
+        function accept(orderId) {
             if(confirm('are you sure you want to accept this order ?')){
-                let status = '<?php echo App\Models\Order::ORDER_SUCCESS ?>'
+                let status = '<?php echo App\Models\Order::ORDER_PENDING ?>'
                 ajaxForStatusChange(orderId,status)
             }
         }
 
-        function rejectOrder(orderId) {
+        function reject(orderId) {
             if(confirm('are you sure you want to accept this order ?')){
                 let status = '<?php echo App\Models\Order::ORDER_REJECT ?>'
                 ajaxForStatusChange(orderId,status)
             }
         }
-
+        function dispatch(orderId) {
+            if(confirm('are you sure you want to accept this order ?')){
+                let status = '<?php echo App\Models\Order::ORDER_DISPATCH ?>'
+                ajaxForStatusChange(orderId,status)
+            }
+        }
         function ajaxForStatusChange(orderId,status) {
-           let base_url = 'http://127.0.0.1:8000';
-            axios.post(base_url+'/order/change-status', {
+            let base_url = 'localhost:8000';
+            axios.post('/change-status', {
                 orderId: orderId,
                 orderStatus: status
             }).then(function (response) {
 
                 if(response.data.status===false){
-
-                    window.location = '{{route('userlogin')}}'
+                    {{--window.location = '{{route('userlogin')}}'--}}
                 }
                 if(response.data.status===true){
-                    swal({
-                        buttons: false,
-                        icon: "success",
-                        timer: 2500,
-                        text: 'Order Status Changed Successfully !!!'
-                    });
-
+                    console.log('change status');
                     window.location.reload();
                     // document.getElementById('minicart').innerHTML = '';
                 }

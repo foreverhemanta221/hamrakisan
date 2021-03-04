@@ -93,50 +93,21 @@
 
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="dashboard-table-product">
-                                                    <img src="{{URL::asset('frontend/img/farm/fp (2).png')}}" alt="">
-                                                    Spianch
-                                                </div>
-                                            </td>
-                                            <td>300</td>
-                                            <td>270 kg</td>
-                                            <td>Rs. 16200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="dashboard-table-product">
-                                                    <img src="{{URL::asset('frontend/img/farm/fp (5).png')}}" alt="">
-                                                    Tomato
-                                                </div>
-                                            </td>
-                                            <td>256</td>
-                                            <td>76 Kg</td>
-                                            <td>Rs. 2280</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="dashboard-table-product">
-                                                    <img src="{{URL::asset('frontend/img/farm/fp (4).png')}}" alt="">
-                                                    Mushroom
-                                                </div>
-                                            </td>
-                                            <td>234</td>
-                                            <td>70 Kg</td>
-                                            <td>Rs. 3150</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="dashboard-table-product">
-                                                    <img src="{{URL::asset('frontend/img/farm/fp (3).png')}}" alt="">
-                                                    Bro coli
-                                                </div>
-                                            </td>
-                                            <td>80</td>
-                                            <td>160 Kg</td>
-                                            <td>Rs. 5120</td>
-                                        </tr>
+                                            @foreach ($products_listed  as $product)
+                                            {{-- {{dd($product)}} --}}
+                                            <tr>
+                                                <td>
+                                                    <div class="dashboard-table-product">
+                                                        <img src="{{$product->getFeatureImage('small')}}" alt="{{$product->name}}">
+                                                        {{-- <br/> --}}
+                                                        {{$product->name}}, 
+                                                    </div>
+                                                </td>
+                                                <td>{{$product->price}}</td>
+                                                <td>{{$product->minimum_quantity}}</td>
+                                                <td>Rs. {{$product->minimum_quantity*$product->price}}</td>
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -164,25 +135,28 @@
                                             @isset($new_orders)
 
                                             @foreach($new_orders as $order)
+                                            {{--  {{dd($order,$order->format())}}  --}}
                                             <tr>
                                                 <td>
                                                     <div class="customer">
-                                                        <div class="name">{{$order->name}}</div>
-                                                        <span>Chitwan</span>
+                                                        <div class="name">{{$order->format()['user']['name'] ? $order->format()['user']['name'] : $order->format()['user']['phone'] ?? $order->format()['user']['email'] }}</div>
+                                                        <span>{{$order->format()['user']['address']}}</span>
                                                     </div>
                                                 </td>
 
                                                 <td>
                                                     <div class="cus-orders">
-                                                        Tomatoes, Spinach, Mushroom
+                                                      @foreach($order->rel_orderItems as $item)
+                                                           {{$item->rel_products->name}}                                                       
+                                                      @endforeach
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="order-status pending">Pending</span>
+                                                    <span class="order-status {{$order->format()['status']=='initial' ? 'pending' :$order->format()['status']}} pending">{{$order->format()['status']}}</span>
                                                 </td>
                                                 <td>
                                                     <span class="order-worth">
-                                                        Rs 11,280
+                                                        Rs. {{$order->format()['price']}}
                                                     </span>
                                                 </td>
 

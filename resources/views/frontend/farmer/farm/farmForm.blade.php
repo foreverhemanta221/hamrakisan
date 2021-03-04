@@ -297,6 +297,5 @@
 
 
     </script>
-    <script src="{{URL::asset('frontend/js/googleMap.js')}}"></script>
     <!-- scripts end -->
 @endsection

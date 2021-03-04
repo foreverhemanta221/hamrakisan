@@ -21,18 +21,13 @@ class OrderController extends Controller
         try{
             DB::transaction(function ()use($request){
                 $cart= \Cart::session(Auth::user()->id);
-                // dd($cart->getContent());
-            $groupByFarmname =   $cart->getContent()->groupBy('farm_id');
-            // dd($groupByFarmname);
-            foreach($groupByFarmname as $farmId=>$productArray) {
-                // dd($farmId);
-                // create order Here
-                // dd($request->payment_method);
-                $orders =   Order::create([
-                    'user_id'=>Auth::user()->id,
-                    'farm_id'=>$farmId,
-                    'status'=>Order::ORDER_INITIAL,
-                    'payment_method'=>$request->payment_method
+                $groupByFarmname =   $cart->getContent()->groupBy('farm_id');
+                foreach($groupByFarmname as $farmId=>$productArray) {
+                    $orders =   Order::create([
+                        'user_id'=>Auth::user()->id,
+                        'farm_id'=>$farmId,
+                        'status'=>Order::ORDER_INITIAL,
+                        'payment_method'=>$request->payment_method
                     ]);
                     $orderItems = [];
                     foreach ($productArray as $item) {
@@ -48,7 +43,7 @@ class OrderController extends Controller
                 $cart->remove($request->productId);
             });
             session()->flash('message',"Order placed successfully, You can check your oders on your dashbord also. Thank you !!!");
-            return redirect()->back();
+            return redirect()->to('userdashboard');
         }catch(Exception $ex){
             session()->flash('warning', "Order could not be placed,Please try again later !!!");
             return redirect()->to('mycart');
@@ -65,6 +60,24 @@ class OrderController extends Controller
             });
             session()->flash('message',"Order cancelled successfully !!!");
             return redirect()->back();
+        }catch(Exception $ex){
+            session()->flash('warning', "Please try again later !!!");
+            return redirect()->to('my-order');
+        }
+        // return "order placed successfully";
+    }
+    public function changestatus(Request $request){
+        // dd($request->all());
+        try{
+            DB::transaction(function ()use($request){
+                 Order::where('id', $request->orderId)->update([
+                    'user_id'=>Auth::user()->id,
+                    'status'=>$request->orderStatus,
+                    ]);
+            });
+            session()->flash('message',"Order status changed successfully !!!");
+            return response(['success'=>'success'],200);
+            // return redirect()->back();
         }catch(Exception $ex){
             session()->flash('warning', "Please try again later !!!");
             return redirect()->to('my-order');

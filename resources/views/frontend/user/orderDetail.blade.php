@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/main.css')}}">
 @endsection
 @section('content')
+
     <!-- dashboard wrapper------------------------- -->
     <div class="bg-light-wrapper">
         <div class="db-wrapper">
             <!-- Sidebar -->
-            @include('frontend.dashboardincludes.farmersidebar')
+            @include('frontend.dashboardincludes.usersidebar')
             <div id="db-content">
 
                 <div class="container-fluid">
@@ -21,145 +22,100 @@
                     </button>
                 </div>
                 <!-- dashboard cards -->
-                 <div class="db-body">
-                    <h1>Orders</h1>
-                    <div class="container">
-                        <div class="row mt-5">
-                            <div class="col-xl-12">
-                                <h6>Recent Orders</h6>
-                                <div class="db-table-wrapper">
-                                    <table id="asdas" class="table table-responsive-sm dashboard-table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Ordered</th>
-                                            <th scope="col">Worth</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-
-                                        </thead>
-                                        <tbody>
-                                        @foreach($orders as $order)
-                                        {{-- {{dd($order->format())}} --}}
-                                        <tr>
-                                            <td>
-                                                <div class="customer">
-                                                       <div class="name">{{$order->format()['user']['name'] ? $order->format()['user']['name'] : $order->format()['user']['phone'] ?? $order->format()['user']['email'] }}</div>
-                                                    <span>{{$order->created_at->format('d,M-Y')}}</span>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="cus-orders">
-                                                    @foreach ($order->rel_orderItems as $item)
-                                                       {{$item->rel_products->name}}
-                                                    @endforeach
-                                                </div>
-                                            </td>
-                                            <td>
-                                              <span class="order-worth">
-                                                {{$order->format()['price']}}
-                                              </span>
-                                            </td>
-                                            <td>
-                                                {{-- {{dd($order->status)}} --}}
-                                                <span class="order-status  @if($order->status=='initial') pending @elseif($order->status=='success') delivered  @else cancelled @endif ">{{$order->status}}</span>
-                                            </td>
-                                            <td>
-                                              <a href="{{URL::to('farmorder/'.$order->id)}}" class="">
-                                                  <i class="fa fa-eye" aria-hidden="true"></i>
-                                                  View </a>
-                                                  <br/>
-                                                  @if($order->status=='initial')
-                                                    <a onclick="acceptOrder({{$order->id}})"  class="remove-cart-item"  href="">
-                                                            <i class="fa fa-shopping-cart"></i>
-                                                            Accept
-                                                        </a>
-                                                        <br/>
-                                                        <a onclick="rejectOrder({{$order->id}})"  class="remove-cart-item" style="color: red"  href="">
-                                                        <i class="far fa-times-circle"  ></i>
-                                                        Reject
-                                                        </a>
-                                                    @endif
-                                            </td>
-                                            
-                                        </tr>
-                                        @endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                {{-- <div class="db-body">
+                <div class="db-body">
                     <h1>Orders</h1>
                     <div class="container">
                         <ul class="nav nav-tabs" id="orders-Tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#pedning-orders-tab" role="tab" aria-selected="true">Pending</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#delivered-orders-tab" role="tab" aria-controls="profile" aria-selected="false">Dispatched / Delivered</a>
+                            {{--  <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#delivered-orders-tab" role="tab" aria-controls="profile" aria-selected="false">Delivered</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#cancelled-orders-tab" role="tab" aria-controls="contact" aria-selected="false">Cancelled</a>
-                            </li>
+                            </li>  --}}
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="pedning-orders-tab" role="tabpanel" aria-labelledby="home-tab">
                                 <h4>New Orders</h4>
                                 <div class="orders-grid mb-5">
-                                    @foreach($initialOrder as $newOrder)
+                                    @isset($order)
                                         <div class="orders-card">
                                             <div class="orders-card-header">
-                                                <h6>{{$newOrder['user']['name']}}</h6>
-                                                <p>{{$newOrder['ordered_at']}}</p>
+                                                <h6>{{$order->rel_farm->name}}</h6>
+                                                
+                                                <div class="farm-rating">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    </div>
+                                                    <p>{{$order->created_at->format('d,M-Y')}}</p>
                                             </div>
                                             <div class="orders-card-body">
-                                                @foreach($newOrder['orderItem']['productlist'] as $product)
+                                                @foreach ($order->rel_orderItems as $products)
+                                                    {{--  {{ dd($order->format()) }}  --}}
+                                                    {{--  {{ dd($products->format()) }}  --}}
                                                     <div class="order-item">
                                                         <div class="order-item-info">
-                                                            <img src="{{$product['productDetail']['image']}}" alt="">
+                                                            <img src="{{$products->format()['productDetail']['image']}}" alt="">
                                                             <div>
-                                                                <h6>{{$product['productDetail']['name']}}</h6>
-                                                                <p>{{$product['orderDetail']['qty']}} {{$product['productDetail']['measure_unit']}} | Rs. {{$product['productDetail']['rate']}} per {{$product['productDetail']['measure_unit']}}</p>
+                                                                <h6>{{$products->format()['productDetail']['name']}}</h6>
+                                                                <p>{{$products->format()['productDetail']['rate']}}  per {{$products->format()['productDetail']['measure_unit']}}</p>
+                                                            </div>
+                                                        </div>
+                                                         <div class="order-item-info">
+                                                            <div>
+                                                                <h6>Total Quantity</h6>
+                                                                <p style="text-align: center">{{$products->format()['orderDetail']['qty']}} {{$products->format()['productDetail']['measure_unit']}}</p>
                                                             </div>
                                                         </div>
                                                         <div class="price">
-                                                            Rs. {{$product['orderDetail']['price']}}
+                                                            <h6>Total Price</h6>
+                                                            Rs. {{$products->format()['orderDetail']['price']}}
                                                         </div>
                                                     </div>
-                                                @endforeach
-                                                <div class="orders-card-summary">
+                                                 @endforeach
+
+                                                 <div class="orders-card-summary">
                                                     <ul class="buyer-info">
-                                                        <li><i class="fas fa-map-marker"></i>{{$newOrder['user']['address']}}</li>
-                                                        <li><i class="fas fa-phone-alt"></i> {{$newOrder['user']['phone']}}</li>
+                                                    
+                                                        <li><i class="fas fa-map-marker"></i>{{$order->format()['farm']['farm_name']}}</li>
+                                                        <li><i class="fas fa-phone-alt"></i>{{$order->format()['farm']['phone']}}</li>
                                                     </ul>
-                                                    <div class="total-order-price">Rs. {{$newOrder['orderItem']['totalPrice']}} </div>
+                                                    <div class="total-order-price">Rs. {{$order->getTotal()}}</div>
                                                 </div>
                                                 <div class="orders-card-footer">
-                                                    <button class="btn btn-outline-danger" onclick="reject({{$newOrder['id']}})">Reject</button>
-                                                    <button onclick="accept({{$newOrder['id']}})" class="btn btn-primary">Receive</button>
+                                                    @if($order->status=='initial')
+                                                        <a onclick="cancelOrder({{$order->id}})"  class="btn btn-outline-danger">Cancel Order</a>
+                                                    @endif 
                                                 </div>
+
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @endisset
                                 </div>
-                                <h4><span><i class="fas fa-truck-loading"></i></span> Pending Orders</h4>
+                                {{--  <h4><span><i class="fas fa-truck-loading"></i></span> Dispatched Orders</h4>
+                                <p>These orders are dispatched from farm and could reach you soon</p>
                                 <div class="orders-grid">
-                                    @foreach($pendingOrder as $pendingItem)
+                                    @foreach($dispatchOrder as $dispatchItem)
                                         <div class="orders-card">
                                             <div class="orders-card-header">
-                                                <h6>{{$pendingItem['user']['name']}}</h6>
-                                                <p>{{$pendingItem['ordered_at']}}</p>
+                                                <h6>{{$dispatchItem['farm']['farm_name']}}</h6>
+                                                <div class="farm-rating">
+                                                    @for($i=0;$i<$dispatchItem['farm']['farm_review'];$i++)
+                                                        <span class="fa fa-star checked"></span>
+                                                    @endfor
+                                                    @for($i=$dispatchItem['farm']['farm_review'];$i<5;$i++)
+                                                        <span class="fa fa-star"></span>
+                                                    @endfor
+                                                </div>
+                                                <p>{{$dispatchItem['ordered_at']}}</p>
                                             </div>
                                             <div class="orders-card-body">
-                                                @foreach($pendingItem['orderItem']['productlist'] as $product)
+                                                @foreach($dispatchItem['orderItem']['productlist']  as $product)
                                                     <div class="order-item">
                                                         <div class="order-item-info">
                                                             <img src="{{$product['productDetail']['image']}}" alt="">
@@ -173,70 +129,38 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
+
                                                 <div class="orders-card-summary">
                                                     <ul class="buyer-info">
-                                                        <li><i class="fas fa-map-marker"></i>{{$pendingItem['user']['address']}}</li>
-                                                        <li><i class="fas fa-phone-alt"></i> {{$pendingItem['user']['phone']}}</li>
+
+                                                        <li><i class="fas fa-map-marker"></i>{{$dispatchItem['farm']['farm_address']}}</li>
+                                                        <li><i class="fas fa-phone-alt"></i> {{$dispatchItem['farm']['phone']}}</li>
                                                     </ul>
-                                                    <div class="total-order-price">Rs. {{$pendingItem['orderItem']['totalPrice']}} </div>
-                                                </div>
-                                                <div class="orders-card-footer">
-                                                    <button onclick="dispatch({{$pendingItem['id']}})" class="btn btn-outline-success">Dispatch</button>
+                                                    <div class="total-order-price">Rs. {{$dispatchItem['orderItem']['totalPrice']}} </div>
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-                                </div>
+                                </div>  --}}
                             </div>
-                            <div class="tab-pane fade" id="delivered-orders-tab" role="tabpanel" aria-labelledby="profile-tab">
-                                <h4>Dispatched Orders</h4>
-                                <div class="orders-grid mb-5">
-                                    @foreach($dispatchOrder as $dispatchedItem)
-                                        <div class="orders-card">
-                                            <div class="orders-card-header">
-                                                <h6>{{$dispatchedItem['user']['name']}}</h6>
-                                                <p>{{$dispatchedItem['ordered_at']}}</p>
-                                            </div>
-                                            <div class="orders-card-body">
-                                                @foreach($dispatchedItem['orderItem']['productlist'] as $product)
-                                                    <div class="order-item">
-                                                        <div class="order-item-info">
-                                                            <img src="{{$product['productDetail']['image']}}" alt="">
-                                                            <div>
-                                                                <h6>{{$product['productDetail']['name']}}</h6>
-                                                                <p>{{$product['orderDetail']['qty']}} {{$product['productDetail']['measure_unit']}} | Rs. {{$product['productDetail']['rate']}} per {{$product['productDetail']['measure_unit']}}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="price">
-                                                            Rs. {{$product['orderDetail']['price']}}
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                                <div class="orders-card-summary">
-                                                    <ul class="buyer-info">
-                                                        <li><i class="fas fa-map-marker"></i>{{$dispatchedItem['user']['address']}}</li>
-                                                        <li><i class="fas fa-phone-alt"></i> {{$dispatchedItem['user']['phone']}}</li>
-                                                    </ul>
-                                                    <div class="total-order-price">Rs. {{$dispatchedItem['orderItem']['totalPrice']}} </div>
-                                                </div>
-                                                <div class="orders-card-footer">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-
-                                <h4><span><i class="fas fa-truck-loading"></i></span> Delivered  Orders</h4>
+                            {{--  <div class="tab-pane fade" id="delivered-orders-tab" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="orders-grid">
                                     @foreach($deliveredOrder as $deliveredItem)
                                         <div class="orders-card">
                                             <div class="orders-card-header">
-                                                <h6>{{$deliveredItem['user']['name']}}</h6>
+                                                <h6>{{$deliveredItem['farm']['farm_name']}}</h6>
+                                                <div class="farm-rating">
+                                                    @for($i=0;$i<$deliveredItem['farm']['farm_review'];$i++)
+                                                        <span class="fa fa-star checked"></span>
+                                                    @endfor
+                                                    @for($i=$deliveredItem['farm']['farm_review'];$i<5;$i++)
+                                                        <span class="fa fa-star"></span>
+                                                    @endfor
+                                                </div>
                                                 <p>{{$deliveredItem['ordered_at']}}</p>
                                             </div>
                                             <div class="orders-card-body">
-                                                @foreach($deliveredItem['orderItem']['productlist'] as $product)
+                                                @foreach($deliveredItem['orderItem']['productlist']  as $product)
                                                     <div class="order-item">
                                                         <div class="order-item-info">
                                                             <img src="{{$product['productDetail']['image']}}" alt="">
@@ -252,8 +176,8 @@
                                                 @endforeach
                                                 <div class="orders-card-summary">
                                                     <ul class="buyer-info">
-                                                        <li><i class="fas fa-map-marker"></i>{{$deliveredItem['user']['address']}}</li>
-                                                        <li><i class="fas fa-phone-alt"></i> {{$deliveredItem['user']['phone']}}</li>
+                                                        <li><i class="fas fa-map-marker"></i>{{$deliveredItem['farm']['farm_address']}}</li>
+                                                        <li><i class="fas fa-phone-alt"></i> {{$deliveredItem['farm']['phone']}}</li>
                                                     </ul>
                                                     <div class="total-order-price">Rs. {{$deliveredItem['orderItem']['totalPrice']}} </div>
                                                 </div>
@@ -264,15 +188,58 @@
                             </div>
                             <div class="tab-pane fade" id="cancelled-orders-tab" role="tabpanel" aria-labelledby="contact-tab">
                                 <div class="orders-grid">
+                                    @foreach($cancelOrder as $cancelItem)
+                                        <div class="orders-card">
+                                            <div class="orders-card-header">
+                                                <h6>{{$cancelItem['farm']['farm_name']}}</h6>
+                                                <div class="farm-rating">
+                                                    @for($i=0;$i<$cancelItem['farm']['farm_review'];$i++)
+                                                        <span class="fa fa-star checked"></span>
+                                                    @endfor
+                                                    @for($i=$cancelItem['farm']['farm_review'];$i<5;$i++)
+                                                        <span class="fa fa-star"></span>
+                                                    @endfor
+                                                </div>
+                                                <p>{{$cancelItem['ordered_at']}}</p>
+                                            </div>
+                                            <div class="orders-card-body">
+                                                @foreach($cancelItem['orderItem']['productlist']  as $product)
+                                                    <div class="order-item">
+                                                        <div class="order-item-info">
+                                                            <img src="{{$product['productDetail']['image']}}" alt="">
+                                                            <div>
+                                                                <h6>{{$product['productDetail']['name']}}</h6>
+                                                                <p>{{$product['orderDetail']['qty']}} {{$product['productDetail']['measure_unit']}} | Rs. {{$product['productDetail']['rate']}} per {{$product['productDetail']['measure_unit']}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="price">
+                                                            Rs. {{$product['orderDetail']['price']}}
+                                                        </div>
+                                                    </div>
+                                                @endforeach
 
+                                                <div class="orders-card-summary">
+                                                    <ul class="buyer-info">
+
+                                                        <li><i class="fas fa-map-marker"></i>{{$cancelItem['farm']['farm_address']}}</li>
+                                                        <li><i class="fas fa-phone-alt"></i> {{$cancelItem['farm']['phone']}}</li>
+                                                    </ul>
+                                                    <div class="total-order-price">Rs. {{$cancelItem['orderItem']['totalPrice']}} </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            </div>
+                            </div>  --}}
                         </div>
+
                     </div>
-                </div> --}}
+
+                </div>
                 <!-- dashboard cards -->
-            </div>
         </div>
+    </div>
     </div>
     <!--END  dashboard wrapper------------------------- -->
 @endsection
@@ -297,25 +264,20 @@
             $('#sidebarCollapse').on('click', function () {
                 $('#db-sidebar').toggleClass('active');
                 $(this).toggleClass('active');
+                // $(this).find('svg').css('transform','rotate(180deg)');
             });
+
         });
-
-        function acceptOrder(orderId) {
-            if(confirm('are you sure you want to accept this order ?')){
-                let status = '<?php echo App\Models\Order::ORDER_SUCCESS ?>'
+       
+         function cancelOrder(orderId,status) {
+            if(confirm('are you sure you want to cancell this order ?')){
+                let status = '<?php echo App\Models\Order::ORDER_CANCEL ?>'
                 ajaxForStatusChange(orderId,status)
             }
         }
 
-        function rejectOrder(orderId) {
-            if(confirm('are you sure you want to accept this order ?')){
-                let status = '<?php echo App\Models\Order::ORDER_REJECT ?>'
-                ajaxForStatusChange(orderId,status)
-            }
-        }
-
-        function ajaxForStatusChange(orderId,status) {
-           let base_url = 'http://127.0.0.1:8000';
+         function ajaxForStatusChange(orderId,status) {
+            let base_url = 'http://127.0.0.1:8000';
             axios.post(base_url+'/order/change-status', {
                 orderId: orderId,
                 orderStatus: status
@@ -330,7 +292,7 @@
                         buttons: false,
                         icon: "success",
                         timer: 2500,
-                        text: 'Order Status Changed Successfully !!!'
+                        text: 'Order Cancelled Successfully !!!'
                     });
 
                     window.location.reload();
@@ -340,7 +302,6 @@
                 console.log(error);
             });
         }
-
 
     </script>
 @endsection

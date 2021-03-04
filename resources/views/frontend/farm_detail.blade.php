@@ -500,6 +500,7 @@
                                 text: 'Added To Cart Successfully !!!'
                             });
                          document.getElementById('minicart').innerHTML = '';
+                         window.location = '{{route('my-cart')}}'
                      }
                }).catch(function (error) {
                    console.log(error);

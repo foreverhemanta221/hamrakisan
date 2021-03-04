@@ -35,15 +35,18 @@ class FarmerController extends Controller
         // dd($myorder);
         $product_listed = 0;
         if($user->listed_farm){
-            $product_listed = $user->listed_farm->products->count();
+            $products_listed = $user->listed_farm->products;
         }
         return view('frontend.farmer.dashboard')->with([
             'orders_count'=>$new_orders_count,
             'new_orders'=>$new_orders,
-            'product_count'=>$product_listed,
+            'products_listed'=>$products_listed,
+            'product_count'=>$products_listed->count(),
 
         ]);
     }
+
+    
     public function loadFarm(){
         $category = Category::all();
         if(Auth::user()->rel_listing->count()>0){
