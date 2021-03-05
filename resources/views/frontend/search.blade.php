@@ -122,6 +122,7 @@
                                                     @endif
                                                 </ul>
                                             </div>
+                                            <a href="{{URL::to('listings/'.$item->slug)}}" class="btn btn-primary">Order Now</a>
                                         </div>
                                 </div>
                                 @endforeach

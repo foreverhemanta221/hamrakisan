@@ -611,11 +611,13 @@ input[type=number] {
     font-size: 16px;
     margin: 0 -10px;
     display: flex;
+    align-items: baseline;
     justify-content: space-between; }
     .sells.withPrice li {
       background-color: transparent; }
     .sells.withPrice :last-child {
       color: #28A745;
+      font-size: 24px;
       font-weight: 500; }
 
 .prod-rating {
