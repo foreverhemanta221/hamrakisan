@@ -65,7 +65,7 @@
             swal({
                 buttons: false,
                 icon: "success",
-                timer: 2500,
+                timer: 3500,
                 text: '{{ session()->get('message') }}'
             });
         </script>
@@ -75,7 +75,7 @@
             swal({
                 buttons: false,
                 icon: "warning",
-                timer: 2500,
+                timer: 3500,
                 text: '{{ session()->get('danger') }}'
             });
         </script>
@@ -87,7 +87,7 @@
             swal({
                 buttons: false,
                 icon: "warning",
-                timer: 2500,
+                timer: 3500,
                 text:  {{ $error }}
             });
         </script>

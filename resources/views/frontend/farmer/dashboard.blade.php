@@ -147,12 +147,12 @@
                                                 <td>
                                                     <div class="cus-orders">
                                                       @foreach($order->rel_orderItems as $item)
-                                                           {{$item->rel_products->name}}                                                       
+                                                           <p>{{$item->rel_products->name}},</p>                                                      
                                                       @endforeach
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="order-status {{$order->format()['status']=='initial' ? 'pending' :$order->format()['status']}} pending">{{$order->format()['status']}}</span>
+                                                    <span class="order-status  @if($order->status=='initial') pending @elseif($order->status=='success') delivered  @else cancelled @endif ">{{$order->status}}</span>
                                                 </td>
                                                 <td>
                                                     <span class="order-worth">

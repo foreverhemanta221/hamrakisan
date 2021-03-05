@@ -40,7 +40,9 @@ class OrderController extends Controller
                         ]);
                     }
                 }
-                $cart->remove($request->productId);
+                foreach($cart->getContent() as $cartItem){
+                    $cart->remove($cartItem->id);
+                }
             });
             session()->flash('message',"Order placed successfully, You can check your oders on your dashbord also. Thank you !!!");
             return redirect()->to('userdashboard');
@@ -76,8 +78,7 @@ class OrderController extends Controller
                     ]);
             });
             session()->flash('message',"Order status changed successfully !!!");
-            return response(['success'=>'success'],200);
-            // return redirect()->back();
+             return response()->json(['status'=>true],200);
         }catch(Exception $ex){
             session()->flash('warning', "Please try again later !!!");
             return redirect()->to('my-order');

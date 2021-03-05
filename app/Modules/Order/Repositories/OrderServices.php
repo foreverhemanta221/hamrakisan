@@ -15,13 +15,14 @@ class OrderServices implements OrderRepositoryInterface
     public function orderByUserId($user_id){
         return Order::where('user_id',$user_id)
             ->orderBy('created_at','desc')
-            // ->paginate(10)
-            ->get();
+            ->paginate(5);
+            // ->get();
     }
     public function orderByFarmId($farm_id){
         return Order::where('farm_id',$farm_id)
             ->orderBy('created_at','desc')
-            ->get();
+            ->paginate(5);
+            // ->get();
     }
 
     public function getFarmorderByStatus($farm_id,$status=null){

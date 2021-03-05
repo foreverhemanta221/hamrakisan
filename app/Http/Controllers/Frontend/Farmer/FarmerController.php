@@ -57,7 +57,6 @@ class FarmerController extends Controller
         }
     }
     public function saveFarm(FarmerFarmListRequst $request){
-         dd($request->all());
         //TODO:: check user have already listed farm or not
         try {
             DB::transaction(function () use ($request) {

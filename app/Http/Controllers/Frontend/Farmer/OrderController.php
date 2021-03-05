@@ -34,7 +34,7 @@ class OrderController extends Controller
             ->with('deliveredOrder',$deliveredOrder)
             ->with('orders',$allOrders);
         }
-        // return redirect('')
+        return redirect()->to('myfarm')->with('danger',"You have to list you farm first");
     }
 
      public function viewFarmOrders($id){

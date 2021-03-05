@@ -14,7 +14,6 @@
                     @if(isset($cartDetail))
                     
                             @foreach($cartDetail as $product)
-                            {{--  {{dd($product->name)}}  --}}
                             <div class="cart">
                                 <div class="cart-header">
                                     {{--  <h4>{{\App\Models\Listing::find($farmName)->name}}</h4>  --}}
@@ -30,7 +29,7 @@
                                                 <img src="{{$product->attributes->product_image}}" alt="">
                                                 <div>
                                                     {{$product->name}}
-                                                    <p>Rs {{$product->price}} per {{$product->attributes->minimum_order}}</p>
+                                                    <p>Rs {{$product->price}} per {{$product->attributes->minimum_order}} Unit</p>
                                                 </div>
                                             </div>
                                             <div class="qty-selector">
