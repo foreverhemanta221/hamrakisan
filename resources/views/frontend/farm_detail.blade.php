@@ -11,9 +11,18 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/animate.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/aos.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/venobox.min.css')}}">
-
+    <style>
+        #mapShow {
+            height: 250px;
+        }
+        #map{
+            height: 450px;
+            width: 100%;
+        }
+    </style>
 @endsection
 @section('content')
+    <input type="hidden" name="auth" id="auth" value="{{Auth::check()==true?1:0}}">
     <div class="bg-light-wrapper">
         <!----------------------------------- FARM BANNER SECTION--------------------------------------- -->
         <section class="farm-banner">
@@ -113,14 +122,11 @@
                         <!-- products map -->
                         <div class="farm-map-section mt-5">
                             <h2>{{__('farm.find_the_farm')}}</h2>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16463.154945539427!2d84.31807658622488!3d27.570674675022104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994f71d0107128d%3A0x86b7d511d3e1e13b!2sJagatpur%20Agro%20Pvt%20Ltd.!5e0!3m2!1sen!2snp!4v1590690320194!5m2!1sen!2snp"
-                                frameborder="0"
-                                style="border:0;"
-                                allowfullscreen=""
-                                aria-hidden="false"
-                                tabindex="0"
-                                class="mt-3"></iframe>
+                            <input type="hidden" id="latitude" value="{{$listing->getLatitude()}}">
+                            <input type="hidden" id="longitude" value="{{$listing->getLongtitude()}}">
+                            <div id="map">
+
+                            </div>
                         </div>
 
 
@@ -355,7 +361,8 @@
         // price calculator
         $('.qty-selector').on('click','.qty-inc',function(){
             let productId = $(this).attr('data-value');
-            let nowQty =$(this).parents('.qty-selector').find('.qty').text()
+            var nowQty =$(this).parents('.qty-selector').find('.qty').text();
+            console.log(nowQty);
             let minVal = $(this).parents('.col-lg-6')
                 .find('.farm-product .min-qty span')
                 .text()
@@ -364,7 +371,7 @@
                 // name of product
                 var itemName = $(this).parents('.col-lg-6').find('.farm-product h4').text()
                 // qty
-                var itemQty = nowQty
+                var itemQty = nowQty;
                 // rate
                 var itemRateText = $(this).parents('.col-lg-6').find('.price').text()
                 var itemRate =itemRateText.match(/\d+/)
@@ -376,7 +383,7 @@
                                     <h6>`+ itemName + `</h6>
                                     <input type="hidden" class="productId" name="productId[]" value="`+productId+`">
                                     <input type="hidden" class="productQty" name="productQty[]" value="`+itemQty+`">
-                                    <input type="hidden" class="productPrice" me="productPrice[]" value="`+itemPrice+`">
+                                    <input type="hidden" class="productPrice" name="productPrice[]" value="`+itemPrice+`">
                                     <p><span class="qty">`+ itemQty +`</span>
                                         <span class="separator"></span>
                                         <span class="rate">`+ itemRateText +`</span>
@@ -397,40 +404,52 @@
                 var itemName = $(this).parents('.col-lg-6').find('.farm-product h4').text()
                 // get qty
                 var itemQty = $(this).parents('.qty-selector').find('.qty').text()
+                console.log($(this).parents('.qty-selector').find('.qty').text());
                 // get rate
                 var itemRate =($(this).parents('.col-lg-6').find('.price').text()).match(/\d+/)
                 // get price
                 let itemPrice = 'Rs. ' + (itemQty * itemRate)
                 // find this item in minicart
                 $('.minicart').children('.minicart-item').each(function(){
-                    let basketItem = $(this).find('h6').text()
+                    let basketItem = $(this).find('h6').text();
+
                     if(basketItem == itemName){
                         $(this).find('.minicart-item-price').text(itemPrice)
-                        $(this).find('.qty').text(itemQty)
+                        $(this).find('.qty').text(itemQty);
+                        $(this).find('.productQty')[0].value=itemQty;
+                        $(this).find('.productPrice')[0].value=itemPrice;
+
+
                     }
                 })
             }
         })
         $('.qty-selector').on('click','.qty-dec',function(){
             // minicart ko item qty ghatne
+
+            var nowQty =$(this).parents('.qty-selector').find('.qty').text();
+            console.log(nowQty)
             // get name
             var itemName = $(this).parents('.col-lg-6').find('.farm-product h4').text()
             // get qty
-            var itemQty = $(this).parents('.qty-selector').find('.qty').text()
+            var itemQty = $(this).parents('.qty-selector').find('.qty').text();
+            console.log(itemQty)
             // get rate
             var itemRate =($(this).parents('.col-lg-6').find('.price').text()).match(/\d+/)
             // get price
-            let itemPrice = 'Rs. ' + (itemQty * itemRate)
+            let itemPrice = 'Rs. ' + (nowQty * itemRate)
             // find this item in minicart
             $('.minicart').children('.minicart-item').each(function(){
                 let basketItem = $(this).find('h6').text()
                 if(basketItem == itemName){
                     $(this).find('.minicart-item-price').text(itemPrice)
-                    $(this).find('.qty').text(itemQty)
+                    $(this).find('.qty').text(itemQty);
+                    $(this).find('.productQty')[0].value=itemQty;
+                    $(this).find('.productPrice')[0].value=itemPrice;
                 }
             })
             // qty 0 huda item nai hatne
-            if(itemQty == 0){
+            if(nowQty == 0){
                 $('.minicart').children('.minicart-item').each(function(){
                     let basketItem = $(this).find('h6').text()
                     if(basketItem == itemName){
@@ -452,7 +471,7 @@
                     sum = sum +eachPrice
                 });
                 $('.cart-bill').text('Rs. ' + sum)
-            })
+            });
     </script>
 
     <script>
@@ -460,21 +479,40 @@
         let order_from = document.querySelector('#orderFrom');
         order_from.addEventListener('submit',(e)=>{
             e.preventDefault();
+
+
+
            if(confirm('are you sure want to order ?')){
-               {{--  let base_url = 'http://127.0.0.1:8000';  --}}
+
+               let check_auth = document.getElementById('auth').value;
+               if(check_auth==0){
+                   swal({
+                       buttons: false,
+                       icon: "danger",
+                       timer: 2500,
+                       text: 'Please Login First !!!'
+                   });
+                   document.getElementById('minicart').innerHTML = '';
+                   // alert('checked here');
+                   window.location = '{{route('userlogin')}}'
+
+               }
                let base_url = 'https://hamrakisan.com';
                 let farmId = '{{$listing->id}}';
                 let productsIdDom = document.querySelectorAll('.productId');
                 let productsQtyDom = document.querySelectorAll('.productQty');
+
+
                 let productIds = [];
                 let productQtys = [];
                 productsIdDom.forEach(function (item,index) {
                     productIds.push(item.value)
                 });
+                // console.log(productsQtyDom)
                 productsQtyDom.forEach(function (item,index) {
+                    console.log(item)
                     productQtys.push(item.value)
                 });
-
                axios.post('/add-to-cart', {
                    farmId : farmId,
                    productId: productIds,
@@ -513,9 +551,32 @@
                     window.location = '{{route('userlogin')}}'
                });
            }
-
         })
-
     </script>
     <!-- scripts end -->
+    <script>
+        var lat = parseFloat(document.getElementById('latitude').value);
+        var lng = parseFloat(document.getElementById('longitude').value);
+        console.log(lat)
+        console.log(lng)
+        // In the following example, markers appear when the user clicks on the map.
+        // The markers are stored in an array.
+        // The user can then click an option to hide, show or delete the markers.
+        var map;
+
+        function initMap() {
+            var myLatLng = { lat: lat, lng: lng };
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: myLatLng,
+            });
+            new google.maps.Marker({
+                position: myLatLng,
+                map,
+                title: "Hello World!",
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{config('constants.map.google_map_key')}}&callback=initMap&libraries=&v=weekly"
+            async defer></script>
 @endsection

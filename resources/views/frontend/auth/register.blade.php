@@ -20,11 +20,11 @@
                 </div>
             @endif
 
-            <h3>Signup</h3>
+            <h3>{{__('auth.sign_up')}}</h3>
 
 
             <div class="form-group">
-                <label for="userId">Email or Phone</label>
+                <label for="userId">{{__('auth.phone_email')}}</label>
                 <input type="text" class="form-control " id="userId" name="userId" aria-describedby="userHel" placeholder="Email or Phone">
                 <i class="fas fa-user"></i>
             </div>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
+                <label for="exampleInputPassword1">{{__('auth.password')}}</label>
                 <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
                 <i class="fas fa-lock"></i>
             </div>
@@ -46,15 +46,15 @@
             </div>
 
             <div class="form-group">
-                <label for="">Select account type</label>
+                <label for="">{{__('auth.select_account_type')}}</label>
                 <div id="acc-type-register">
                     <label>
                         <input type="radio" name="role" value="user" class="inputRole" checked>
                         <div>
                             <img src="{{URL::asset('frontend/img/icons/nonfarmer.png')}}">
                             <span>
-                                <h4>Non Farmer</h4>
-                                <p>doesn't own any farm, can buy products</p>
+                                <h4>{{__('auth.non_farmer')}}</h4>
+                                <p>{{__('auth.non_farmer_description')}}</p>
                             </span>
                         </div>
                     </label>
@@ -63,8 +63,8 @@
                         <div>
                             <img src="{{URL::asset('frontend/img/icons/farmer.png')}}">
                             <span>
-                                <h4>Farmer</h4>
-                                <p>has farm, can post products and buy as well</p>
+                                <h4>{{__('auth.farmer')}}</h4>
+                                <p>{{__('auth.farmer_description')}}</p>
                             </span>
                         </div>
                     </label>
@@ -75,12 +75,12 @@
                 {{$message}}
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">{{__('auth.register')}}</button>
             <div class="social-login">
-                <a href="" class="fb-login"><img src="{{URL::asset('frontend/img/icons/fb-icon.png')}}" alt=""> Login with Facebook</a>
-                <a href="" class="google-login"><img src="{{URL::asset('frontend/img/icons/google-icon.png')}}" alt=""> Login with Google</a>
+                <a href="" class="fb-login"><img src="{{URL::asset('frontend/img/icons/fb-icon.png')}}" alt=""> {{__('auth.login_with_facebook')}}</a>
+                <a href="" class="google-login"><img src="{{URL::asset('frontend/img/icons/google-icon.png')}}" alt=""> {{__('auth.login_with_google')}}</a>
             </div>
-            <p>Already a member? <a href="{{URL::to('login')}}">Log In</a></p>
+            <p>Already a member? <a href="{{URL::to('login')}}">{{__('auth.login')}}</a></p>
         </form>
     </section>
     <!-- map start -->

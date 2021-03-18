@@ -1,3 +1,5 @@
+var lat = parseFloat(27.697999680391927);
+var lng = parseFloat(85.31596804141532);
 // In the following example, markers appear when the user clicks on the map.
 // The markers are stored in an array.
 // The user can then click an option to hide, show or delete the markers.
@@ -5,10 +7,12 @@ var map;
 var markers = [];
 
 function initMap() {
-    var haightAshbury = {lat: 27.697999680391927, lng: 85.31596804141532};
+    // console.log(this.lat);
+    // console.log(this.lng);
+    var haightAshbury = {lat:this.lat , lng: this.lng};
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14,
+        zoom: 10,
         center: haightAshbury,
         disableDoubleClickZoom: true
     });

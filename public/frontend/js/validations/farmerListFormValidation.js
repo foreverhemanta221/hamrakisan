@@ -42,40 +42,47 @@ function checkInputs(e) {
        e.preventDefault();
        errorMessage(farmName,'farm name should be max 255 character','errfarmName');
    }else{
-       successMessage(farmName,'errfarmName')
+       successMessage(farmName,'errfarmName');
    }
 // farm address
     if(farmProvinceValue===''){
         e.preventDefault();
         errorMessage(farmProvince,'province cannot be empty','errfarmAddress');
     }else{
-        successMessage(farmProvince,'errfarmName')
+        successMessage(farmProvince,'errfarmName');
     }
 
     if(farmDistrictValue===''){
         e.preventDefault();
-        errorMessage(farmDistrict,'district cannot be empty','errfarmAddress')
+        errorMessage(farmDistrict,'district cannot be empty','errfarmAddress');
     }else{
-        successMessage(farmDistrict,'errfarmAddress')
+        successMessage(farmDistrict,'errfarmAddress');
     }
     if(farmCityValue===''){
         e.preventDefault();
-        errorMessage(farmCity,'city cannot be empty','errfarmAddress')
+        errorMessage(farmCity,'city cannot be empty','errfarmAddress');
     }else{
         successMessage(farmCity,'errFarmAddress');
     }
-
+    console.log(farmSpecificAddressValue!=='' && farmSpecificAddressValue.length<6);
+    e.preventDefault();
+    if(farmSpecificAddressValue!=='' && farmSpecificAddressValue.length<6){
+        e.preventDefault();
+        errorMessage(farmSpecificAddress,'Specific Address must have six character long','errSpecificAddress');
+    }else{
+        successMessage(farmSpecificAddress,'FarmSpecificAddress');
+    }
     //phone
     if(farmPhoneValue===''){
         e.preventDefault();
-        errorMessage(farmPhone,'phone number cannot be empty','errFarmPhone')
+        errorMessage(farmPhone,'phone number cannot be empty','errFarmPhone');
     }else{
-        successMessage(farmPhone,'errFarmPhone')
+        successMessage(farmPhone,'errFarmPhone');
     }
     //email
     if(farmEmailValue===''){
         e.preventDefault();
-        errorMessage(farmEmail,'email should not be empty','errFarmEmail')
+        errorMessage(farmEmail,'email should not be empty','errFarmEmail');
     }
 
 

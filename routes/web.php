@@ -12,18 +12,7 @@
     })->name('adminlogin');
     route::post('adminlogin','AuthController@adminLogin')->name('adminlogin.post');
 
-    //basiclogin
-    route::get('login',function (){
-        return view('frontend.auth.login');
-    })->name('userlogin');
 
-    route::post('login','Frontend\UserController@login');
-
-    //register
-    route::get('/register', function(){
-        return view('frontend.auth.register');
-    });
-    route::post('/register','Frontend\UserController@register')->name('register.store');
 
     //forget password
     route::get('/forgot-password',function (){
@@ -94,6 +83,9 @@ Route::group(['middleware' => ['admin']], function () {
     route::put('user/dashboard/edit-product/{id}','Frontend\ProductController@update')->name('userproduct.update');
     route::delete('user/dashboard/delete/{id}','Frontend\ProductController@destroy')->name('userproduct.destroy');
 
+    //order
+    route::resource('orders','Backend\OrderController');
+
 
     //logout
     route::post('logout','AuthController@logout');
@@ -117,15 +109,29 @@ Route::group(['middleware' => ['admin']], function () {
 
 Route::group(['middleware'=>['locale']],function(){
 
+    //auth
+    route::get('login',function (){
+        return view('frontend.auth.login');
+    })->name('userlogin');
+
+    route::post('login','Frontend\UserController@login');
+
+    //register
+    route::get('/register', function(){
+        return view('frontend.auth.register');
+    });
+    route::post('/register','Frontend\UserController@register')->name('register.store');
+
     Route::get('/','Frontend\PageController@getHomePageData');
     //farmer
     Route::group(['middleware'=>'farmer'],function (){
         route::get('farmerdashboard','Frontend\Farmer\FarmerController@getFamerDashboard');
         route::get('myfarm','Frontend\Farmer\FarmerController@loadFarm');
         route::post('postmyfarm','Frontend\Farmer\FarmerController@saveFarm');
+        route::post('updatemyfarm','Frontend\Farmer\FarmerController@updateFarm')->name('updatemyfarm');
         route::resource('myproduct','Frontend\Farmer\ProductController');
         route::post('myproduct/changestatus','Frontend\Farmer\ProductController@changeStatus');
-        
+
         route::get('farmreview','Frontend\Farmer\ReviewController@index');
         route::post('changestatus','Frontend\Farmer\ReviewController@changeStatus');
         route::resource('traingings','Frontend\Farmer\TrainingController');
@@ -142,7 +148,7 @@ Route::group(['middleware'=>['locale']],function(){
         // route::post('cancelOrder/{order_id}','Frontend\User\OrderConroller@cancelOrder')->name('cancelOrder');
         route::post('cancelOrder/{order_id}','Frontend\OrderController@orderCancel')->name('cancelOrder');
 
-        
+
 
     });
 //eitther user and farmer
@@ -158,7 +164,7 @@ Route::group(['middleware'=>['locale']],function(){
         route::post('order','Frontend\OrderController@order');
         route::post('order/change-status','Frontend\OrderController@changestatus');
 
-        
+
 
         //checkout
         route::get('checkout','Frontend\OrderController@checkout');
@@ -177,7 +183,7 @@ Route::group(['middleware'=>['locale']],function(){
     route::get('/product/{slug}', 'Frontend\PageController@getProductDetail');
 //listings
     route::get('listings/{slug}','Frontend\PageController@loadListing');
-//loan request
+//loan requestF
 
 //forms
     route::post('farmregisterform','Forms\FarmListFormController@store');

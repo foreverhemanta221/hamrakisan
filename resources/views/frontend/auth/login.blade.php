@@ -6,6 +6,7 @@
 @section('content')
     <section id="login-section">
         <div class="form-body">
+
             <p>Welcome to</p>
             <h5>Hamrakisan</h5>
             @if(Session::has('danger'))
@@ -23,23 +24,23 @@
             <form id="loginForm" method="post" action="{{URL::to('login')}}">
                 @csrf
                 <div class="form-group">
-                    <label for="userId">Email or Phone</label>
-                    <input type="text" class="form-control" id="userId" name="userId" aria-describedby="userHel" placeholder="Email or Phone">
+                    <label for="userId">{{__('auth.phone_email')}}</label>
+                    <input type="text" class="form-control" id="userId" name="userId" aria-describedby="userHel" placeholder="{{__('auth.phone_email')}}">
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label for="exampleInputPassword1">{{__('auth.password')}}</label>
                     <input type="password" class="form-control" id="userPassword" name="password" placeholder="Password">
                     <i class="fas fa-lock"></i>
                 </div>
-                <a href="" class="">Forgot Password?</a>
-                <button type="submit" class="btn btn-primary d-block mt-4">Login</button>
+                <a href="" class="">{{__('auth.forget_password')}}</a>
+                <button type="submit" class="btn btn-primary d-block mt-4">{{__('auth.login')}}</button>
             </form>
             <div class="social-login">
-                <a href="" class="fb-login"><img src="{{URL::asset('frontend/img/icons/fb-icon.png')}}" alt=""> Login with Facebook</a>
-                <a href="" class="google-login"><img src="{{URL::asset('frontend/img/icons/google-icon.png')}}" alt=""> Login with Google</a>
+                <a href="" class="fb-login"><img src="{{URL::asset('frontend/img/icons/fb-icon.png')}}" alt=""> {{__('auth.login_with_facebook')}}</a>
+                <a href="" class="google-login"><img src="{{URL::asset('frontend/img/icons/google-icon.png')}}" alt=""> {{__('auth.login_with_google')}}</a>
             </div>
-            <p class="mt-4">Don't have an account? <a href="{{URL::to('register')}}">Sign up</a></p>
+            <p class="mt-4">Don't have an account? <a href="{{URL::to('register')}}">{{__('auth.sign_up')}}</a></p>
         </div>
     </section>
     <!-- map start -->

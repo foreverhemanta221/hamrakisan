@@ -24,8 +24,7 @@ class OrderConroller extends Controller
         $cancel_order = $this->orderRepository->getUserOrderByStatus(Auth::user()->id,OrderItem::ORDER_CANCEL);
         $rejected_order = $this->orderRepository->getUserOrderByStatus(Auth::user()->id,OrderItem::ORDER_REJECT);
         $cancelled_order = array_merge($cancel_order->toArray(),$rejected_order->toArray());
-        // dd($cancelled_order);
-        // $orders = 
+
          $allOrders = $this->orderRepository->orderByUserId(Auth::user()->id);
 
         return view('frontend.user.order')->with('initialOrder',$initial_order)

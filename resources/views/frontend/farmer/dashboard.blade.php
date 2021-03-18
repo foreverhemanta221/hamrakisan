@@ -47,30 +47,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{--  <div class="col-xl-3 col-6">
-                                        <div class="db-insight">
-                                            <div class="db-insight-icon">
-                                                <img src="{{URL::asset('frontend/img/icons/todaysales.png')}}" alt="">
-                                            </div>
-                                            <div class="db-insight-info">
-                                                <h6>Today's Sales</h6>
-                                                <h5>Rs. 3000</h5>
-                                            </div>
-                                        </div>
-                                    </div>  --}}
-
-                                    {{--  <div class="col-xl-3 col-6">
-                                        <div class="db-insight">
-                                            <div class="db-insight-icon">
-                                                <img src="{{URL::asset('frontend/img/icons/visitors.png')}}" alt="">
-                                            </div>
-                                            <div class="db-insight-info">
-                                                <h6>Daily Visitors</h6>
-                                                <h5>90</h5>
-                                            </div>
-                                        </div>
-                                    </div>  --}}
-
                                 </div>
                             </div>
                             <div class="col-xl-4">
@@ -82,17 +58,28 @@
                             <div class="col-xl-6">
                                 <h6>{{__('dashboard.hot_products')}}</h6>
                                 <div class="db-table-wrapper">
-                                    <table id="hotproducts-table" class="table  dashboard-table">
+
+                                    <table id="hotproducts-table" class="table table-responsive-sm dashboard-table">
                                         <thead>
+                                        @if($product_count==0)
+
                                         <tr>
-                                            <th scope="col">{{__('dashboard.products')}}</th>
-                                            <th scope="col">{{__('dashboard.sold_to')}}</th>
-                                            <th scope="col">{{__('dashboard.sales_volume')}}</th>
-                                            <th scope="col">{{__('dashboard.sales_worth')}}</th>
+                                            <th scope="col">{{__('dashboard.no_order_found')}}</th>
                                         </tr>
+                                        @else
+                                            <tr>
+                                                <th scope="col">{{__('dashboard.products')}}</th>
+                                                <th scope="col">{{__('dashboard.sold_to')}}</th>
+                                                <th scope="col">{{__('dashboard.sales_volume')}}</th>
+                                                <th scope="col">{{__('dashboard.sales_worth')}}</th>
+                                            </tr>
+                                        @endif
 
                                         </thead>
                                         <tbody>
+                                        @if($product_count!=0)
+
+
                                             @foreach ($products_listed  as $product)
                                             {{-- {{dd($product)}} --}}
                                             <tr>
@@ -100,7 +87,7 @@
                                                     <div class="dashboard-table-product">
                                                         <img src="{{$product->getFeatureImage('small')}}" alt="{{$product->name}}">
                                                         {{-- <br/> --}}
-                                                        {{$product->name}}, 
+                                                        {{$product->name}},
                                                     </div>
                                                 </td>
                                                 <td>{{$product->price}}</td>
@@ -108,8 +95,10 @@
                                                 <td>Rs. {{$product->minimum_quantity*$product->price}}</td>
                                             </tr>
                                             @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                             <div class="col-xl-6">
@@ -147,7 +136,7 @@
                                                 <td>
                                                     <div class="cus-orders">
                                                       @foreach($order->rel_orderItems as $item)
-                                                           {{$item->rel_products->name}}                                                       
+                                                           {{$item->rel_products->name}}
                                                       @endforeach
                                                     </div>
                                                 </td>

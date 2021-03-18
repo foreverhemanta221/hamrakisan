@@ -35,27 +35,33 @@ class Order extends Model
         return $this->belongsTo('App\User','user_id','id');
     }
     public function format($status=null){
-        return [
-            'farm'=>[
-                'farm_name'=>$this->rel_farm->name,
-                'farm_review'=>$this->rel_farm->getFarmNameAvearageReview(),
-                'farm_address'=>$this->rel_farm->short_address,
-                'phone'=>$this->rel_farm->phone
-            ],
-            'user'=>[
-                'user_id'=>$this->user_id,
-                'name'=>$this->rel_user->name,
-                'email'=>$this->rel_user->email,
-                'phone'=>$this->rel_user->phone_no,
-                'address'=>$this->rel_user->user_address
-            ],
-            'id'=>$this->id,
-            'orderItem'=>$this->order_products($status),
-            'payment_method'=>$this->payment_method,
-            'status'=>$this->status,
-            'ordered_at'=>Carbon::parse($this->created_at)->toFormattedDateString(),
-            'price'=>$this->getTotal()
-        ];
+         if(is_null($this->rel_farm)===false){
+             return [
+                 'farm'=>[
+                     'farm_name'=>$this->rel_farm->name,
+                     'farm_email'=>$this->rel_farm->farm,
+                     'farm_review'=>$this->rel_farm->getFarmNameAvearageReview(),
+                     'farm_address'=>$this->rel_farm->short_address,
+                     'phone'=>$this->rel_farm->phone
+                 ],
+                 'user'=>[
+                     'user_id'=>$this->user_id,
+                     'name'=>$this->rel_user->name,
+                     'email'=>$this->rel_user->email,
+                     'phone'=>$this->rel_user->phone_no,
+                     'address'=>$this->rel_user->user_address
+                 ],
+                 'id'=>$this->id,
+                 'date'=>$this->created_at->format('Y-m-d'),
+                 'orderItem'=>$this->order_products($status),
+                 'itemList'=>$this->orderList(),
+                 'payment_method'=>$this->payment_method,
+                 'status'=>$this->status,
+                 'ordered_at'=>Carbon::parse($this->created_at)->toFormattedDateString(),
+                 'price'=>$this->getTotal()
+             ];
+         }
+
     }
 
      public  function order_products($status=null){
@@ -78,6 +84,14 @@ class Order extends Model
             'productlist'=>$product,
             'totalPrice'=>$totalPrice
         ];
+    }
+    public function orderList(){
+         $item="";
+         foreach ($this->rel_orderItems as $item){
+//             dd($item->rel_products->name);
+             $item=$item->rel_products->name.",";
+         }
+         return $item;
     }
     public function getTotal(){
         return OrderItem::where('order_id',$this->id)->sum('price');

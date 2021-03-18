@@ -30,7 +30,6 @@
                         <th>Role</th>
                         <th>Registered Date</th>
                         <th>Action</th>
-
                     </tr>
                     </thead>
                     <tbody>
@@ -42,7 +41,7 @@
                         </td>
                         <td>{{$user->role}}</td>
                         <td>
-                            {{$user->created_at->format('d,M-Y')}}
+                            {{$user->created_at->format('Y-m-d')}}
                             <br/>
                             {{($user->created_at->diffForHumans())}}
                         </td>

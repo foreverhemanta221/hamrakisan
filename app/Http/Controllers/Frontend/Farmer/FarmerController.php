@@ -22,7 +22,6 @@ class FarmerController extends Controller
         $this->orderService = $orderServices;
 
     }
-
     public function getFamerDashboard(){
         $user = Auth::user();
         $new_orders =null;
@@ -36,17 +35,17 @@ class FarmerController extends Controller
         $product_listed = 0;
         if($user->listed_farm){
             $products_listed = $user->listed_farm->products;
+        }else{
+            $products_listed = null;
         }
         return view('frontend.farmer.dashboard')->with([
             'orders_count'=>$new_orders_count,
             'new_orders'=>$new_orders,
             'products_listed'=>$products_listed,
-            'product_count'=>$products_listed->count(),
+            'product_count'=>$products_listed!=null ? $products_listed->count() : 0,
 
         ]);
     }
-
-    
     public function loadFarm(){
         $category = Category::all();
         if(Auth::user()->rel_listing->count()>0){
@@ -57,8 +56,9 @@ class FarmerController extends Controller
         }
     }
     public function saveFarm(FarmerFarmListRequst $request){
-         dd($request->all());
-        //TODO:: check user have already listed farm or not
+        if(Auth::user()->rel_listing->count()>0){
+            return redirect('myfarm')->with('danger','You already have existing farm');
+        }
         try {
             DB::transaction(function () use ($request) {
                 $listing = new Listing();
@@ -93,24 +93,79 @@ class FarmerController extends Controller
 
             });
         }catch (\PDOException $e){
-           // session()->flash('danger', 'Farm Could Not Be Added !!!');
-             dd($e->getMessage());
+            session()->flash('danger', 'Farm Could Not Be Added !!!');
+//             dd($e->getMessage());
         }
         DB::commit();
         session()->flash('message', 'Farm Added Successfully');
         return redirect()->to('farmerdashboard')->with('success','Farm Addes Successfully');
     }
+    public function updateFarm(Request $request){
 
+        try {
+            DB::transaction(function () use ($request) {
+                $farm_id = Auth::user()->rel_listing[0]->id;
+                $listing =Listing::find($farm_id);
+                $listing->name = $request->farmName;
+                $listing->slug = str_replace(' ','_',$request->farmName);
+                $listing->email = $request->farmEmail;
+                $listing->category_id = $request->category_id;
+                $listing->phone = $request->farmPhone;
+                $listing->about = $request->description;
+                $listing->website = $request->farmWebsite;
+                $listing->facebook = $request->farmFacebook;
+                $listing->youtube = $request->farmYoutube;
+                $listing->user_id = Auth::user()->id;
+
+                $listing->save();
+
+                //update address
+                Address::find($listing->address_id)->update($this->getAddressRequest($request));
+                // get gallery image
+                if($request->gallery_image){
+                    $image_ids = [];
+                    $gallery = (array) $request->gallery_image;
+
+                    if(count($gallery)>0){
+                        foreach ( array_slice($gallery, 0, 10) as $image ) {
+                            if($image!=null){
+                                $uploaded = Helpers::uploadImageToDb($image);
+                                $image_ids[] =$uploaded ? $uploaded : null;
+                            }
+                        }
+                        $image_ids = array_filter($image_ids);
+                        // Attach
+                        if (count($image_ids) > 0)
+                            $listing->images()->attach($image_ids);
+                    }
+                }
+
+            });
+        }catch (\PDOException $e){
+            session()->flash('danger', 'Farm Could Not Be Added !!!');
+//             dd($e->getMessage());
+        }
+        DB::commit();
+        session()->flash('message', 'Farm Added Successfully');
+        return redirect()->to('farmerdashboard')->with('success','Farm Addes Successfully');
+
+    }
     public function _addAddress($request){
-        //address
-        $address_array = [
-            'province'=>$request->farmProvince,
-            'district'=>$request->farmDistrict,
-            'specific_address'=>$request->farmSpecificAddress,
-            'city'=>$request->farmCity,
-        ];
+        $address_array = $this->getAddressRequest($request);
         //now create
        $address = Address::create($address_array);
         return empty($address) ? null : $address->id;
     }
+    public function getAddressRequest($request){
+        //address
+        return [
+            'province'=>$request->farmProvince,
+            'district'=>$request->farmDistrict,
+            'specific_address'=>$request->farmSpecificAddress,
+            'city'=>$request->farmCity,
+            'latitude'=>$request->latitude,
+            'longitude'=>$request->longitude,
+        ];
+    }
+
 }

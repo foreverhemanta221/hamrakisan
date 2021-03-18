@@ -56,7 +56,21 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('report/farm')}}"><i class="fa fa-circle-o"></i> Farm Report </a></li>
-                    {{--  <li><a href="#"><i class="fa fa-circle-o"></i> Add Advertisment</a></li>  --}}
+
+                </ul>
+            </li>
+            <li class="header">Orders</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-sitemap"></i>
+                    <span>Orders</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('orders.index')}}"><i class="fa fa-circle-o"></i> All Orders</a></li>
+
 
                 </ul>
             </li>
