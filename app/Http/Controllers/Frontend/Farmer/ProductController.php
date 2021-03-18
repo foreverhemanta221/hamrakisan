@@ -62,6 +62,7 @@ class ProductController extends Controller
     }
     public function destroy(Request $request){
         if($request->ajax()){
+//            dd($request->id);
             FarmProduct::find($request->id)->delete();
             Session()->flash('message',"Product Deleted Successfully");
         }

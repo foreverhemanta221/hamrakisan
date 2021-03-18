@@ -25,28 +25,29 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th>Requested Date</th>
                         <th>Farm Name</th>
                         <th>Farmer Name</th>
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Stauts</th>
-                        <th>Requested Date</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($farmlist as $farmrequest)
                         <tr>
+                            <td>
+                                {{$farmrequest->created_at->format('Y-m-d')}}
+                                <br/>
+                                {{($farmrequest->created_at->diffForHumans())}}
+                            </td>
                             <td>{{$farmrequest->farmName}}</td>
                             <td>{{$farmrequest->farmerName}}</td>
                             <td>{{$farmrequest->farmPhone}}</td>
                             <td>{{$farmrequest->farmLocation}}</td>
                             <td>{{$farmrequest->status == 0 ? 'new':'viewed'}}</td>
-                            <td>
-                                {{$farmrequest->created_at->format('d,M-Y')}}
-                                <br/>
-                                {{($farmrequest->created_at->diffForHumans())}}
-                            </td>
+
                             <td>
                                 <a href="{{URL::to('farmlistingrequest/'.$farmrequest->id)}}" class="btn btn-xs btn-info" style=" border-radius: 0px;"><i class="fa fa-edit"></i>Show</a>
                                 <a href="#" class="btn btn-xs btn-danger"  data-value="{{ $farmrequest->id }}" id="delete_image"
