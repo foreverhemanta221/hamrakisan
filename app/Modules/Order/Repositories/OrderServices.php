@@ -9,8 +9,9 @@ use App\Models\Order;
 class OrderServices implements OrderRepositoryInterface
 {
     public function allOrder(){
+      
         return Order::orderBy('created_at','desc')
-                    ->get();
+                    ->get()->map->format();
     }
     public function orderByUserId($user_id){
         return Order::where('user_id',$user_id)
@@ -25,12 +26,19 @@ class OrderServices implements OrderRepositoryInterface
             // ->get();
     }
 
-    public function getFarmorderByStatus($farm_id,$status=null){
-        return Order::where('farm_id',$farm_id)
-            ->orderBy('created_at','desc')
+    public function getFarmorderByStatus($farm_id=null,$status=null){
+        if($farm_id!=null){
+            return Order::where('farm_id',$farm_id)
+                ->orderBy('created_at','desc')
+                ->where('status',$status)
+                ->get()
+                ->map->format($status);
+        }
+        return Order::orderBy('created_at','desc')
             ->where('status',$status)
             ->get()
             ->map->format($status);
+
     }
 
     public  function getUserOrderByStatus($user_id,$staus=null){

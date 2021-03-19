@@ -11,7 +11,10 @@ class Address extends Model
         'landmark',
         'city',
         'province',
-        'district'
+        'specific_address',
+        'district',
+        'latitude',
+        'longitude'
     ];
     public function listings()
     {

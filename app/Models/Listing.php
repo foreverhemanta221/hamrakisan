@@ -55,7 +55,7 @@ class Listing extends Model
     public function images()
     {
         return $this->belongsToMany('App\Models\Images', 'listing_image', 'listing_id', 'image_id');
-    } 
+    }
 
     /**
      * Get the user that owns the Listing
@@ -66,7 +66,7 @@ class Listing extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    
+
     //feature image
     public function image_feature(){
         return $this->belongsTo('App\Models\Images','feature_image','id');
@@ -146,15 +146,27 @@ class Listing extends Model
     }
 
     public function getLatitude(){
+
         if($this->address){
-            return $this->address->latitude;
+            if($this->address->latitude!=null){
+                return $this->address->latitude;
+            }
+            return config('constants.map.lat');
         }
+        return config('constants.map.lat');
     }
 
     public function getLongtitude(){
+
         if($this->address){
-            return $this->address->longitude;
+            if($this->address->longitude!=null){
+                return $this->address->longitude;
+            }
+            return config('constants.map.lng');
         }
+
+        return config('constants.map.lng');
+
     }
 
     function getImageGalleryAttribute(){
@@ -178,8 +190,6 @@ class Listing extends Model
 
     //other function
     public function getFeatureImage($size=null){
-        // dd($this->images->count());
-        // dd($this->image_feature!==null);
         if ($this->image_feature!=null){
             switch ($size){
                 case 'small':
@@ -269,7 +279,7 @@ class Listing extends Model
 
 
     public function newOrders(){
-        
+
     }
 
      public function getFarmNameAvearageReview(){

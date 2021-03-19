@@ -17,7 +17,7 @@
         </div>
         <ul class="side-menu">
             <li class="active"><a href="{{URL::to('farmerdashboard')}}"><i class="fas fa-tachometer-alt"></i> {{__('dashboard.dashboard')}}</a></li>
-             <li><a href="{{URL::to('farmorder')}}"><i class="fas fa-clipboard-list"></i> Orders</a></li> 
+             <li><a href="{{URL::to('farmorder')}}"><i class="fas fa-clipboard-list"></i> {{__('dashboard.orders')}}</a></li>
             <li><a href="{{URL::to('myproduct')}}"><i class="fas fa-carrot"></i> {{__('dashboard.products')}}</a></li>
             <li><a href="{{URL::to('myfarm')}}"> <i class="fas fa-tractor"></i> {{__('dashboard.farm')}}</a></li>
             {{--  <li><a href="{{URL::to('farmreview')}}"><i class="fas fa-star-half-alt"></i> Reviews </a></li>  --}}

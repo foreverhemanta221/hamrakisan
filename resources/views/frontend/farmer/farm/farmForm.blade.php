@@ -140,6 +140,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-card">
+<<<<<<< HEAD
                          <div class="form-group">
                                 <h5> <span><i class="fas fa-image"></i></span> Upload Farm Images</h5>
                                 <div class="custom-file">
@@ -154,6 +155,10 @@
                         </div>
                         {{--  <input id="upload-foto-input" type="file" name="gallery_image[]" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">  --}}
                         {{--  <div class="form-group">
+=======
+                      <input id="upload-foto-input" type="file" name="gallery_image[]" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">
+                        <div class="form-group">
+>>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
                             <div class="upload-decor" id="up-img-decor">
                                 <img src="{{URL::asset('frontend/img/icons/img_up.png')}}" alt="">
                                 <p>upload 3-5 images of dimension 1920*1080</p>
@@ -161,10 +166,12 @@
                             </div>
                             <ul id="upload-img-rack">
                             </ul>
-                        </div>  --}}
+                        </div>
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="latitude" id="latitude" placeholder="Latitude">
                             <input type="hidden" class="form-control" name="longitude" id="longitude" placeholder="Longitude">
+                            <input type="hidden" class="form-control" name="latitude_val" id="latitude_val" value="" placeholder="Latitude">
+                            <input type="hidden" class="form-control" name="longitude_val" id="longitude_val" value="" placeholder="Longitude">
                             <h5><span><i class="fas fa-map-marked"></i></span>Locate your Farm</h5>
                             <div id="map">
                             </div>
@@ -200,10 +207,12 @@
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/farmerFarmLisingAjax.js')}}"></script>
+
     <script type="module" src="{{URL::asset('frontend/js/validations/farmerListFormValidation.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/handleFiles.js')}}"></script>
 
     <script>
-        {{--  AOS.init({
+        {{--  AOS.init({errFarmAddress
             once:true,
         });
         autocomplete(document.getElementById("list-farm-district"), farmArray);
@@ -214,93 +223,6 @@
         $('.venobox').venobox({
             share      : ['facebook', 'twitter','linkedin']
         });
-        $("#up-img-decor").click(function(){
-            alert('test')
-            $('#upload-foto-input').trigger("click")
-        });
-        //displaying image thumbnails
-        window.URL = window.URL || window.webkitURL;
-
-        const fileSelect = document.getElementById("custom-choose-file"),
-            fileList = document.getElementById("upload-img-rack");
-
-
-        function handleFiles(files) {
-            if (!files.length) {
-                fileList.innerHTML = "<p>No files selected!</p>";
-            } else {
-
-                // fileList.appendChild(list);
-                for (let i = 0; i < 10; i++) {
-                    let li = document.createElement("li");
-                    fileList.appendChild(li);
-
-                    const img = document.createElement("img");
-                    img.src = window.URL.createObjectURL(files[i]);
-                    img.onload = function() {
-                        window.URL.revokeObjectURL(this.src);
-                    }
-                    //li.appendChild(img);
-                    const info = document.createElement("div");
-                    info.innerHTML = `<span class="info-image-name">` + files[i].name + `</span><p>`+ (files[i].size/1048576).toFixed(2) + " MB";
-                    //li.appendChild(info);
-                    const imgBox=document.createElement("div")
-                    imgBox.setAttribute("class","img-Box");
-                    imgBox.append(img)
-                    imgBox.append(info)
-
-                    li.append(imgBox)
-
-                    const removeBtn=document.createElement("button")
-                    removeBtn.setAttribute('class','remove-btn')
-                    removeBtn.innerHTML=`<i class="far fa-times-circle"></i>`
-                    li.appendChild(removeBtn)
-
-                    $(".remove-btn").on('click',function(e){
-                        e.preventDefault()
-                        //alert("hhello")
-                        console.log("deleted")
-                        $(this).parent().fadeOut(
-                            300, function() { $(this).remove(); }
-                        );
-                    })
-                }
-            }
-        }
-
-
-        // for edit ad system-single input
-
-        function handleFileEdit(files) {
-            if (!files.length) {
-                fileList.innerHTML = " ";
-            } else {
-                let li = document.createElement("li");
-                fileList.appendChild(li);
-                const img = document.createElement("img");
-                img.src = window.URL.createObjectURL(files[0]);
-                //img.height = 60;
-                img.onload = function() {
-                    window.URL.revokeObjectURL(this.src);
-                    li.appendChild(img);
-                    // img.append()
-                    console.log($(this).parent().append(`<a href="">X</a>`))
-                    console.log( $(this).parent().find('a').addClass('img-del'))
-                    $('a.img-del').click(function(e){
-                        e.preventDefault()
-                        //alert("hu")
-                        $(this).parent().fadeOut();
-                        $(this).parent().remove();
-                    })
-                }
-            }
-        }
-        $('.remove-btn').click(function(){
-            console.log("deleted")
-            $(this).parents().find('li').fadeOut();
-        })
-
-
     </script>
     <!-- scripts end -->
 @endsection

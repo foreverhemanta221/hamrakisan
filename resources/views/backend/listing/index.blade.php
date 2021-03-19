@@ -28,9 +28,9 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th style="width: 15%">Name</th>
                                 <th>phone</th>
-                                <th>Address</th>
+                                <th style="width: 5%">Address</th>
                                 <th>Related User</th>
                                 <th>Listing Date</th>
                                 <th>Status</th>
@@ -51,9 +51,7 @@
                                         {{$listing->rel_user->phone_no ?? $listing->rel_user->email}}
                                     </td>
                                     <td>
-                                        {{$listing->created_at->format('d,M-Y')}}
-                                        {{--  <br/>
-                                        {{($listing->created_at->diffForHumans())}}  --}}
+                                        {{$listing->created_at->format('Y-m-d')}}
                                     </td>
                                     <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success'}}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing'}}</span></td>
                                     <td>
@@ -71,14 +69,14 @@
                 <!-- /.tab-pane -->
                 <div class="tab-pane" id="timeline">
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example2" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th style="width: 15%">Name</th>
                                 <th>phone</th>
-                                <th>Address</th>
+                                <th style="width: 5%">Address</th>
                                 <th>Related User</th>
-                                 <th>Listing Date</th>
+                                <th>Listing Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -97,9 +95,7 @@
                                         {{$listing->rel_user->phone_no ?? $listing->rel_user->email}}
                                     </td>
                                     <td>
-                                        {{$listing->created_at->format('d,M-Y')}}
-                                        {{--  <br/>
-                                        {{($listing->created_at->diffForHumans())}}  --}}
+                                        {{$listing->created_at->format('Y-m-d')}}
                                     </td>
                                     <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success'}}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing' }}</span></td>
                                     <td>
@@ -108,7 +104,6 @@
                                            data-toggle="modal" data-target="#delete_modal"
                                            title="Remove from this gallery" style=" border-radius: 0px;">Delete <i class="fa fa-trash" style="color: #ffffff"></i></a>
                                     </td>
-
                                 </tr>
                             @endforeach
                             </tbody>
@@ -119,12 +114,12 @@
 
                 <div class="tab-pane" id="settings">
                     <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example3" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>phone</th>
-                                <th>Address</th>
+                                <th style="width: 20%">Address</th>
                                 <th>Related User</th>
                                  <th>Listing Date</th>
                                 <th>Status</th>
@@ -145,9 +140,7 @@
                                         {{$listing->rel_user->phone_no ?? $listing->rel_user->email}}
                                     </td>
                                     <td>
-                                        {{$listing->created_at->format('d,M-Y')}}
-                                        {{--  <br/>
-                                        {{($listing->created_at->diffForHumans())}}  --}}
+                                        {{$listing->created_at->format('Y-m-d') }}
                                     </td>
                                     <td> <span class="{{$listing->status==0 ? 'badge-danger':'badge-success' }}" onclick="changeStatus({{$listing->id}},{{$listing->status}})"> {{$listing->status==1 ? 'Active':'Processing'}}</span></td>
                                     <td>
@@ -156,7 +149,6 @@
                                            data-toggle="modal" data-target="#delete_modal"
                                            title="Remove from this gallery" style=" border-radius: 0px;">Delete <i class="fa fa-trash" style="color: #ffffff"></i></a>
                                     </td>
-
                                 </tr>
                             @endforeach
                             </tbody>
@@ -200,14 +192,29 @@
     <script src="{{URL::asset('backend/plugin/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
     <script>
         $(function () {
-            $('#example1').DataTable()
-            $('#example2').DataTable({
+            $('#example1').DataTable({
                 'paging'      : true,
-                'lengthChange': false,
-                'searching'   : false,
+                'lengthChange': true,
+                'searching'   : true,
                 'ordering'    : true,
                 'info'        : true,
-                'autoWidth'   : false
+                'autoWidth'   : true
+            });
+            $('#example2').DataTable({
+                'paging'      : true,
+                'lengthChange': true,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : true,
+                'autoWidth'   : true
+            });
+            $('#example3').DataTable({
+                'paging'      : true,
+                'lengthChange': true,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : true,
+                'autoWidth'   : true
             })
         })
     </script>

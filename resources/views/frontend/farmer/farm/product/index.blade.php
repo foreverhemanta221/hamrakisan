@@ -22,15 +22,15 @@
                 <!-- dashboard cards -->
                 <div class="db-body">
                     <div class="d-flex justify-content-between mb-2">
-                        <h1>Products</h1>
-                        <a id="view-farm-btn" href="{{route('myproduct.create')}}" class="btn btn-outline-secondary mr-3">Add a product</a>
+                        <h1>{{__('product.products')}}</h1>
+                        <a id="view-farm-btn" href="{{route('myproduct.create')}}" class="btn btn-outline-secondary mr-3">{{__('product.add_a_product')}}</a>
                     </div>
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
                             @isset($myproducts)
                                 <?php $count=1;?>
-                                    
+
                                 @foreach($myproducts as $product)
                                 <div class="form-card">
                                     <div class="dbproducts">
@@ -42,9 +42,9 @@
                                             <div class="price">Rs.{{$product->price}} / {{$product->measure_unit}}</div>
                                             <div class="actions">
                                                 <label class="switch">
-                                                    <input type="checkbox" 
+                                                    <input type="checkbox"
                                                     {{$product->is_available== 1 ?'checked': ''}}
-                                                     onclick="changeStatus({{$product->id}},{{$product->is_available}})" 
+                                                     onclick="changeStatus({{$product->id}},{{$product->is_available}})"
                                                     />
                                                     <td>
                                                     </td>
@@ -52,10 +52,10 @@
                                                 </label>
                                                 <button class="btn btn-light" data-toggle="collapse" href="#productformcollapse{{$count}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                     <i class="far fa-edit mr-2"></i>
-                                                    Edit
+                                                    {{__('product.edit')}}
                                                 </button>
                                                 <a id="productDelete" data-toggle="modal" data-value="{{$product->id}}" data-target="#deleteModal" class="btn btn-outline-danger productDelete">
-                                                    Delete
+                                                    {{__('product.delete')}}
                                                 </a>
                                             </div>
 
@@ -65,7 +65,7 @@
                                             @csrf
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Change Product Image</label>
+                                                    <label for="">{{__('form.change_product_image')}}</label>
                                                     <input id="upload-foto-input" type="file" name="image" class="custom-file-input" onchange="handleFiles(this.files)" accept="image/*">
                                                     <div class="upload-decor" id="up-img-decor">
                                                         <img src="{{URL::asset('frontend/img/icons/img_up.png')}}" alt="">
@@ -80,12 +80,12 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Product Name</label>
+                                                    <label for="">{{__('form.product_name')}}</label>
                                                     <input type="text" class="form-control" name="name" id="" value="{{$product->name}}">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="">Minimum Order</label>
+                                                    <label for="">{{__('form.minimum_order')}}</label>
                                                     <input type="number" placeholder="Minimum Order" class="form-control" name="minimum_quantity"  value="{{$product->minimum_quantity}}" />
                                                 </div>
 
@@ -93,14 +93,14 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Price per Unit</label>
+                                                    <label for="">{{__('form.price_per_unit')}}</label>
                                                     <input type="number" placeholder="price per unit" name="price" id="" value="{{$product->price}}" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Unit</label>
+                                                    <label for="">{{__('form.unit')}}</label>
                                                     <div class="input-group">
                                                         <select class="custom-select" id="unitSelect" name="measure_unit" required>
                                                             @foreach(measureUnit() as $key=>$value)
@@ -112,13 +112,13 @@
                                             </div>
 
                                             <div class="col-md-12 text-center mt-4">
-                                                <button class="btn btn-primary" data-toggle="collapse" href="#productformcollapse1" role="button" aria-expanded="false" aria-controls="collapseExample">Update</button>
+                                                <button class="btn btn-primary" data-toggle="collapse" href="#productformcollapse1" role="button" aria-expanded="false" aria-controls="collapseExample">{{__('form.update')}}</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                
-                                
+
+
                                 <?php $count++; ?>
                                 @endforeach
                             @endisset
@@ -138,16 +138,16 @@
                 <div class="modal-header">
 
                     <h4 class="modal-title">
-                        <i class="fa fa-trash"></i> Are you sure you want to Delete this Product?
+                        <i class="fa fa-trash"></i> {{__('product.delete_message')}}
                     </h4>
                     <button type="button" class="close" data-dismiss="modal">&times; </button>
                 </div>
 
                 <div class="modal-footer">
                     <input type="hidden" name="_token" id="token" value="{{ Session::token() }}">
-                    <input type="submit" class="btn btn-danger pull-left delete_confirm" value="Yes, Delete this Product"
+                    <input type="submit" class="btn btn-danger pull-left delete_confirm" value="{{__('product.delete_confirm')}}"
                            id="delete_confirm">
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{__('product.cancel')}}</button>
                 </div>
             </div>
         </div>
@@ -161,6 +161,7 @@
     <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
+    <script src="{{URL::asset('frontend/js/handleFiles.js')}}"></script>
     <script>
         AOS.init({
             once:true,
@@ -168,103 +169,6 @@
         $('.venobox').venobox({
             share      : ['facebook', 'twitter','linkedin']
         });
-
-
-        $("#up-img-decor").click(function(){
-            $('#upload-foto-input').trigger("click")
-        })
-
-        //displaying image thumbnails
-
-        window.URL = window.URL || window.webkitURL;
-
-        const fileSelect = document.getElementById("custom-choose-file"),
-            fileList = document.getElementById("upload-img-rack");
-
-
-        function handleFiles(files) {
-            if (!files.length) {
-                fileList.innerHTML = "<p>No files selected!</p>";
-            } else {
-
-// fileList.appendChild(list);
-                for (let i = 0; i < 10; i++) {
-                    let li = document.createElement("li");
-                    fileList.appendChild(li);
-
-                    const img = document.createElement("img");
-                    img.src = window.URL.createObjectURL(files[i]);
-                    img.onload = function() {
-                        window.URL.revokeObjectURL(this.src);
-                    }
-//li.appendChild(img);
-
-                    const info = document.createElement("div");
-                    info.innerHTML = `<span class="info-image-name">` + files[i].name + `</span><p>`+ (files[i].size/1048576).toFixed(2) + " MB";
-//li.appendChild(info);
-                    const imgBox=document.createElement("div")
-                    imgBox.setAttribute("class","img-Box");
-                    imgBox.append(img)
-                    imgBox.append(info)
-
-                    li.append(imgBox)
-
-                    const removeBtn=document.createElement("button")
-                    removeBtn.setAttribute('class','remove-btn')
-                    removeBtn.innerHTML=`<i class="far fa-times-circle"></i>`
-                    li.appendChild(removeBtn)
-
-                    $(".remove-btn").on('click',function(e){
-                        e.preventDefault()
-                        //alert("hhello")
-                        console.log("deleted")
-                        $(this).parent().fadeOut(
-                            300, function() { $(this).remove(); }
-                        );
-                    })
-                }
-            }
-        }
-
-
-        // for edit ad system-single input
-
-        function handleFileEdit(files) {
-            if (!files.length) {
-                fileList.innerHTML = " ";
-            } else {
-                let li = document.createElement("li");
-
-                fileList.appendChild(li);
-
-                const img = document.createElement("img");
-                img.src = window.URL.createObjectURL(files[0]);
-                //img.height = 60;
-                img.onload = function() {
-                    window.URL.revokeObjectURL(this.src);
-
-                    li.appendChild(img);
-                    // img.append()
-
-                    console.log($(this).parent().append(`<a href="">X</a>`))
-                    console.log( $(this).parent().find('a').addClass('img-del'))
-
-                    $('a.img-del').click(function(e){
-                        e.preventDefault()
-                        //alert("hu")
-                        $(this).parent().fadeOut();
-                        $(this).parent().remove();
-                    })
-                }
-            }
-        }
-
-
-        $('.remove-btn').click(function(){
-            console.log("deleted")
-            $(this).parents().find('li').fadeOut();
-        })
-
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#db-sidebar').toggleClass('active');
@@ -308,6 +212,7 @@
             $(document).on('click', '#productDelete', function (e) {
                 var product_id = $(this).attr('data-value');
                 $("#delete_confirm").click(function () {
+                    console.log( '{{ url('/myproduct') }}' + '/' + product_id)
 
                     $.ajaxSetup({
                         headers: {'X-CSRF-TOKEN': '{{ Session::token() }}'}
@@ -326,7 +231,7 @@
                         },
                         error: function (result) {
                             console.log(result)
-                            window.location = '{{route('myproduct.index')}}';
+                            {{--window.location = '{{route('myproduct.index')}}';--}}
                         }
                     });
                 });

@@ -22,5 +22,8 @@ return [
     'rate_this_farm'=>'Rate this farm',
     'reviews'=>'Reviews',
     'leave_a_review'=>'Leave a Review',
-    'recommendations'=>'People also bought from'
+    'recommendations'=>'People also bought from',
+
+
+
 ];

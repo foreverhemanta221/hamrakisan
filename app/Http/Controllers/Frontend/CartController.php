@@ -23,7 +23,6 @@ class CartController extends Controller
         $user = Auth::user();
         if($user){
             $cartItems = \Cart::session($user->id)->getContent();
-            // dd($cartItems);
             return view('frontend.cart')->with('cartDetail',$cartItems);
         }
         return abort(404);

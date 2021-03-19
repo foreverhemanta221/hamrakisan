@@ -53,11 +53,6 @@
     <script src="{{URL::asset('frontend/js/jquery-3.3.1.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/bootstrap.min.js')}}"></script>
     @yield('scripts')
-    {{--  <script>
-        AOS.init();
-    </script>  --}}
-    <!-- scripts end -->
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
      @if(session()->has('message'))
@@ -81,6 +76,7 @@
         </script>
     @endif
 
+<<<<<<< HEAD
     @foreach ($errors->all() as $error)
     {{--  {{ $error }}<br/>  --}}
     <script>
@@ -92,6 +88,9 @@
             });
         </script>
     @endforeach
+=======
+
+>>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
 </body>
 </html>
 
