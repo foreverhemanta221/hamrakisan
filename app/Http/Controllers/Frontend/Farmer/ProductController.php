@@ -68,6 +68,7 @@ class ProductController extends Controller
         }
     }
     public function changeStatus(Request $request){
+        dd($request->all());
         if($request->ajax()){
             $product =FarmProduct::find($request->product_id);
             $status = $product->is_available==true ? false : true;

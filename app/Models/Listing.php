@@ -54,7 +54,7 @@ class Listing extends Model
 
     public function images()
     {
-        return $this->belongsToMany('App\Models\Images', 'listing_image', 'listing_id', 'image_id');
+        return $this->belongsToMany('App\Models\Images', 'listing_image', 'listing_id', 'image_id')->orderBy('created_at','desc');
     }
 
     /**
@@ -69,7 +69,7 @@ class Listing extends Model
 
     //feature image
     public function image_feature(){
-        return $this->belongsTo('App\Models\Images','feature_image','id');
+        return $this->belongsTo('App\Models\Images','feature_image','id')->orderBy('created_at','desc');
     }
 
     public function products(){

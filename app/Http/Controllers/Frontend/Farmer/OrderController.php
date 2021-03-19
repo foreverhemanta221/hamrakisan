@@ -33,10 +33,6 @@ class OrderController extends Controller
             ->with('deliveredOrder',$deliveredOrder)
             ->with('orders',$allOrders);
         }
-<<<<<<< HEAD
-        return redirect()->to('myfarm')->with('danger',"You have to list you farm first");
-=======
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
     }
      public function viewFarmOrders($id){
         $order = Order::find($id);

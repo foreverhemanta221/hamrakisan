@@ -1,10 +1,12 @@
 /node_modules
 /public/hot
 /public/backend/uploads/images.zip
+/public/backend/uploads
 /public/storage
 /storage/*.key
 /vendor
 /db
+/.env.example
 /.env
 /.idea
 .phpunit.result.cache

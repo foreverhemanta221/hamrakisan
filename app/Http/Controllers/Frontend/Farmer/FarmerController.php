@@ -37,22 +37,14 @@ class FarmerController extends Controller
         $product_listed = 0;
         if($user->listed_farm){
             $products_listed = $user->listed_farm->products;
-<<<<<<< HEAD
-            $product_count=$product_listed->count();
-=======
         }else{
             $products_listed = null;
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
         }
         return view('frontend.farmer.dashboard')->with([
             'orders_count'=>$new_orders_count,
             'new_orders'=>$new_orders,
             'products_listed'=>$products_listed,
-<<<<<<< HEAD
-            'product_count'=>$product_count,
-=======
             'product_count'=>$products_listed!=null ? $products_listed->count() : 0,
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
 
         ]);
     }
@@ -66,13 +58,9 @@ class FarmerController extends Controller
         }
     }
     public function saveFarm(FarmerFarmListRequst $request){
-<<<<<<< HEAD
-        //TODO:: check user have already listed farm or not
-=======
         if(Auth::user()->rel_listing->count()>0){
             return redirect('myfarm')->with('danger','You already have existing farm');
         }
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
         try {
             DB::transaction(function () use ($request) {
                 $listing = new Listing();

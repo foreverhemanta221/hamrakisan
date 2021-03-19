@@ -77,14 +77,9 @@
 
                                         </thead>
                                         <tbody>
-<<<<<<< HEAD
-                                            @isset($products_listed)
-                                                
-=======
                                         @if($product_count!=0)
 
 
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
                                             @foreach ($products_listed  as $product)
                                             {{-- {{dd($product)}} --}}
                                             <tr>
@@ -100,12 +95,7 @@
                                                 <td>Rs. {{$product->minimum_quantity*$product->price}}</td>
                                             </tr>
                                             @endforeach
-<<<<<<< HEAD
-                                            
-                                            @endisset
-=======
                                         @endif
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
                                         </tbody>
                                     </table>
 
@@ -146,11 +136,7 @@
                                                 <td>
                                                     <div class="cus-orders">
                                                       @foreach($order->rel_orderItems as $item)
-<<<<<<< HEAD
-                                                           <p>{{$item->rel_products->name}},</p>                                                      
-=======
                                                            {{$item->rel_products->name}}
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
                                                       @endforeach
                                                     </div>
                                                 </td>
