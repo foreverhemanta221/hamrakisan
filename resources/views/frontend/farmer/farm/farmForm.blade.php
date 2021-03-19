@@ -143,10 +143,15 @@
                          <div class="form-group">
                                 <h5> <span><i class="fas fa-image"></i></span> Upload Farm Images</h5>
                                 <div class="custom-file">
-                                    <input type="file" name="gallery_image[]" multiple onchange="handleFiles(this.files)"  class="custom-file-input" accept="image/*" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                    <input type="file" name="gallery_image[]" multiple onchange="handleFiles(this.files)"  class="custom-file-input" accept="image/*" id="gallery_image" >
+                                    <label class="custom-file-label" for="gallery_image">Choose file</label>
                                 </div>
                          </div>
+                          <div class="alert alert-danger" id="errgallery_image" role="alert">
+                            @error('gallery_image')
+                            <small>{{$message}}</small>
+                            @enderror
+                        </div>
                         {{--  <input id="upload-foto-input" type="file" name="gallery_image[]" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">  --}}
                         {{--  <div class="form-group">
                             <div class="upload-decor" id="up-img-decor">

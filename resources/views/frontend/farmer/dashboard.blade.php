@@ -93,6 +93,8 @@
 
                                         </thead>
                                         <tbody>
+                                            @isset($products_listed)
+                                                
                                             @foreach ($products_listed  as $product)
                                             {{-- {{dd($product)}} --}}
                                             <tr>
@@ -108,6 +110,8 @@
                                                 <td>Rs. {{$product->minimum_quantity*$product->price}}</td>
                                             </tr>
                                             @endforeach
+                                            
+                                            @endisset
                                         </tbody>
                                     </table>
                                 </div>
