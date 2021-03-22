@@ -96,6 +96,8 @@
                             @if($order->status=='initial')
                                 <a onclick="acceptOrder({{$order->id}})"  class="btn btn-success">Accpt Order</a>
                                 <a onclick="rejectOrder({{$order->id}})"  class="btn btn-danger">Reject Order</a>
+                            @else
+                                <a class="btn btn-info">{{$order['status']}}</a>
                             @endif
                         </div>
                     </div>
@@ -109,6 +111,9 @@
 @endsection
 
 @section('js')
+
+    <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
         function acceptOrder(orderId) {
             if(confirm('are you sure you want to accept this order ?')){
@@ -118,19 +123,19 @@
         }
 
         function rejectOrder(orderId) {
-            if(confirm('are you sure you want to accept this order ?')){
+            if(confirm('are you sure you want to reject this order ?')){
                 let status = '<?php echo App\Models\Order::ORDER_REJECT ?>'
                 ajaxForStatusChange(orderId,status)
             }
         }
         function ajaxForStatusChange(orderId,status) {
+            alert(status,orderId)
 
             let base_url = 'http://127.0.0.1:8000';
-            axios.post(base_url+'/order/change-status', {
+            axios.post(base_url+'/orderstatus',{
                 orderId: orderId,
                 orderStatus: status
             }).then(function (response) {
-
                 if(response.data.status===false){
 
                     window.location = '{{route('userlogin')}}'

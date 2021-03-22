@@ -1,16 +1,19 @@
 <?php
 namespace App\Http\Controllers\Frontend;
 use App\CartItem;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Exception;
-use App\Models\FarmProduct;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\FarmProduct;
 use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\OrderMailToUser;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Exception;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+
 class OrderController extends Controller
 {
     public function checkout(){
@@ -40,10 +43,21 @@ class OrderController extends Controller
                         ]);
                     }
                 }
+                //message user about order details:
+                if(Auth::user()->email!=null){
+                    $orderdetail = "this is order detail";
+                    //  Mail::to($request->email)->send(new OrderMailToUser($orderdetail));
+                    // Mail::to(Auth::user()->email)->send(new OrderMailToUser($orders));
+                    Mail::to('bindas.prem.75@gmailo.com')->send(new OrderMailToUser($orders));
+                    }
+                
                 foreach($cart->getContent() as $cartItem){
                     $cart->remove($cartItem->id);
                 }
             });
+           
+           
+
             session()->flash('message',"Order placed successfully, You can check your oders on your dashbord also. Thank you !!!");
             return redirect()->to('userdashboard');
         }catch(Exception $ex){
@@ -69,7 +83,6 @@ class OrderController extends Controller
         // return "order placed successfully";
     }
     public function changestatus(Request $request){
-        // dd($request->all());
         try{
             DB::transaction(function ()use($request){
                  Order::where('id', $request->orderId)->update([

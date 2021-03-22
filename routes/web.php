@@ -85,6 +85,8 @@ Route::group(['middleware' => ['admin']], function () {
 
     //order
     route::resource('orders','Backend\OrderController');
+    //order change status by admin
+    route::post('orderstatus','Backend\OrderController@orderstatus');
 
 
     //logout
@@ -105,6 +107,7 @@ Route::group(['middleware' => ['admin']], function () {
     //    other functionality
     route::get('report/farm','Backend\ReportController@getFarmerReportView');
     route::post('report/farm','Backend\ReportController@generateFarmReport');
+
 });
 
 Route::group(['middleware'=>['locale']],function(){

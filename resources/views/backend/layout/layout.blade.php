@@ -25,7 +25,8 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{URL::asset('backend/plugin/bootstrap-daterangepicker/daterangepicker.css')}}">
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="{{URL::asset('backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+    {{--  <link rel="stylesheet" href="{{URL::asset('backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">  --}}
+    <link rel="stylesheet" href="{{URL::asset('backend/plugin/bootstrap-wysihtml5/bootstrap3-wysihtml5.css')}}">
     @yield('css')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -69,6 +70,7 @@
 <script src="{{URL::asset('backend/plugin/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="{{URL::asset('backend/plugin/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
+
 <!-- Slimscroll -->
 <script src="{{URL::asset('backend/plugin/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->

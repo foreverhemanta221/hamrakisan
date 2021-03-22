@@ -88,17 +88,21 @@
                                     </select>
                                 </div>
                             </div>
+                            {{--  {{dd($userdetail->district)}}  --}}
+                            {{--  {{dd(getDistrict())}}  --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="acc_district">District</label>
-                                    <select class="custom-select district_dropdown" id="inputGroupSelect01" name="district" required>
+                                    <select class="custom-select district_dropdown" id="inputGroupSelect02" name="district" required>
+                                        {{--  {{dd(getDistrict())}}  --}}
                                         @if($userdetail->province!=null)
+
                                             @foreach(checkProvinceDistrict($userdetail->province) as $key=>$value)
-                                                <option value="{{$value}}">{{$value}}</option>
+                                                <option class="abc" value="{{$value}}" >{{$key.$value}}{{$key}}</option>
                                             @endforeach
                                         @else
                                             @foreach(getDistrict() as $key=>$value)
-                                                <option value="{{$value}}">{{$value}}</option>
+                                                <option class="cde" value="{{$value}}">{{$value}}</option>
                                             @endforeach
                                         @endif
                                     </select>

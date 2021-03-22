@@ -53,7 +53,7 @@
                                             @if($listing->minPriceSellsProduct()!=null)
                                                 {{--  @foreach($listing->products as $product)  --}}
                                                     <li>{{$listing->minPriceSellsProduct()->name}}</li>
-                                                     <li>{{$listing->minPriceSellsProduct()->price}}</li>
+                                                     <li>Rs.{{ $listing->minPriceSellsProduct()->price}}</li>
                                                 {{--  @endforeach  --}}
                                             @endif
                                         </ul>

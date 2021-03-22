@@ -140,25 +140,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-card">
-<<<<<<< HEAD
-                         <div class="form-group">
-                                <h5> <span><i class="fas fa-image"></i></span> Upload Farm Images</h5>
-                                <div class="custom-file">
-                                    <input type="file" name="gallery_image[]" multiple onchange="handleFiles(this.files)"  class="custom-file-input" accept="image/*" id="gallery_image" >
-                                    <label class="custom-file-label" for="gallery_image">Choose file</label>
-                                </div>
-                         </div>
-                          <div class="alert alert-danger" id="errgallery_image" role="alert">
-                            @error('gallery_image')
-                            <small>{{$message}}</small>
-                            @enderror
-                        </div>
-                        {{--  <input id="upload-foto-input" type="file" name="gallery_image[]" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">  --}}
-                        {{--  <div class="form-group">
-=======
                       <input id="upload-foto-input" type="file" name="gallery_image[]" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">
                         <div class="form-group">
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
                             <div class="upload-decor" id="up-img-decor">
                                 <img src="{{URL::asset('frontend/img/icons/img_up.png')}}" alt="">
                                 <p>upload 3-5 images of dimension 1920*1080</p>

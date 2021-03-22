@@ -82,7 +82,7 @@ class CategoryController extends Controller
                 return response()->json(['status' => true]);
             }
             $request->session()->flash('danger', 'Something went wrong.');
-            return response()->json(['status' => true]);
+            return response()->json(['status' => false]);
 
         }
     }

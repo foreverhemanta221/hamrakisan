@@ -30,7 +30,8 @@
     <script src="{{URL::asset('frontend/js/aos.min.js')}}"></script>
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
-    <script src="{{URL::asset('frontend/js/addressAjax.js')}}"></script>
+    {{--  <script src="{{URL::asset('frontend/js/addressAjax.js')}}"></script>  --}}
+    <script src="{{URL::asset('frontend/js/farmerFarmLisingAjax.js')}}"></script>
     <script src="{{URL::asset('frontend/js/handleFiles.js')}}"></script>
     <script>
         AOS.init({

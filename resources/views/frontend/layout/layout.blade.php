@@ -76,9 +76,7 @@
         </script>
     @endif
 
-<<<<<<< HEAD
     @foreach ($errors->all() as $error)
-    {{--  {{ $error }}<br/>  --}}
     <script>
             swal({
                 buttons: false,
@@ -88,9 +86,6 @@
             });
         </script>
     @endforeach
-=======
-
->>>>>>> 55a5a11cfdcc192761d47b4de9877df8ff561cb2
 </body>
 </html>
 
