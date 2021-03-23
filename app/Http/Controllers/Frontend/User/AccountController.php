@@ -18,6 +18,7 @@ class AccountController extends Controller
     public function  updateAccount(Request $request){
         try{
             DB::transaction(function ()use($request){
+                // dd($request);
                 $user = Auth::user();
                 $user->update($this->setData($request));
             });
@@ -30,6 +31,7 @@ class AccountController extends Controller
     public function setData($request){
         $data = [
           'name'=>$request->name,
+          'phone_no'=>$request->phone,
           'province'=>$request->province,
           'district'=>$request->district,
           'city'=>$request->city,

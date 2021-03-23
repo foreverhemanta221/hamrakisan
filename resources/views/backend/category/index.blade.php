@@ -114,11 +114,11 @@
                         },
                         success: function (result) {
                             console.log(result)
-                            window.location = '{{route('category.index')}}';
+                            {{--  window.location = '{{route('category.index')}}';  --}}
                         },
                         error: function (result) {
                             console.log(result)
-                            window.location = '{{route('category.index')}}';
+                            {{--  window.location = '{{route('category.index')}}';  --}}
                         }
                     });
                 });

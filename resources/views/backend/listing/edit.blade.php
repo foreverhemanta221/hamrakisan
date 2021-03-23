@@ -278,6 +278,44 @@
 
                 </div>
             </div>
+{{--  
+             <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">Image And Gallery</h3>
+                            <div class="pull-right box-tools">
+                                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                    <i class="fa fa-minus"></i></button>
+
+                            </div>
+                        </div>
+                        <div class="box box-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group {{ $errors->has('feature_image') ? ' has-error' : '' }}">
+                                        <label>Feature <span style="color: #ff0000">*</span></label>
+                                        @if($errors->has('feature_image'))
+                                            <span class="error">{{ $errors->first('feature_image') }}</span>
+                                        @endif
+                                        <input type="file" name="feature_image"  class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group {{ $errors->has('gallery_image') ? ' has-error' : '' }}">
+                                        <label>Gallery <span style="color: #ff0000">*</span></label>
+                                        @if($errors->has('gallery_image'))
+                                            <span class="error">{{ $errors->first('gallery_image') }}</span>
+                                        @endif
+                                        <input type="file"  name="gallery_image[]" class="form-control" multiple >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>  --}}
             <div class="row">
 
                 <div class="col-md-12">

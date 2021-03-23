@@ -55,6 +55,9 @@ Route::group(['middleware' => ['admin']], function () {
     //websetting
 
     //listing related route here
+    //listing feature image update
+    route::put('listing/updateFeatureImage/{id}','Backend\ListingController@updateFeatureImage')->name('updateFarmFeatureImage');
+
     route::get('setting',function (){
         return view('backend.listing.settings.index');
     });

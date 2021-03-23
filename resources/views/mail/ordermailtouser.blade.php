@@ -132,18 +132,45 @@
     </style>
 </head>
 <body>
-
-<div class="mailOverlap">
-    <div class="container">
-        <img class="logo" src="{{URL::asset('frontend/img/logo.png')}}" alt="">
-    </div>
-    <div class="bgImg" style="background: url({{URL::asset('frontend/img/mailbgimg.png')}});;"></div>
-</div>
 <section class="mailHead">
     <div class="container">
         <div class="mailCard">
             <h1>Thank you for connect with Hamrakisan..</h1>
             <br>
+            
+            <p>Here is your order details. If there is some shor of complain please contact us.</p>
+            <hr/>
+            <h3>Farm Details </h3>
+                <p>Farm Name : {{$order['farm']['farm_name']}}</p>
+                <p>Farm Email : {{$order['farm']['farm_email']}}</p>
+                <p>Farm Address : {{$order['farm']['farm_address']}}</p>
+                <p>Farm Phone: {{$order['farm']['phone']}}</p>
+
+
+            <hr/>
+            <h3> User Details</h3>
+                <p>Name : {{$order['user']['name']}}</p>
+                <p>Email: {{$order['user']['email']}}</p>
+                <p>Address : {{$order['user']['address']}}</p>
+                <p>Phone: {{$order['user']['phone']}}</p>
+
+            <hr/>
+
+            <h3> Order Details </h3>
+
+                @foreach ($orderItems as $item)
+                    <img src="{{ URL::asset( $item->format()['productDetail']['image'] )}}" style="max-height: 250px; width:auto ; object-fit:contain" />
+                    <p>Product Name : {{$item->format()['productDetail']['name']}}</p>
+                    <p>totla unit: {{$item->format()['orderDetail']['qty']}}</p>
+                    <p>Price Rate: Rs. {{$item->format()['productDetail']['rate']}}</p>
+                    <hr>
+               @endforeach
+
+                <p>Order Date: {{$order['ordered_at']}}</p>
+                <p>Order Status: {{$order['status']}}</p>
+                <p>Payment Method: {{$order['payment_method']}}</p>
+                <p>Total Price: Rs{{$order['price']}}</p>
+
             <p>We will get back to you soon. Take care. </p>
             <div class="mailBy">
                 Thanks
@@ -156,11 +183,7 @@
 
 <section class="mailFooter">
     <div class="container">
-        <h2>Keep un touch</h2>
-        <ul class="social">
-            <li><a href=""><img class="img-fluid" src="{{URL::asset('frontend/img/facebook-f-brands.svg')}}" alt=""></a></li>
-            <li><a href=""><img class="img-fluid" src="{{URL::asset('frontend/img/instagram-brands.svg')}}" alt=""></a></li>
-        </ul>
+        <h2>Keep on touch With Us</h2>
         <p class="copyrights">
             Copyright © 2020 hamrakisan.com. All rights reserved.
         </p>

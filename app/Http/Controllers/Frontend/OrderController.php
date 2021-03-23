@@ -22,12 +22,24 @@ class OrderController extends Controller
     }
     public function order(Request $request){
         try{
+            if(Auth::user()->phone_no==null){   
+                session()->flash('danger', "Please update phone number with valid details and try again !!!");
+                return redirect()->to('/myaccount');
+            }
             DB::transaction(function ()use($request){
-                $cart= \Cart::session(Auth::user()->id);
+                $user =Auth::user();
+                $cart= \Cart::session($user->id);
                 $groupByFarmname =   $cart->getContent()->groupBy('farm_id');
-                foreach($groupByFarmname as $farmId=>$productArray) {
+
+                //when cart is empty ??
+                // if($groupByFarmname->count()==0){
+                //     // session()->flash('danger', 'your cart is empty !!');
+                //     return redirect()->to('/')->with('danger', 'your cart is empty !!');
+                // }
+                    
+                    foreach($groupByFarmname as $farmId=>$productArray) {
                     $orders =   Order::create([
-                        'user_id'=>Auth::user()->id,
+                        'user_id'=>$user->id,
                         'farm_id'=>$farmId,
                         'status'=>Order::ORDER_INITIAL,
                         'payment_method'=>$request->payment_method
@@ -43,12 +55,13 @@ class OrderController extends Controller
                         ]);
                     }
                 }
-                //message user about order details:
-                if(Auth::user()->email!=null){
-                    $orderdetail = "this is order detail";
-                    //  Mail::to($request->email)->send(new OrderMailToUser($orderdetail));
-                    // Mail::to(Auth::user()->email)->send(new OrderMailToUser($orders));
-                    Mail::to('bindas.prem.75@gmailo.com')->send(new OrderMailToUser($orders));
+                
+                // dd($orders->format(),$orders->rel_orderItems->first()->format());
+
+                // message user about order details:
+                if($user->email!=null){
+                    Mail::to($user->email)->send(new OrderMailToUser($orders));
+                    Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($orders));
                     }
                 
                 foreach($cart->getContent() as $cartItem){
@@ -56,16 +69,17 @@ class OrderController extends Controller
                 }
             });
            
-           
-
             session()->flash('message',"Order placed successfully, You can check your oders on your dashbord also. Thank you !!!");
-            return redirect()->to('userdashboard');
+            return redirect()->to('/dashboard');
         }catch(Exception $ex){
+            // dd($ex->getMessage());
+            // session()->flash('warning', $ex->getMessage());
             session()->flash('warning', "Order could not be placed,Please try again later !!!");
             return redirect()->to('mycart');
         }
         // return "order placed successfully";
     }
+
     public function orderCancel(Request $request,$order_id){
         try{
             DB::transaction(function ()use($request,$order_id){

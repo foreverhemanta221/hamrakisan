@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/animate.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/aos.css')}}">
     <link rel="stylesheet" href="{{URL::asset('frontend/css/venobox.min.css')}}">
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6059c718f6067000116b07a0&product=inline-share-buttons" async="async"></script>
     <style>
         #mapShow {
             height: 250px;
@@ -64,6 +65,7 @@
                                 <?php echo strip_tags($listing->about) ?>
                             </p>
                             <a href="">{{__('farm.read_all')}}</a>
+                          
                             <h6 class="mt-3">{{__('farm.contact_farm')}}</h6>
                             <ul class="farm-contacts">
                                 <li><a href="tel:{{$listing->phone}}"><i class="fas fa-phone-alt"></i><span> {{__('farm.call')}}</span></a></li>
@@ -77,6 +79,7 @@
                                 <li><a href=""><i class="fab fa-youtube"></i></a></li>
                             </ul>
                         </div>
+                        <div class="sharethis-inline-share-buttons"></div>
                     </div>
 
                 </div>
