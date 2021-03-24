@@ -28,6 +28,7 @@
                             <div class="col-xl-12">
                                 <h6>Recent Orders</h6>
                                  <div class="db-table-wrapper">
+                                     @isset($orders)
                                     <table id="asdas" class="table table-responsive-sm dashboard-table">
                                         <thead>
                                         <tr>
@@ -41,6 +42,8 @@
                                         </thead>
                                         <tbody>
                                         @foreach($orders as $order)
+                                        @if($order->format())
+                                            
                                         <tr>
                                             <td>
                                                 <div class="customer">
@@ -79,10 +82,13 @@
                                             </td>
                                             
                                         </tr>
+                                        
+                                        @endif
                                         @endforeach
 
                                         </tbody>
                                     </table>
+                                    @endisset
                                 </div>
                             </div>
                         </div>
@@ -129,7 +135,7 @@
         }
 
          function ajaxForStatusChange(orderId,status) {
-            let base_url = 'http://127.0.0.1:8000';
+            let base_url = 'https://hamrakisan.com/';
             axios.post('order/change-status', {
                 orderId: orderId,
                 orderStatus: status

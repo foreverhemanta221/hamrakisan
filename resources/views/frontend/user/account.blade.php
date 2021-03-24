@@ -38,7 +38,7 @@
     <script src="{{URL::asset('frontend/js/handleFiles.js')}}"></script>
 
     <script>
-        AOS.init({
+        AOS.init({  
             once:true,
         });
 

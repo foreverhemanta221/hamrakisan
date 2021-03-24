@@ -102,7 +102,7 @@
 
                                             @foreach(checkProvinceDistrict($userdetail->province) as $key=>$value)
                                                 {{--  {{$userdetail->district.' & '.$value}}  --}}
-                                                <option value="{{$value}}" {{$userdetail->district==$value ? 'selected': ''}} se>{{$key}}</option>
+                                                <option value="{{$value}}" {{$userdetail->district==$value ? 'selected': ''}} >{{$key}}</option>
                                             @endforeach
                                         @else
                                             @foreach(getDistrict() as $key=>$value)

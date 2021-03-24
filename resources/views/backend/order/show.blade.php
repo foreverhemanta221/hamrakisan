@@ -129,9 +129,8 @@
             }
         }
         function ajaxForStatusChange(orderId,status) {
-            alert(status,orderId)
 
-            let base_url = 'http://127.0.0.1:8000';
+            let base_url = 'https://hamrakisan.com/';
             axios.post(base_url+'/orderstatus',{
                 orderId: orderId,
                 orderStatus: status

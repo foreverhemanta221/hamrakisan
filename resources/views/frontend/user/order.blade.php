@@ -24,6 +24,7 @@
                 <!-- dashboard cards -->
                 <div class="db-body">
                     <h1>Orders</h1>
+                    @isset($orders)
                     <div class="container">
                         <div class="row mt-5">
                             <div class="col-xl-12">
@@ -32,7 +33,7 @@
                                     <table id="asdas" class="table table-responsive-sm dashboard-table">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Farm</th>
+                                            <th scope="col">Farm ing</th>
                                             <th scope="col">Ordered</th>
                                             <th scope="col">Worth</th>
                                             <th scope="col">Status</th>
@@ -42,6 +43,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($orders as $order)
+                                         @if($order->format())
                                         <tr>
                                             <td>
                                                 <div class="customer">
@@ -79,10 +81,12 @@
                                             </td>
                                             
                                         </tr>
+                                        @endif
                                         @endforeach
 
                                         </tbody>
                                     </table>
+                                
                                 </div>
                                 <div class="row bg-white">
                                     <div class="col">
@@ -97,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-
+                    @endisset
                 </div>
                 <!-- dashboard cards -->
         </div>
@@ -143,7 +147,7 @@
         }
 
          function ajaxForStatusChange(orderId,status) {
-            let base_url = 'http://127.0.0.1:8000';
+            let base_url = 'https://hamrakisan.com/';
             axios.post('order/change-status', {
                 orderId: orderId,
                 orderStatus: status

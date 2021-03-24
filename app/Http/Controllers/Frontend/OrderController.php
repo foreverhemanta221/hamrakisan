@@ -30,15 +30,15 @@ class OrderController extends Controller
                 $user =Auth::user();
                 $cart= \Cart::session($user->id);
                 $groupByFarmname =   $cart->getContent()->groupBy('farm_id');
+                $order =null;
 
                 //when cart is empty ??
                 // if($groupByFarmname->count()==0){
                 //     // session()->flash('danger', 'your cart is empty !!');
                 //     return redirect()->to('/')->with('danger', 'your cart is empty !!');
                 // }
-                    
-                    foreach($groupByFarmname as $farmId=>$productArray) {
-                    $orders =   Order::create([
+                foreach($groupByFarmname as $farmId=>$productArray) {
+                    $order =   Order::create([
                         'user_id'=>$user->id,
                         'farm_id'=>$farmId,
                         'status'=>Order::ORDER_INITIAL,
@@ -47,7 +47,7 @@ class OrderController extends Controller
                     $orderItems = [];
                     foreach ($productArray as $item) {
                         OrderItem::create([
-                        'order_id'=>$orders->id,
+                        'order_id'=>$order->id,
                         'product_id'=>$item->id,
                         'qty'=>$item->quantity,
                         'price'=>$item->quantity * $item->price,
@@ -56,14 +56,15 @@ class OrderController extends Controller
                     }
                 }
                 
-                // dd($orders->format(),$orders->rel_orderItems->first()->format());
+                // dd($order->format());
 
                 // message user about order details:
-                if($user->email!=null){
-                    Mail::to($user->email)->send(new OrderMailToUser($orders));
-                    Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($orders));
-                    }
-                
+                if($order!==null){
+                    // if($user->email!=null){
+                    //     Mail::to($user->email)->send(new OrderMailToUser($order));
+                    //    Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($order));
+                    //     }
+                }
                 foreach($cart->getContent() as $cartItem){
                     $cart->remove($cartItem->id);
                 }
