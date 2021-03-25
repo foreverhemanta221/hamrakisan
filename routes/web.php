@@ -7,6 +7,8 @@
 
 //basic login only here
     //adminlogin
+    // Auth::routes(['verify' => true]);
+
     route::get('admin',function (){
         return view('auth.login');
     })->name('adminlogin');
@@ -18,6 +20,10 @@
     route::get('/forgot-password',function (){
        return view('frontend.auth.forgot_password');
     });
+    // verify users
+    Route::get('/verify/{token}', 'VerifyController@VerifyEmail')->name('verify');
+    // Route::get('/email/resend/', 'VerifyController@VerifyEmailResend')->name('verification.resend');
+
     //code verification
     route::get('verificationcode',function (){
        return view('frontend.auth.verification_code');
@@ -113,6 +119,8 @@ Route::group(['middleware' => ['admin']], function () {
 
 });
 
+// Route::group(['middleware'=>['locale','verified']],function(){
+    
 Route::group(['middleware'=>['locale']],function(){
 
     //auth

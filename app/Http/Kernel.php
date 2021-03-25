@@ -70,7 +70,8 @@ class Kernel extends HttpKernel
         'userApi'=>\App\Http\Middleware\UserApiMiddleware::class,
         'authkey'=>AuthKey::class,
         'userfarmer'=>\App\Http\Middleware\FarmerAndUserMiddleware::class,
-        'locale'=>\App\Http\Middleware\LocaleMiddleware::class
+        'locale'=>\App\Http\Middleware\LocaleMiddleware::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 
     /**
