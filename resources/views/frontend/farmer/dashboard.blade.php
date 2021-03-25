@@ -141,7 +141,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="order-status {{$order->format()['status']=='initial' ? 'pending' :$order->format()['status']}} pending">{{$order->format()['status']}}</span>
+                                                    <span class="order-status  @if($order->status=='initial') pending @elseif($order->status=='success') delivered  @else cancelled @endif ">{{$order->status}}</span>
                                                 </td>
                                                 <td>
                                                     <span class="order-worth">

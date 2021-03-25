@@ -65,7 +65,7 @@
 
                 <div class="modal-footer">
                     <input type="hidden" name="_token" id="token" value="{{ Session::token() }}">
-                    <input type="submit" class="btn btn-danger pull-left" value="Yes, Delete this image"
+                    <input type="submit" class="btn btn-danger pull-left" value="Yes, Delete"
                            id="delete_confirm">
                     <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
                 </div>
@@ -114,11 +114,11 @@
                         },
                         success: function (result) {
                             console.log(result)
-                            window.location = '{{route('category.index')}}';
+                            {{--  window.location = '{{route('category.index')}}';  --}}
                         },
                         error: function (result) {
                             console.log(result)
-                            window.location = '{{route('category.index')}}';
+                            {{--  window.location = '{{route('category.index')}}';  --}}
                         }
                     });
                 });

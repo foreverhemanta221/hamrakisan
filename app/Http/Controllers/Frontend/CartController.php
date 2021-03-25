@@ -19,10 +19,10 @@ class CartController extends Controller
     public function index()
     {
 
-        // $allcart = \Cart::session(Auth::user()->id)->getContent()->groupBy('farm_id');
         $user = Auth::user();
         if($user){
-            $cartItems = \Cart::session($user->id)->getContent();
+            $cartItems = \Cart::session(Auth::user()->id)->getContent()->groupBy('farm_id');
+            // dd($cartItems);
             return view('frontend.cart')->with('cartDetail',$cartItems);
         }
         return abort(404);

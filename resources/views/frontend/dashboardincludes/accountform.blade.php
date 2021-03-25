@@ -80,10 +80,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="acc_name">Phone Number </label>
+                                    <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{$userdetail->phone_no}}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="">Province</label>
                                     <select class="custom-select province_dropdown" id="inputGroupSelect01" name="province" required>
                                         @foreach(getProvince() as $key=>$value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                            <option value="{{$key}}"  {{$userdetail->province==$value ? 'selected' : ''}} >{{$value}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -91,14 +97,16 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="acc_district">District</label>
-                                    <select class="custom-select district_dropdown" id="inputGroupSelect01" name="district" required>
+                                    <select class="custom-select district_dropdown" id="inputGroupSelect02" name="district" required>
                                         @if($userdetail->province!=null)
+
                                             @foreach(checkProvinceDistrict($userdetail->province) as $key=>$value)
-                                                <option value="{{$value}}">{{$value}}</option>
+                                                {{--  {{$userdetail->district.' & '.$value}}  --}}
+                                                <option value="{{$value}}" {{$userdetail->district==$value ? 'selected': ''}} >{{$key}}</option>
                                             @endforeach
                                         @else
                                             @foreach(getDistrict() as $key=>$value)
-                                                <option value="{{$value}}">{{$value}}</option>
+                                                <option class="cde" value="{{$value}}">{{$value}}</option>
                                             @endforeach
                                         @endif
                                     </select>

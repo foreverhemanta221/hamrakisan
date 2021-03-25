@@ -1,11 +1,16 @@
 <?php
 namespace App\Http\Controllers\Frontend;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Frontend\RegisterRequest;
 use App\User;
+use Throwable;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\MailToRegisteredUser;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\Frontend\RegisterRequest;
+
 class UserController extends Controller
 {
     public function register(RegisterRequest $request)
@@ -31,23 +36,38 @@ class UserController extends Controller
                 $create_user->password = bcrypt($request->password);
                 $create_user->role = $request->role;
                 $create_user->isVerified = 0 ;
+                $create_user->email_verification_token=Str::random(32);
                 $create_user->save();
+                if($create_user->email!=null){
+                    Mail::to($create_user->email)->send(new MailToRegisteredUser($create_user));
+                    // Mail::to('bindas.prem.75@gmail.com')->send(new MailToRegisteredUser($create_user) );
+                    session()->flash('message',' Verification Email Has been sent to your email. Verify your email and log in .');
+                }
             });
         }catch (\PDOException $e){
             return redirect()->back()->with('danger',$e->getMessage());
+        }catch(Throwable $th){
+            return response()->json(['message'=>$th->getMessage()],400);
         }
-        return redirect('login')->with('success','success! please login now');
+        return redirect('login');
     }
     public function login(Request $request){
         $field = filter_var($request->input('userId'), FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_no';
 
         if(Auth::attempt([$field => $request->input('userId'), 'password' => $request->input('password')])){
             $role = Auth::user()->role;
+            if(Auth::user()->isVerified){
+            
             if($role=='farmer'){
                 return redirect()->to('farmerdashboard')->with('success','Logged In successfully');
             }
             if ($role=='user'){
                 return redirect()->to('userdashboard')->with('success','Logged In successfully');
+            }
+
+            }else{
+                Auth::logout();
+                return redirect()->back()->with('danger','Your Account is not verified yet !!!');
             }
             abort(404);
         }

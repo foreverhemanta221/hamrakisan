@@ -60,7 +60,7 @@
             swal({
                 buttons: false,
                 icon: "success",
-                timer: 2500,
+                timer: 3500,
                 text: '{{ session()->get('message') }}'
             });
         </script>
@@ -70,13 +70,22 @@
             swal({
                 buttons: false,
                 icon: "warning",
-                timer: 2500,
+                timer: 3500,
                 text: '{{ session()->get('danger') }}'
             });
         </script>
     @endif
 
-
+    @foreach ($errors->all() as $error)
+    <script>
+            swal({
+                buttons: false,
+                icon: "warning",
+                timer: 3500,
+                text:  {{ $error }}
+            });
+        </script>
+    @endforeach
 </body>
 </html>
 

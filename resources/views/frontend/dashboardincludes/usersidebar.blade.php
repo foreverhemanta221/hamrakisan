@@ -2,7 +2,7 @@
     <div  class="sidebar-user d-flex align-items-center justify-content-center" href="dashboard.html">
         <div class="avatar">
             <div class="avatar-border">
-            <img src="{{ Auth::user()->user_image !=null ? Auth::user()->user_image : URL::asset('frontend/img/user-db.png')}}" class="img-fluid" alt="">
+            <img src="{{ Auth::user()->user_image !=null ? Auth::user()->user_image : URL::asset('frontend/img/user-db.png')}}" class="img-fluid" alt="" style="border-radius: 50%">
             </div>
             <div class="user-name">{{Auth::user()->name}}</div>
         </div>

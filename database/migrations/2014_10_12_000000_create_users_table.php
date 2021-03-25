@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->integer('image_id')->nullable();
             $table->boolean('isVerified')->default('0');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('email_verification_token')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
         });

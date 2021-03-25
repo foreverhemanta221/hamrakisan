@@ -1,16 +1,19 @@
 <?php
 namespace App\Http\Controllers\Frontend;
 use App\CartItem;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Exception;
-use App\Models\FarmProduct;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\FarmProduct;
 use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\OrderMailToUser;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Exception;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+
 class OrderController extends Controller
 {
     public function checkout(){
@@ -19,12 +22,24 @@ class OrderController extends Controller
     }
     public function order(Request $request){
         try{
+            if(Auth::user()->phone_no==null){   
+                session()->flash('danger', "Please update phone number with valid details and try again !!!");
+                return redirect()->to('/myaccount');
+            }
             DB::transaction(function ()use($request){
-                $cart= \Cart::session(Auth::user()->id);
+                $user =Auth::user();
+                $cart= \Cart::session($user->id);
                 $groupByFarmname =   $cart->getContent()->groupBy('farm_id');
+                $order =null;
+
+                //when cart is empty ??
+                // if($groupByFarmname->count()==0){
+                //     // session()->flash('danger', 'your cart is empty !!');
+                //     return redirect()->to('/')->with('danger', 'your cart is empty !!');
+                // }
                 foreach($groupByFarmname as $farmId=>$productArray) {
-                    $orders =   Order::create([
-                        'user_id'=>Auth::user()->id,
+                    $order =   Order::create([
+                        'user_id'=>$user->id,
                         'farm_id'=>$farmId,
                         'status'=>Order::ORDER_INITIAL,
                         'payment_method'=>$request->payment_method
@@ -32,7 +47,7 @@ class OrderController extends Controller
                     $orderItems = [];
                     foreach ($productArray as $item) {
                         OrderItem::create([
-                        'order_id'=>$orders->id,
+                        'order_id'=>$order->id,
                         'product_id'=>$item->id,
                         'qty'=>$item->quantity,
                         'price'=>$item->quantity * $item->price,
@@ -40,16 +55,32 @@ class OrderController extends Controller
                         ]);
                     }
                 }
-                $cart->remove($request->productId);
+                
+                // dd($order->format());
+
+                // message user about order details:
+                if($order!==null){
+                    // if($user->email!=null){
+                    //     Mail::to($user->email)->send(new OrderMailToUser($order));
+                    //    Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($order));
+                    //     }
+                }
+                foreach($cart->getContent() as $cartItem){
+                    $cart->remove($cartItem->id);
+                }
             });
+           
             session()->flash('message',"Order placed successfully, You can check your oders on your dashbord also. Thank you !!!");
-            return redirect()->to('userdashboard');
+            return redirect()->to('/dashboard');
         }catch(Exception $ex){
+            // dd($ex->getMessage());
+            // session()->flash('warning', $ex->getMessage());
             session()->flash('warning', "Order could not be placed,Please try again later !!!");
             return redirect()->to('mycart');
         }
         // return "order placed successfully";
     }
+
     public function orderCancel(Request $request,$order_id){
         try{
             DB::transaction(function ()use($request,$order_id){
@@ -67,7 +98,6 @@ class OrderController extends Controller
         // return "order placed successfully";
     }
     public function changestatus(Request $request){
-        // dd($request->all());
         try{
             DB::transaction(function ()use($request){
                  Order::where('id', $request->orderId)->update([
@@ -76,8 +106,7 @@ class OrderController extends Controller
                     ]);
             });
             session()->flash('message',"Order status changed successfully !!!");
-            return response(['success'=>'success'],200);
-            // return redirect()->back();
+             return response()->json(['status'=>true],200);
         }catch(Exception $ex){
             session()->flash('warning', "Please try again later !!!");
             return redirect()->to('my-order');

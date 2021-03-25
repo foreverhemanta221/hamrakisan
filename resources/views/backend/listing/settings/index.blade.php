@@ -32,9 +32,12 @@
                 <div class="box box-primary">
                     <div class="box-body box-profile">
                         <img class="profile-user-img img-responsive img-circle" src="{{$listing->getFeatureImage('small')}}" alt="User profile picture">
-
+                        <div class="profile">
+                            {{--  <button type="button" class="btn-primary btn-sm center" data-toggle="modal" data-target="#updateImage">Update Image</button>  --}}
+                            <a  class="btn btn-sm btn-info" data-toggle="modal" data-target="#updateImage" style=" border-radius: 0px;"><i class="fa fa-edit"></i>Update Image</a>
+                        </div>
+                        
                         <h3 class="profile-username text-center">{{$listing->name}}</h3>
-
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
                                 <a href="{{route('farmproduct.index',$listing->id)}}"> <b>Total Products</b> <span class="pull-right">{{count($listing->products)}}</span></a>
@@ -126,7 +129,51 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
+            <div id="updateImage" class="modal fade" image="dialog">
+            <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-image"></i> Choose New Feature Image For farm.
+                    </h4>
+                </div>
+
+                <div class="modal-footer">
+                    <form method="post" action="{{route('updateFarmFeatureImage',$listing->id)}}" enctype="multipart/form-data">
+                        {{csrf_field()}}
+                        {{method_field('PUT')}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-info">
+                            
+                                <div class="box box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label> Feature Image <span style="color: #ff0000">*</span> </label>
+                                            <div class="form-group {{ $errors->has('feature_image') ? ' has-error' : '' }}">
+                                                <input type="file" name="feature_image" id="feature_image" class="form-control">
+                                                @if($errors->has('feature_image'))
+                                                    <span class="error">{{ $errors->first('feature_image') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success pull-right" value="submit">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     </section>
 
 @endsection

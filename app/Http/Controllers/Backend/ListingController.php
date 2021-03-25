@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Helpers;
+use App\Http\Controllers\Exception;
+
 class ListingController extends Controller
 {
      public function index()
@@ -195,5 +197,22 @@ class ListingController extends Controller
              $request->session()->put('success','Status changed successfulyy');
              return response()->json(['data'=>'success'],200);
          }
+    }
+    public function updateFeatureImage(Request $request,$id){
+        $feature_image= null;        
+        try{
+            $listing = Listing::find($id);
+
+            if($listing){
+                if($request->has('feature_image'))
+                    $feature_image= Helpers::uploadImageToDb($request->feature_image);
+            // dd($feature_image);
+            $listing->update(['feature_image'=>$feature_image]);
+            }
+            return redirect()->back()->with('success','image successfully updated');
+
+        }catch(Exception $ex){
+            return redirect()->back()->with('danger','Image can not updated');
+        }
     }
 }

@@ -13,6 +13,7 @@ use App\Models\FarmStory;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Setting\PaymentResource;
 
 class SettingController extends Controller
 {
@@ -105,5 +106,9 @@ class SettingController extends Controller
     public function getUnits(){
         $units = measureUnit();
         return response()->json(['data'=>$units],200);
+    }
+    public function paymentMethods(){
+        $data = new PaymentResource(true);
+        return response()->json(['data'=> $data] ,200);
     }
 }

@@ -26,7 +26,13 @@ Route::group(['middleware' => ['authkey']], function () {
     //farmreview
     route::post('farmreview/{farmid}','Api\ReviewController@store');
 
+    
 });
+
+// //payment methods
+route::get('paymentmethods/','Api\SettingController@paymentMethods');
+
+
 
 Route::group(['middleware' => ['farmerApi']], function () {
     route::get('myfarm','Api\Farmer\FarmerController@myFarm');

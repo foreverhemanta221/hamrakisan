@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use App\Modules\Order\Repositories\OrderRepositoryInterface;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Modules\Order\Repositories\OrderRepositoryInterface;
 
 class OrderController extends Controller
 {
@@ -17,6 +18,25 @@ class OrderController extends Controller
     {
         $this->orderRepository = $orderRepository;
     }
+
+    
+     public function orderstatus(Request $request){
+         try{
+            DB::transaction(function ()use($request){
+                 Order::where('id', $request->orderId)->update([
+                    'user_id'=>Auth::user()->id,
+                    'status'=>$request->orderStatus,
+                    ]);
+            });
+            session()->flash('message',"Order status changed successfully !!!");
+             return response()->json(['status'=>true],200);
+            }catch(Exception $ex){
+                session()->flash('warning', "Please try again later !!!");
+                return response()->json(['status'=>false],500);
+            // return redirect()->to('my-order');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -66,6 +86,8 @@ class OrderController extends Controller
         abort(404);
 
     }
+
+   
 
     /**
      * Show the form for editing the specified resource.

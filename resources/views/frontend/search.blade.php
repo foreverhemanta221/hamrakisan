@@ -108,14 +108,21 @@
                                             <div>
                                                 Sells:
                                                 <ul class="sells withPrice">
-                                                    @if($item->products!=null)
+                                                    {{--  @if($item->products!=null)
                                                         @foreach($item->products as $product)
                                                             <li>{{$product->name}}</li>
-                                                            <li>{{$product->price}}</li>
+                                                            <li>Rs.{{$product->price}}</li>
                                                         @endforeach
+                                                    @endif  --}}
+                                                     @if($item->minPriceSellsProduct()!=null)
+                                                        {{--  @foreach($item->products as $product)  --}}
+                                                            <li>{{$item->minPriceSellsProduct()->name}}</li>
+                                                            <li>Rs.{{$item->minPriceSellsProduct()->price}}</li>
+                                                        {{--  @endforeach  --}}
                                                     @endif
                                                 </ul>
                                             </div>
+                                            <a href="{{URL::to('listings/'.$item->slug)}}" class="btn btn-primary">Order Now</a>
                                         </div>
                                 </div>
                                 @endforeach

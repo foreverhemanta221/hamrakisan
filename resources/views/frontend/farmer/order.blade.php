@@ -89,6 +89,18 @@
                                         </tbody>
                                     </table>
                                 </div>
+                        
+                                <div class="row bg-white">
+                                    <div class="col">
+                                        <div class="d-flex">
+                                            <div class="mx-auto">
+                                                {{$orders->links("pagination::bootstrap-4")}}
+                                                {{--  {{ $orders->links() }}  --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
                             </div>
                         </div>
                     </div>

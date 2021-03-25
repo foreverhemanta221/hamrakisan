@@ -30,7 +30,6 @@ axios.get(baseUrl + "api/districts").then(function (response) {
     option.value = "";
     district_node.add(option);
     districts = response.data.data;
-    console.log(districts);
     districts.forEach((item, index) => {
         var option = document.createElement("option");
         option.text = item.district_name;
@@ -58,7 +57,7 @@ document
             district_node.add(option);
 
             districts = response.data.data;
-            console.log(districts);
+
             districts.forEach((item, index) => {
                 if (province_id == item.province_id) {
                     var option = document.createElement("option");

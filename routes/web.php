@@ -7,6 +7,8 @@
 
 //basic login only here
     //adminlogin
+    // Auth::routes(['verify' => true]);
+
     route::get('admin',function (){
         return view('auth.login');
     })->name('adminlogin');
@@ -18,6 +20,10 @@
     route::get('/forgot-password',function (){
        return view('frontend.auth.forgot_password');
     });
+    // verify users
+    Route::get('/verify/{token}', 'VerifyController@VerifyEmail')->name('verify');
+    // Route::get('/email/resend/', 'VerifyController@VerifyEmailResend')->name('verification.resend');
+
     //code verification
     route::get('verificationcode',function (){
        return view('frontend.auth.verification_code');
@@ -55,6 +61,9 @@ Route::group(['middleware' => ['admin']], function () {
     //websetting
 
     //listing related route here
+    //listing feature image update
+    route::put('listing/updateFeatureImage/{id}','Backend\ListingController@updateFeatureImage')->name('updateFarmFeatureImage');
+
     route::get('setting',function (){
         return view('backend.listing.settings.index');
     });
@@ -85,6 +94,8 @@ Route::group(['middleware' => ['admin']], function () {
 
     //order
     route::resource('orders','Backend\OrderController');
+    //order change status by admin
+    route::post('orderstatus','Backend\OrderController@orderstatus');
 
 
     //logout
@@ -105,8 +116,11 @@ Route::group(['middleware' => ['admin']], function () {
     //    other functionality
     route::get('report/farm','Backend\ReportController@getFarmerReportView');
     route::post('report/farm','Backend\ReportController@generateFarmReport');
+
 });
 
+// Route::group(['middleware'=>['locale','verified']],function(){
+    
 Route::group(['middleware'=>['locale']],function(){
 
     //auth

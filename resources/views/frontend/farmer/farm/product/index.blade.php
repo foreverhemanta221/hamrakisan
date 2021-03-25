@@ -39,12 +39,14 @@
                                                 <img src="{{$product->getFeatureImage('small')}}" alt="">
                                                 {{$product->name}}
                                             </div>
+
                                             <div class="price">Rs.{{$product->price}} / {{$product->measure_unit}}</div>
                                             <div class="actions">
                                                 <label class="switch">
                                                     <input type="checkbox"
                                                     {{$product->is_available== 1 ?'checked': ''}}
-                                                     onclick="changeStatus({{$product->id}},{{$product->is_available}})"
+                                                     {{--  onclick="changeStatus({{$product->id}},{{$product->is_available}})"  --}}
+                                                     onclick="ajaxForStatusChange({{$product->id}})"
                                                     />
                                                     <td>
                                                     </td>
@@ -179,32 +181,43 @@
         });
     </script>
      <script>
-        function changeStatus(product_id,status) {
-            var message = status==0  ? 'activate' : 'deactivate';
-            if( confirm('are you sure want to '+message +' status')){
-                $.ajaxSetup({
-                    headers: {'X-CSRF-TOKEN': '{{ Session::token() }}'}
-                });
+       
+        function ajaxForStatusChange(productID) {
 
-                $.ajax({
-                    url: '{{ url('myproduct/changestatus') }}',
-                    type: 'POST',
-                    data: {
-                        product_id: product_id,
-                        status: status
-                    },
-                    success: function (result) {
-                        console.log(result);
-                        {{--  window.location = '{{route('myproduct.index')}}';  --}}
-                    },
-                    error: function (result) {
-                        console.log(result);
-                        {{--  window.location = '{{route('myproduct.index')}}';  --}}
-                    }
-                });
-            }
+            let base_url = 'http://127.0.0.1:8000';
+            axios.post(base_url+'/myproduct/changestatus',{
+                productID: productID,
 
+            }).then(function (response) {
+                
+                if(response.data.status===false){
+
+                    window.location = '{{route('userlogin')}}'
+                }
+                if(response.status===200){
+                    swal({
+                        buttons: false,
+                        icon: "success",
+                        timer: 2500,
+                        text: 'Order Status Changed Successfully !!!'
+                    });
+
+                    {{--  window.location.reload();  --}}
+                    // document.getElementById('minicart').innerHTML = '';
+                }else{
+                     swal({
+                        buttons: false,
+                        icon: "warning",
+                        timer: 2500,
+                        text: 'Order Status Not  Changed !!!'
+                    });
+                }
+                
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
+
     </script>
 
      <script>

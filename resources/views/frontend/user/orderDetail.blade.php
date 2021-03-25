@@ -54,6 +54,21 @@
                                                     </div>
                                                     <p>{{$order->created_at->format('d,M-Y')}}</p>
                                             </div>
+                                            <br>
+                                            <div class="orders-card-header">
+                                                <div class="order-item" >
+                                                    <div class="order-item-info">
+                                                        <h6 style="text-align: center">Products</h6>
+                                                    </div>
+                                                    <div class="order-item-info">
+                                                        <h6 style="text-align: center">Total Quantities</h6>
+                                                    </div>
+                                                    <div class="price">
+                                                        <h6 style="text-align: center">Total Prices</h6>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                             <div class="orders-card-body">
                                                 @foreach ($order->rel_orderItems as $products)
                                                     {{--  {{ dd($order->format()) }}  --}}
@@ -68,12 +83,13 @@
                                                         </div>
                                                          <div class="order-item-info">
                                                             <div>
-                                                                <h6>Total Quantity</h6>
-                                                                <p style="text-align: center">{{$products->format()['orderDetail']['qty']}} {{$products->format()['productDetail']['measure_unit']}}</p>
+                                                                {{--  <p style="text-align: center">  --}}
+                                                                    {{$products->format()['orderDetail']['qty']}} {{$products->format()['productDetail']['measure_unit']}}
+                                                                {{--  </p>  --}}
                                                             </div>
                                                         </div>
                                                         <div class="price">
-                                                            <h6>Total Price</h6>
+                                                            {{--  <h6>Total Price</h6>  --}}
                                                             Rs. {{$products->format()['orderDetail']['price']}}
                                                         </div>
                                                     </div>
@@ -89,7 +105,7 @@
                                                 </div>
                                                 <div class="orders-card-footer">
                                                     @if($order->status=='initial')
-                                                        <a onclick="cancelOrder({{$order->id}})"  class="btn btn-outline-danger">Cancel Order</a>
+                                                        <a onclick="cancelOrder({{$order->id}})"  class="btn btn-danger">Cancel Order</a>
                                                     @endif 
                                                 </div>
 
@@ -277,7 +293,7 @@
         }
 
          function ajaxForStatusChange(orderId,status) {
-            let base_url = 'http://127.0.0.1:8000';
+            let base_url = 'https://hamrakisan.com/';
             axios.post(base_url+'/order/change-status', {
                 orderId: orderId,
                 orderStatus: status
@@ -288,12 +304,12 @@
                     window.location = '{{route('userlogin')}}'
                 }
                 if(response.data.status===true){
-                    swal({
+                    {{--  swal({
                         buttons: false,
                         icon: "success",
                         timer: 2500,
                         text: 'Order Cancelled Successfully !!!'
-                    });
+                    });  --}}
 
                     window.location.reload();
                     // document.getElementById('minicart').innerHTML = '';

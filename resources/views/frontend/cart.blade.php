@@ -13,15 +13,13 @@
                 <div class="col">
                     @if(isset($cartDetail))
                     
-                            @foreach($cartDetail as $product)
-                            {{--  {{dd($product->name)}}  --}}
+                            @foreach($cartDetail as $farmId=>$farmProducts)
                             <div class="cart">
                                 <div class="cart-header">
-                                    {{--  <h4>{{\App\Models\Listing::find($farmName)->name}}</h4>  --}}
-                                    <h4>{{$product->name}}</h4>
+                                    <h4>{{\App\Models\Listing::find($farmId)->name}}</h4>
                                 </div>
                                 <div class="cart-body">
-                                    {{--  @foreach($farmProducts  as $product)  --}}
+                                    @foreach($farmProducts  as $product)
                                         @php
                                             $price = $product->quantity * $product->price;
                                         @endphp
@@ -30,7 +28,7 @@
                                                 <img src="{{$product->attributes->product_image}}" alt="">
                                                 <div>
                                                     {{$product->name}}
-                                                    <p>Rs {{$product->price}} per {{$product->attributes->minimum_order}}</p>
+                                                    <p>Rs {{$product->price}} per Unit</p>
                                                 </div>
                                             </div>
                                             <div class="qty-selector">
@@ -46,7 +44,7 @@
                                                 {{--  <button class="far fa-times-circle" onclick="removeFromCart({{$product->id}} , {{$product->price}})"></button>  --}}
                                             </div>
                                         </div>
-                                    {{--  @endforeach  --}}
+                                    @endforeach
                                 </div>
                             </div>
                              @endforeach

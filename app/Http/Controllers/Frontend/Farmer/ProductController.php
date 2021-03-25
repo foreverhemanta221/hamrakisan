@@ -68,15 +68,13 @@ class ProductController extends Controller
         }
     }
     public function changeStatus(Request $request){
-        if($request->ajax()){
-            $product =FarmProduct::find($request->product_id);
+            $product =FarmProduct::find($request->productID);
             $status = $product->is_available==true ? false : true;
-            FarmProduct::find($request->product_id)->update([
+            FarmProduct::find($request->productID)->update([
                 'is_available' => $status
             ]);
-            $current_staus = $status == 0 ? 'Not Available  ' :'Available ';
-            return response()->json(['success'=>"Stauts Updated to ".$current_staus ." Successfully"]);
-        }
+            $current_staus = $status == false ? 'Not Available  ' :'Available ';
+            return response()->json(['success'=>"Stauts Updated to ".$current_staus ." Successfully"],200);
 
     }
 

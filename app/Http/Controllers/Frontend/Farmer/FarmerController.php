@@ -25,7 +25,9 @@ class FarmerController extends Controller
     public function getFamerDashboard(){
         $user = Auth::user();
         $new_orders =null;
+        $products_listed =null;
         $new_orders_count =0;
+        $product_count =0;
         if($user->listed_farm){
             $new_orders =$this->orderService->orderByFarmId($user->listed_farm->id);
             $new_orders_count =$this->orderService->orderByFarmId($user->listed_farm->id)->count();
@@ -73,7 +75,7 @@ class FarmerController extends Controller
                 $listing->facebook = $request->farmFacebook;
                 $listing->youtube = $request->farmYoutube;
                 $listing->user_id = Auth::user()->id;
-                $listing->save();
+                // $listing->save();
 
                // get gallery image
                 if($request->gallery_image){

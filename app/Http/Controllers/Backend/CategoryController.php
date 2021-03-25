@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers;
+use Throwable;
+
 use function GuzzleHttp\Psr7\str;
 class CategoryController extends Controller
 {
@@ -69,21 +71,33 @@ class CategoryController extends Controller
     public function destroy(Request $request, $id)
     {
         if($request->ajax()){
-            $category = Category::find($id);
-            $image_id = null;
-            if($category->image!=null){
-                $image_id = $category->image->id;
-            }
-            if($category->delete()){
-                if($image_id!=null){
-                    Helpers::delete_image_byId($image_id);
-                }
-                $request->session()->flash('success', 'image successfully deleted.');
-                return response()->json(['status' => true]);
-            }
-            $request->session()->flash('danger', 'Something went wrong.');
-            return response()->json(['status' => true]);
+            try{
+                $category = Category::find($id);
+                //listing
+                
+                
+                // $category delete
+                if($category->delete()){
+                
+                    if($category->image()->count() > 0){
+                        $image_id = $category->image->id;
+                        if($image_id!=null){
+                            Helpers::delete_image_byId($image_id);
+                        }
+                    }
+                    if($category->listings()->count()>0){
+                            $category->listings()->delete();
+                        }
 
+                    $request->session()->flash('success', 'image successfully deleted.');
+                    return response()->json(['status' => true]);
+                }
+
+            }catch(Throwable $th){
+                $request->session()->flash('danger', $th->getMessage());
+                return response()->json(['status' => false]);
+            }
+            
         }
     }
 }
