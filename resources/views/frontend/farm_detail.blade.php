@@ -74,12 +74,13 @@
                                 <li><a href="{{$listing->website}}" target="_blank"><i class="fas fa-globe-americas"></i><span>{{__('farm.website')}}</span></a></li>
                             </ul>
                             <ul class="farm-social">
-                                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                                <p>Share Us With:</p>
+                                {{--  <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href=""><i class="fab fa-instagram"></i></a></li>
-                                <li><a href=""><i class="fab fa-youtube"></i></a></li>
+                                <li><a href=""><i class="fab fa-youtube"></i></a></li>  --}}
                             </ul>
+                            <div class="sharethis-inline-share-buttons"></div>
                         </div>
-                        <div class="sharethis-inline-share-buttons"></div>
                     </div>
 
                 </div>
