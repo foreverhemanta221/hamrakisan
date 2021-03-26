@@ -14,9 +14,7 @@
                                    onblur="this.placeholder='{{__('search.search')}}'"
                                    aria-label="Search">
                         </div>
-                        <button class="d-lg-none filters-toggler" type="button">
-                            <i class="fas fa-filter"></i>
-                        </button>
+                        
                         <div id="search-filters" class="filters form-group collapse-md">
                             <!-- province -->
                             <div class="input-group">
@@ -43,6 +41,11 @@
                     </div>
                     <button id="indexSearch" class="btn btn-secondary" type="submit">{{__('search.search_button')}}</button>
                 </form>
+                  <!-- change this is placed outside the form -->
+                    <button class="d-lg-none filters-toggler" type="button">
+                       Apply Filters
+                    </button>
+               
             </div>
         </div>
     </div>
