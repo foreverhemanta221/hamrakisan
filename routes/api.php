@@ -26,6 +26,9 @@ Route::group(['middleware' => ['authkey']], function () {
     //farmreview
     route::post('farmreview/{farmid}','Api\ReviewController@store');
 
+    //order controller
+    route::post('order','Api\OrderController@order');
+
     
 });
 

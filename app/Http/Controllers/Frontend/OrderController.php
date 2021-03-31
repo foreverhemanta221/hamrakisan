@@ -60,10 +60,9 @@ class OrderController extends Controller
 
                 // message user about order details:
                 if($order!==null){
-                    // if($user->email!=null){
-                    //     Mail::to($user->email)->send(new OrderMailToUser($order));
-                    //    Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($order));
-                    //     }
+                    if($user->email!=null){
+                        Mail::to($user->email)->send(new OrderMailToUser($order));
+                        }
                 }
                 foreach($cart->getContent() as $cartItem){
                     $cart->remove($cartItem->id);
