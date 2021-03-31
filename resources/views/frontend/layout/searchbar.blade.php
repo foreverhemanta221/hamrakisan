@@ -2,7 +2,8 @@
 <section id="main-search" class="">
     <div class="container">
         <div class="row">
-            <div class="col search-flex">
+            <div class="col">
+            <div class="search-flex">
                 <img src="{{URL::asset('frontend/img/logo.png')}}" class="img-fluid" alt="">
                 <form class="form-inline form-group" method="GET">
                     <div id="search-wrapper" class="form-group">
@@ -41,11 +42,11 @@
                     </div>
                     <button id="indexSearch" class="btn btn-secondary" type="submit">{{__('search.search_button')}}</button>
                 </form>
+            </div>
                   <!-- change this is placed outside the form -->
                     <button class="d-lg-none filters-toggler" type="button">
                        Apply Filters
                     </button>
-               
             </div>
         </div>
     </div>

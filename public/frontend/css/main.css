@@ -552,6 +552,10 @@ input[type="number"] {
     flex-direction: column !important;
     align-items: flex-end;
 }
+#main-search .col .search-flex {
+    display: flex;
+    width: 100%;
+}
 #main-search .col form {
     flex-grow: 2;
     width: 100%;
@@ -602,10 +606,6 @@ input[type="number"] {
 }
 
 @media (max-width: 991px) {
-    .filters.collapse-md {
-        display: none;
-        height: 0;
-    }
     #search-filters {
         width: 100%;
     }
@@ -619,6 +619,18 @@ input[type="number"] {
     }
     #main-search .form-group .filters input {
         width: 100%;
+    }
+}
+
+.filters.collapse-md {
+    display: none;
+    height: 0;
+}
+
+@media (min-width: 992px) {
+    .filters.collapse-md {
+        display: flex;
+        height: auto;
     }
 }
 
@@ -664,6 +676,39 @@ input[type="number"] {
 }
 .categories li a:hover {
     color: #28a745;
+}
+
+#categories-slider {
+    margin-bottom: -30px;
+}
+#categories-slider img {
+    width: 24px !important;
+}
+#categories-slider li span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+#categories-slider li {
+    list-style: none;
+    max-width: 120px;
+}
+#categories-slider li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    text-align: center;
+    line-height: 22px;
+}
+#categories-slider .owl-nav {
+    display: none;
 }
 
 #hero-slider:hover .owl-nav {
@@ -2027,16 +2072,19 @@ section#cart-page-section .container-xl > h4 {
         width: 100%;
     }
     .categories {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         background-color: none;
         box-shadow: none;
+        padding: 0px 6px;
     }
     .categories li {
-        box-shadow: 0 0 5px rgba(112, 112, 112, 0.1);
+        box-shadow: none;
         margin: 3px;
-        flex-basis: 32%;
         text-align: center;
+    }
+    .categories li:hover {
+        box-shadow: none;
     }
     .categories li a {
         display: flex;
@@ -2132,8 +2180,18 @@ section#cart-page-section .container-xl > h4 {
     #farmlocation > * {
         margin-bottom: 5px;
     }
-    .categories li {
-        flex-basis: 30%;
+    .categories {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    }
+    .categories li span {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 7px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: rgba(40, 167, 69, 0.1);
     }
 }
 
@@ -2268,6 +2326,7 @@ section#cart-page-section .container-xl > h4 {
 }
 .sp-farm-list .farm-card .farm-info {
     flex-grow: 2;
+    height: auto;
 }
 .sp-farm-list .farm-card .cheapest-prod {
     min-width: 120px;
