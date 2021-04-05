@@ -124,7 +124,8 @@
                         </div>
 
                         <!-- products map -->
-                        <div class="farm-map-section mt-5">
+                           <!-- change added d-none d-md-block class to these two divs -->
+                        <div class="farm-map-section d-none d-md-block mt-5">
                             <h2>{{__('farm.find_the_farm')}}</h2>
                             <input type="hidden" id="latitude" value="{{$listing->getLatitude()}}">
                             <input type="hidden" id="longitude" value="{{$listing->getLongtitude()}}">
@@ -134,7 +135,7 @@
                         </div>
 
 
-                        <div class="farm-reviews-section mt-5">
+                        <div class="farm-reviews-section d-none d-md-block mt-5">
                             <h2>Reviews</h2>
 
                             <div class="reviews mt-3">
@@ -166,6 +167,7 @@
                     </div>
 
                     <!-- cart and ratings -->
+                    <!-- mobile map and reviews here -->    
                     <div class="col-md-4">
 
                         <!-- local cart -->
@@ -256,6 +258,74 @@
                                 <button class="btn btn-outline-primary">{{__('farm.rate_this_farm')}}</button>
                             </div>
                         </div>
+
+                        
+                    <!-- products map -->
+                    <!-- change copy pasted this two section and added d-md-none class to both -->
+                   <div class="farm-map-section d-md-none mt-5">
+                    <h2>Find the farm</h2>
+                    <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16463.154945539427!2d84.31807658622488!3d27.570674675022104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994f71d0107128d%3A0x86b7d511d3e1e13b!2sJagatpur%20Agro%20Pvt%20Ltd.!5e0!3m2!1sen!2snp!4v1590690320194!5m2!1sen!2snp" 
+                    frameborder="0" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    aria-hidden="false"
+                     tabindex="0"
+                     class="mt-3"></iframe>
+                </div>
+                <div class="farm-reviews-section d-md-none mt-5">
+                    <h2>Reviews</h2>
+                    <div class="reviews mt-3">
+                        <div class="review">
+                            <div class="review-text">One of the promising farm in the country, fast deliveris love the service. The products are fresh and the price is affordable</div>
+                            <div class="review-name">Dikshant Sharma</div>
+                            <div class="review-stars farm-rating">
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <div class="review-text">The products were fresh but they took very long to dispatch. I wish in the future they improve there services and add more products in the list</div>
+                            <div class="review-name">Kristy Poudyal</div>
+                            <div class="review-stars farm-rating">
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star"></span>
+                             <span class="fa fa-star"></span>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <div class="review-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Et aliquam, earum praesentium pariatur consequuntur facilis eum eligendi dolorum quam ab iure. Inventore eos eligendi nam, aspernatur nobis explicabo quae recusandae! </div>
+                            <div class="review-name">John Doe</div>
+                            <div class="review-stars farm-rating">
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star "></span>
+                             <span class="fa fa-star"></span>
+                             <span class="fa fa-star"></span>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <div class="review-text">elit. Perferendis, enim possimus eveniet nam, minima corporis unde mollitia incidunt provident dolorum minus voluptas. Ratione laboriosam ab laborum, distinctio iusto tenetur officiis?</div>
+                            <div class="review-name">Kim Wexler</div>
+                            <div class="review-stars farm-rating">
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star checked"></span>
+                             <span class="fa fa-star"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-btns d-flex justify-content-center">
+                        <button id="readallreviews" class="btn btn-outline-primary mr-2">Read All</button>
+                        <button data-toggle="modal" data-target="#addReviewModal" id="review-form" class="btn btn-primary">Leave a review</button>
+                    </div>
+                </div>
                     </div>
 
                 </div>
@@ -501,7 +571,7 @@
                    window.location = '{{route('userlogin')}}'
 
                }
-               let base_url = 'https://hamrakisan.com';
+               let base_url = 'https://hamrakisan.com/';
                 let farmId = '{{$listing->id}}';
                 let productsIdDom = document.querySelectorAll('.productId');
                 let productsQtyDom = document.querySelectorAll('.productQty');

@@ -9,9 +9,10 @@
     //adminlogin
     // Auth::routes(['verify' => true]);
 
-    route::get('admin',function (){
+    Route::get('admin',function (){
         return view('auth.login');
     })->name('adminlogin');
+
     route::post('adminlogin','AuthController@adminLogin')->name('adminlogin.post');
 
 

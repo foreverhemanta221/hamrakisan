@@ -43,7 +43,7 @@ class OrderController extends Controller
                         'farm_id'=>$farmId,
                         'status'=>Order::ORDER_INITIAL,
                         'payment_method'=>$request->payment_method
-                    ]);
+                    ]); 
                     $orderItems = [];
                     foreach ($productArray as $item) {
                         OrderItem::create([
