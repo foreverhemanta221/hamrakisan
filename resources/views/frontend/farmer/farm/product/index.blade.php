@@ -184,7 +184,7 @@
        
         function ajaxForStatusChange(productID) {
 
-            let base_url = 'http://127.0.0.1:8000';
+            let base_url = 'https://hamrakisan.com';
             axios.post(base_url+'/myproduct/changestatus',{
                 productID: productID,
 

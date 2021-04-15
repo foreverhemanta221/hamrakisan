@@ -31,7 +31,9 @@ class UserController extends Controller
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'password'=>Hash::make($request->password),
-                'role'=>$request->role
+                'role'=>$request->role,
+                'isVerified'=>$request->isVerified,
+                'phone_no'=>$request->phone_no,
             ]);
        if($user){
            return redirect()->route('users.index')->with('success','User Created Successfully');
@@ -46,8 +48,8 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        User::findOrFail($id)->update();
-        return redirect()->route('users.index')->with('success','User Created Successfully');
+        User::findOrFail($id)->update($this->setUpdateData($request));
+        return redirect()->route('users.index')->with('success','User Updated Successfully');
 
     }
 
@@ -76,10 +78,20 @@ class UserController extends Controller
         abort(404);
     }
     public function setData($request){
-        $data = [
+      return  $data = [
             'name'=>$request->name,
             'email'=>$request->email,
             'role'=>$request->role,
+        ];
+
+    }
+    public function setUpdateData($request){
+       return $data = [
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'role'=>$request->role,
+            'isVerified'=>$request->isVerified,
+            'phone_no'=>$request->phone_no,
         ];
 
     }

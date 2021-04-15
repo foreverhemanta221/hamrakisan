@@ -353,6 +353,30 @@
                 $(value).children().css({'transform':'scale(1.08)'});
             }
         })
+        
+          // change -- added for mobile slider
+        var catslider = $('#categories-slider')
+        catslider.owlCarousel({
+            autoplay: true,
+            loop: true,
+            smartSpeed: 700,
+            margin: 10,
+            responsiveClass: true,
+            nav: false,
+            responsive: {
+                360: {
+                    items: 3,
+                },
+                400: {
+                    items: 4,
+                },
+                768: {
+                    items: 5,
+                },
+
+            }
+        })
+        // change -- added for mobile slider
 
         //products
         var hpslider = $('#hp-slider')

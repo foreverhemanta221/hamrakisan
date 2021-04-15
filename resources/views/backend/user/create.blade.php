@@ -134,6 +134,18 @@
                       @enderror
                   </div>
               </div>
+                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Approval Status</label>
+                        <select name="isVerified" id="isVerified" class="form-control">
+                            <option value="1" >Approved</option>
+                            <option value="0" >Not Approved</option>
+                        </select>
+                    </div>
+                    @error('isVerified')
+                    {{$message}}
+                    @enderror
+                </div>
 
                 <div class="col-md-12">
                     <input type="submit" class="btn btn-success pull-right">

@@ -14,27 +14,27 @@ class VerifyController extends Controller
     {
     	if($token == null) {
 
-    		session()->flash('danger', 'Invalid Login attempt');
+    		session()->flash('danger', 'Invalid Login attempt with token');
 
-    		return redirect()->route('login');
+    		return redirect()->route('userlogin');
 
     	}
 
        $user = User::where('email_verification_token',$token)->first();
-
+      // dd($user);
        if($user == null ){
 
-       	session()->flash('danger', 'Invalid Login attempt');
+       	session()->flash('danger', 'Invalid Login attempt with user credentials');
 
-        return redirect()->route('login');
+        return redirect()->route('userlogin');
 
        }
 
        $user->update([
         
-        'email_verified' => 1,
+        'isVerified' => true,
         'email_verified_at' => Carbon::now(),
-        'email_verification_token' => ''
+        'email_verification_token' => $token
 
        ]);
        
