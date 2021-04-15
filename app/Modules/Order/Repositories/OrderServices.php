@@ -62,6 +62,8 @@ class OrderServices implements OrderRepositoryInterface
 
 
     //for api purpose 
+
+    
       public function allOrderByUserId($user_id){
         return Order::where('user_id',$user_id)
             ->orderBy('created_at','desc')

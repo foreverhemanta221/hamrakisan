@@ -14,6 +14,12 @@ class FarmerOrderResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'orderId'=>$this->id,
+            // 'description'=>$this->description,
+            // 'price'=>$this->price,
+            // 'unit'=>$this->measure_unit,
+            // 'feature_image'=>$this->feature_image_small
+        ];
     }
 }
