@@ -26,6 +26,16 @@ Route::group(['middleware' => ['authkey']], function () {
     //farmreview
     route::post('farmreview/{farmid}','Api\ReviewController@store');
 
+    //order controller
+    route::post('order','Api\OrderController@order');
+
+    route::post('all-orders','Api\OrderController@allOrders');
+     //order change status by admin
+    // route::post('orderstatus','Api\OrderController@orderstatus');
+
+    
+
+
     
 });
 
@@ -42,11 +52,22 @@ Route::group(['middleware' => ['farmerApi']], function () {
     route::post('myfarmreview/changestatus','Api\Farmer\ReviewController@ChangeStatus');
     route::get('my-stats','Api\Farmer\FarmerController@mystats');
     route::get('hasfarm','Api\Farmer\FarmerController@hasFarm');
+
+    // orders
+    route::get('myfarm-orders','Api\OrderController@FarmerAllOrders');
+    route::post('farm/orderstatus','Api\OrderController@farmOrderstatus');
+    // route::post('cancelOrder/{order_id}','Frontend\OrderController@userOrderCancel')->name('cancelOrder');
+
 });
 
 Route::group(['middleware' => ['userApi']], function () {
     route::get('user-stats','Api\User\UserController@mystats');
     route::resource('user-reviews','Api\User\UserReviewController');
+
+    // orders
+    route::get('user-orders/{user_id}','Api\OrderController@UserAllOrders');
+    route::post('user/orderstatus','Api\OrderController@userOrderstatus');
+
 });
 
 

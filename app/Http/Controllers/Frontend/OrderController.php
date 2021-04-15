@@ -43,7 +43,7 @@ class OrderController extends Controller
                         'farm_id'=>$farmId,
                         'status'=>Order::ORDER_INITIAL,
                         'payment_method'=>$request->payment_method
-                    ]);
+                    ]); 
                     $orderItems = [];
                     foreach ($productArray as $item) {
                         OrderItem::create([
@@ -60,10 +60,9 @@ class OrderController extends Controller
 
                 // message user about order details:
                 if($order!==null){
-                    // if($user->email!=null){
-                    //     Mail::to($user->email)->send(new OrderMailToUser($order));
-                    //    Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($order));
-                    //     }
+                    if($user->email!=null){
+                        Mail::to($user->email)->send(new OrderMailToUser($order));
+                        }
                 }
                 foreach($cart->getContent() as $cartItem){
                     $cart->remove($cartItem->id);

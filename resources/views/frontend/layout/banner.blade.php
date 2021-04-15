@@ -13,11 +13,19 @@
                 </div>
             </div>
             <div class="col-lg-3 order-lg-first">
-                <ul class="categories">
+                <ul class="categories d-none d-lg-block">
                     @isset($allcategory)
                         @foreach($allcategory as $category)
                             <?php //dd($category); ?>
-                            <li><a href="{{URL::asset('farm?category='.$category->id)}}"><img src="{{URL::asset($category->category_image)}}" alt=""> {{$category->title}}</a></li>
+                            <li><a href="{{URL::asset('farm?category='.$category->id)}}"><span><img src="{{URL::asset($category->category_image)}}" alt=""></span> {{$category->title}}</a></li>
+                        @endforeach
+                    @endisset
+                </ul>
+                <ul id="categories-slider" class="owl-carousel owl-theme d-lg-none">
+                    @isset($allcategory)
+                        @foreach($allcategory as $category)
+                            <?php //dd($category); ?>
+                            <li><a href="{{URL::asset('farm?category='.$category->id)}}"><span><img src="{{URL::asset($category->category_image)}}" alt=""></span> {{$category->title}}</a></li>
                         @endforeach
                     @endisset
                 </ul>

@@ -92,6 +92,16 @@
 
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label> Phone Number</label>
+                        <input type="tel" name="phone_no" id="phone_no" class="form-control" value="{{$userDetail->phone_no}}">
+                    </div>
+                    @error('phone_no')
+                    {{$message}}
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label>Role</label>
                         <select name="role" id="role" class="form-control">
                             @foreach(getRole() as $role)
@@ -100,6 +110,19 @@
                         </select>
                     </div>
                     @error('role')
+                    {{$message}}
+                    @enderror
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Approval Status</label>
+                        <select name="isVerified" id="isVerified" class="form-control">
+                            <option value="1" @if($userDetail->isVerified==true) selected="selected" @endif>Approved</option>
+                            <option value="0" @if($userDetail->isVerified==false) selected="selected" @endif>Not Approved</option>
+                        </select>
+                    </div>
+                    @error('isVerified')
                     {{$message}}
                     @enderror
                 </div>
