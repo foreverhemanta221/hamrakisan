@@ -26,11 +26,11 @@ Route::group(['middleware' => ['authkey']], function () {
     //farmreview
     route::post('farmreview/{farmid}','Api\ReviewController@store');
 
-    
+
 });
 
 // //payment methods
-route::get('paymentmethods/','Api\SettingController@paymentMethods');
+route::get('paymentmethods','Api\SettingController@paymentMethods');
 
 
 
@@ -48,20 +48,8 @@ Route::group(['middleware' => ['userApi']], function () {
     route::get('user-stats','Api\User\UserController@mystats');
     route::resource('user-reviews','Api\User\UserReviewController');
 });
-
-
 route::get('allcategory','Frontend\PageController@allcategory');
-
-
-
 route::get('categories','Api\SettingController@getCategories');
-
-
-
-//for test
-
-
-
 //allactive farm
 //route::resource('farm','Api\ListingController');
 route::get('farmproduct/{id}','Api\ListingController@farmProductDetail');
