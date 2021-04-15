@@ -57,6 +57,7 @@ class UserController extends Controller
           return response()->json(['data'=>$user,'api-token'=>$token],200)
               ->header('x-app-token',$token)
               ->header('x-token-expires',Carbon::now()->diffInSeconds($expire_date))
+              ->header('x-app-user-id',Auth::user()->id)
               ->header('x-app-role',Auth::user()->role);
         }
         return response()->json(['message'=>'Logged in failed'],400);

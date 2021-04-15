@@ -108,6 +108,7 @@ class OrderController extends Controller
 
 
     public function userOrderstatus(Request $request){
+        return $request->all();
          try{
             DB::transaction(function ()use($request){
                  Order::where('id', $request->orderId)->update([
