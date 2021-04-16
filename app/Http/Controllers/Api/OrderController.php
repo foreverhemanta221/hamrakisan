@@ -84,30 +84,34 @@ class OrderController extends Controller
     }
 
     public function UserAllOrders($user_id){
-
+        // dd($user_id);
         $orders = $this->orderRepository->allOrderByUserId($user_id);
-        // return($orders);
-
-        // $orders = UserOrderResource::collection($orders);
-        // return($orders);
+        $orders = UserOrderResource::collection($orders);
 
         return  response()->json(['data'=>$orders],200);
 
     }
-    public function FarmerAllOrders($farm_id){
-
-        $orders = $this->orderRepository->allOrderByFarmId($farm_id);
+    public function FarmerAllOrders($user_id){
+        $user = User::find($user_id);
+        if($user){
+            $farm=$user->listed_farm;
+            if($farm){
+                $orders = $this->orderRepository->allOrderByFarmId($farm->id);
+                $orders = FarmerOrderResource::collection($orders);
+                return  response()->json(['data'=>$orders],200);
+            }
+            return  response()->json(['data'=>'No Farm Listed Yet'],500);
+        }
+        return  response()->json(['data'=>'Invalid User fetched'],403);
+    
         // return($orders);
-
-        // $orders = FarmerOrderResource::collection($orders);
-        // return($orders);
-
-        return  response()->json(['data'=>$orders],200);
+        // abort(503);
     }
 
 
 
     public function userOrderstatus(Request $request){
+        // return $request->all();
          try{
             DB::transaction(function ()use($request){
                  Order::where('id', $request->orderId)->update([
@@ -121,10 +125,11 @@ class OrderController extends Controller
         }
     }
     public function farmOrderstatus(Request $request){
+        return $request->all();
          try{
             DB::transaction(function ()use($request){
                  Order::where('id', $request->orderId)->update([
-                    'user_id'=>$request->user_id,
+                    'user_id'=>$request->userId,
                     'status'=>$request->orderStatus,
                     ]);
             });

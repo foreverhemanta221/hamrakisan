@@ -54,7 +54,7 @@ Route::group(['middleware' => ['farmerApi']], function () {
     route::get('hasfarm','Api\Farmer\FarmerController@hasFarm');
 
     // orders
-    route::get('myfarm-orders','Api\OrderController@FarmerAllOrders');
+    route::get('myfarm-orders/{user_id}','Api\OrderController@FarmerAllOrders');
     route::post('farm/orderstatus','Api\OrderController@farmOrderstatus');
     // route::post('cancelOrder/{order_id}','Frontend\OrderController@userOrderCancel')->name('cancelOrder');
 

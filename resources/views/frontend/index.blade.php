@@ -441,7 +441,6 @@
             if(category){
                 url.searchParams.set('category',category)
             }
-            alert(url.toString());
             window.location.href = url.toString();
 
 
