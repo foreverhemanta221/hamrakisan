@@ -86,7 +86,7 @@ class OrderController extends Controller
     public function UserAllOrders($user_id){
         // dd($user_id);
         $orders = $this->orderRepository->allOrderByUserId($user_id);
-        // $orders = UserOrderResource::collection($orders);
+        $orders = UserOrderResource::collection($orders);
 
         return  response()->json(['data'=>$orders],200);
 
@@ -97,7 +97,7 @@ class OrderController extends Controller
             $farm=$user->listed_farm;
             if($farm){
                 $orders = $this->orderRepository->allOrderByFarmId($farm->id);
-                // $orders = FarmerOrderResource::collection($orders);
+                $orders = FarmerOrderResource::collection($orders);
                 return  response()->json(['data'=>$orders],200);
             }
             return  response()->json(['data'=>'No Farm Listed Yet'],500);
@@ -111,7 +111,7 @@ class OrderController extends Controller
 
 
     public function userOrderstatus(Request $request){
-        return $request->all();
+        // return $request->all();
          try{
             DB::transaction(function ()use($request){
                  Order::where('id', $request->orderId)->update([
@@ -125,6 +125,7 @@ class OrderController extends Controller
         }
     }
     public function farmOrderstatus(Request $request){
+        return $request->all();
          try{
             DB::transaction(function ()use($request){
                  Order::where('id', $request->orderId)->update([

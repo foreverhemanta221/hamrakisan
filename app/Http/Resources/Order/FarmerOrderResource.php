@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources\Order;
 
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\Farm\FarmListResource;
+use App\Http\Resources\Order\OrderItemResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FarmerOrderResource extends JsonResource
@@ -16,10 +19,10 @@ class FarmerOrderResource extends JsonResource
     {
         return [
             'orderId'=>$this->id,
-            // 'description'=>$this->description,
-            // 'price'=>$this->price,
-            // 'unit'=>$this->measure_unit,
-            // 'feature_image'=>$this->feature_image_small
+            'userDetail'=>new UserResource($this->rel_user),
+            'userDetail'=>new FarmListResource($this->rel_farm),
+            'orderStatus'=>$this->status,
+            'orderItems'=>new OrderItemResource($this->order_products($this->status)),
         ];
     }
 }
