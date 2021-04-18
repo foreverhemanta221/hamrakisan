@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'user'=>\App\Http\Middleware\UserMiddleware::class,
         'farmerApi'=>\App\Http\Middleware\FarmerApiMiddleware::class,
         'userApi'=>\App\Http\Middleware\UserApiMiddleware::class,
+        'farmerUserApi'=>\App\Http\Middleware\FarmerAndUserApiMiddleware::class,
         'authkey'=>AuthKey::class,
         'userfarmer'=>\App\Http\Middleware\FarmerAndUserMiddleware::class,
         'locale'=>\App\Http\Middleware\LocaleMiddleware::class,

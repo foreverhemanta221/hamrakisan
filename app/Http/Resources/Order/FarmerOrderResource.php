@@ -20,9 +20,10 @@ class FarmerOrderResource extends JsonResource
         return [
             'orderId'=>$this->id,
             'userDetail'=>new UserResource($this->rel_user),
-            'userDetail'=>new FarmListResource($this->rel_farm),
+            'farmDetail'=>new FarmListResource($this->rel_farm),
             'orderStatus'=>$this->status,
-            'orderItems'=>new OrderItemResource($this->order_products($this->status)),
+            // 'orderItems'=>new OrderItemResource($this->order_products($this->status)),
+            'orderItems'=>OrderItemResource::collection($this->rel_orderItems),
             'orderDate'=>$this->created_at->format('Y-M-d'),
         ];
     }
