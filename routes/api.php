@@ -55,6 +55,7 @@ Route::group(['middleware' => ['farmerApi']], function () {
 
     // orders
     route::get('myfarm-orders/{user_id}','Api\OrderController@FarmerAllOrders');
+    route::get('orderdetail/{order_id}','Api\OrderController@UserOrderDetail');
     route::post('farm/orderstatus','Api\OrderController@farmOrderstatus');
     // route::post('cancelOrder/{order_id}','Frontend\OrderController@userOrderCancel')->name('cancelOrder');
 
@@ -66,14 +67,14 @@ Route::group(['middleware' => ['userApi']], function () {
 
     // orders
     route::get('user-orders/{user_id}','Api\OrderController@UserAllOrders');
+    route::get('orderdetail/{order_id}','Api\OrderController@UserOrderDetail');
     route::post('user/orderstatus','Api\OrderController@userOrderstatus');
 
 });
-
+//order details:
+// route::get('orderdetail/{order_id}','Api\OrderController@UserOrderDetail');
 
 route::get('allcategory','Frontend\PageController@allcategory');
-
-
 
 route::get('categories','Api\SettingController@getCategories');
 
