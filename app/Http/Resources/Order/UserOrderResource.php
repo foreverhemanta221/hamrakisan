@@ -22,12 +22,13 @@ class UserOrderResource extends JsonResource
         // dd($this->order_products($this->orderList()));
         return [
             'orderId'=>$this->id,
+            'totalOrderSum'=>$this->getTotal(),
             'userDetail'=>new UserResource($this->rel_user),
             'farmDetail'=>new FarmListResource($this->rel_farm),
             'orderStatus'=>$this->status,
             // 'orderItems'=>new OrderItemResource($this->order_products($this->status)),
             'orderItems'=>OrderItemResource::collection($this->rel_orderItems),
-            'orderDate'=>$this->created_at->format('Y-M-d'),
+            'orderDate'=>$this->created_at->format('Y-m-d h:i A'),
         ];
     }
 }

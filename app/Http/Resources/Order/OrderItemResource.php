@@ -19,9 +19,9 @@ class OrderItemResource extends JsonResource
         // dd($this);
          return [
             'orderItemId'=>$this->id,
-            "qty"=> $this->qty,
-            "price"=> $this->price,
-            "remarks"=> $this->remarks,
+            "noOfItemSelected"=> $this->qty,
+            "totalPrice"=> $this->price,
+            "status"=> $this->remarks,
             "image"=> URL::asset($this->rel_products->getFeatureImage('small')),
             "name"=> $this->rel_products->name,
             "minimum_quantity"=> $this->rel_products->minimum_quantity,
