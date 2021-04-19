@@ -19,6 +19,7 @@ class OrderController extends Controller
     public function farmOrder(){
 
         $farm = Auth::user()->listed_farm;
+
         if($farm){
             $allOrders = $allOrders = $this->orderRepository->orderByFarmId($farm->id);
             // dd($allOrders);
@@ -32,6 +33,9 @@ class OrderController extends Controller
             ->with('dispatchOrder',$dispatchedOrder)
             ->with('deliveredOrder',$deliveredOrder)
             ->with('orders',$allOrders);
+        }
+        else{
+            return redirect('myfarm')->with('danger','Please List your Farm First');
         }
     }
      public function viewFarmOrders($id){

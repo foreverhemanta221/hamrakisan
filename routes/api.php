@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | API Routes
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------n
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -33,10 +33,10 @@ Route::group(['middleware' => ['authkey']], function () {
      //order change status by admin
     // route::post('orderstatus','Api\OrderController@orderstatus');
 
-    
 
 
-    
+
+
 });
 
 // //payment methods
