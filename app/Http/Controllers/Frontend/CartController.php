@@ -18,11 +18,12 @@ class CartController extends Controller
 
     public function index()
     {
-
         $user = Auth::user();
         if($user){
             $cartItems = \Cart::session(Auth::user()->id)->getContent()->groupBy('farm_id');
-            // dd($cartItems);
+           if(Session::get('redirectRoute')){
+               Session::forget('redirectRoute');
+           }
             return view('frontend.cart')->with('cartDetail',$cartItems);
         }
         return abort(404);

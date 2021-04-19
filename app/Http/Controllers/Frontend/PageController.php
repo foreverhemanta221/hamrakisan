@@ -22,7 +22,11 @@ class PageController extends Controller
     public function loadListing($slug){
         $listing = Listing::where('slug',$slug)->first();
         if($listing){
-            $related_listings = $listing->rel_category->listings->except($listing->id)->take(10);
+            if( $listing->rel_category!=null){
+                $related_listings = $listing->rel_category->listings->except($listing->id)->take(10);
+            }else{
+                $related_listings = null;
+            }
             return view('frontend.farm_detail')->with('listing',$listing)->with('related_listings',$related_listings);
         }
         abort(404);

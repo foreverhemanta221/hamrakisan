@@ -21,8 +21,12 @@ class OrderController extends Controller
         return view('frontend.checkout')->withAmount($totalAmount);
     }
     public function order(Request $request){
+
         try{
-            if(Auth::user()->phone_no==null){   
+            if(Auth::user()->phone_no==null){
+                if(!Session::has('redirectRoute')){
+                    Session::put('redirectRoute',route('checkout'));
+                }
                 session()->flash('danger', "Please update phone number with valid details and try again !!!");
                 return redirect()->to('/myaccount');
             }
@@ -32,18 +36,13 @@ class OrderController extends Controller
                 $groupByFarmname =   $cart->getContent()->groupBy('farm_id');
                 $order =null;
 
-                //when cart is empty ??
-                // if($groupByFarmname->count()==0){
-                //     // session()->flash('danger', 'your cart is empty !!');
-                //     return redirect()->to('/')->with('danger', 'your cart is empty !!');
-                // }
                 foreach($groupByFarmname as $farmId=>$productArray) {
                     $order =   Order::create([
                         'user_id'=>$user->id,
                         'farm_id'=>$farmId,
                         'status'=>Order::ORDER_INITIAL,
                         'payment_method'=>$request->payment_method
-                    ]); 
+                    ]);
                     $orderItems = [];
                     foreach ($productArray as $item) {
                         OrderItem::create([
@@ -55,7 +54,7 @@ class OrderController extends Controller
                         ]);
                     }
                 }
-                
+
                 // dd($order->format());
 
                 // message user about order details:
@@ -68,9 +67,14 @@ class OrderController extends Controller
                     $cart->remove($cartItem->id);
                 }
             });
-           
+
             session()->flash('message',"Order placed successfully, You can check your oders on your dashbord also. Thank you !!!");
-            return redirect()->to('/dashboard');
+            if(Auth::user()->role=="farmer"){
+                return redirect()->to('/farmerdashboard');
+            }else{
+                return redirect()->to('/userdashboard');
+            }
+
         }catch(Exception $ex){
             // dd($ex->getMessage());
             // session()->flash('warning', $ex->getMessage());
