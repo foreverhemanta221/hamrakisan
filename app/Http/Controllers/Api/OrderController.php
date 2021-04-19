@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use Exception;
+use App\UserToken;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Darryldecode\Cart\Cart;
@@ -11,10 +12,10 @@ use Illuminate\Http\Request;
 use App\Mail\OrderMailToUser;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Order\FarmerOrderResource;
-use App\Http\Resources\Order\UserOrderResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Resources\Order\UserOrderResource;
+use App\Http\Resources\Order\FarmerOrderResource;
 use App\Modules\Order\Repositories\OrderRepositoryInterface;
 
 class OrderController extends Controller
@@ -65,8 +66,8 @@ class OrderController extends Controller
                 // message user about order details:
                 if($order!==null){
                     if($user->email!=null){
-                        // Mail::to($user->email)->send(new OrderMailToUser($order));
-                        Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($order));
+                        Mail::to($user->email)->send(new OrderMailToUser($order));
+                        // Mail::to('bindas.prem.75@gmail.com')->send(new OrderMailToUser($order));
                         }
                 }
                 // foreach($cart->getContent() as $cartItem){
@@ -83,7 +84,8 @@ class OrderController extends Controller
         // return "order placed successfully";
     }
 
-    public function UserAllOrders($user_id){
+    public function UserAllOrders(Request $request){
+        $user_id = $this->getUserId($request->header('x-app-token'));
         $orders = $this->orderRepository->allOrderByUserId($user_id);
         $orders = UserOrderResource::collection($orders);
 
@@ -102,6 +104,7 @@ class OrderController extends Controller
 
     public function FarmerAllOrders($user_id){
         $user = User::find($user_id);
+
         if($user){
             $farm=$user->listed_farm;
             if($farm){
@@ -145,6 +148,14 @@ class OrderController extends Controller
              return response()->json(['status'=>true],200);
             }catch(Exception $ex){
                 return response()->json(['status'=>false,'message'=>$ex->getMessage()],500);
+        }
+    }
+
+    public function getUserId($token){
+        $user_token = UserToken::where('api_token',$token)->first();
+        if($user_token!=null){
+            $user_id = $user_token->user_id;
+            return $user_id;
         }
     }
 

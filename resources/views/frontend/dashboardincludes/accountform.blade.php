@@ -5,6 +5,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="db-table-wrapper">
+                    @foreach ($errors->all() as $error)
+                      {{--  <span class="help-block">{{ $error }}</span>  --}}
+                      <p style="color:red">{{ $error }}</span>
+                    @endforeach
                     <button id="edit-acc-btn" class="btn btn-light float-right mb-2 "> <i class="far fa-edit mr-2"></i> Edit</button>
                     <table id="acc-table" class="table table-responsive-sm dashboard-table table-hover">
                         <thead></thead>
@@ -83,13 +87,16 @@
                                     <label for="acc_name">Phone Number </label>
                                     <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{$userdetail->phone_no}}" required>
                                 </div>
+                                {{--  @if($errors->has('phone'))
+                                    <span class="help-block">{{ $errors->first('phone') }}</span>
+                                @endif  --}}
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Province</label>
+                                    <label for="">Province this</label>
                                     <select class="custom-select province_dropdown" id="inputGroupSelect01" name="province" required>
                                         @foreach(getProvince() as $key=>$value)
-                                            <option value="{{$key}}"  {{$userdetail->province==$value ? 'selected' : ''}} >{{$value}}</option>
+                                            <option value="{{$key}}"  {{$userdetail->province==$key ? 'selected' : ''}} >{{$value}}</option>
                                         @endforeach
                                     </select>
                                 </div>
