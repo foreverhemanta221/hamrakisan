@@ -104,7 +104,7 @@
                                                 </div>
                                                 <div class="orders-card-footer">
                                                     @if($order->status=='initial')
-                                                        <a onclick="acceptOrder({{$order->id}})"  class="btn btn-success">Accpt Order</a>
+                                                        <a onclick="acceptOrder({{$order->id}})"  class="btn btn-success">Accept Order</a>
                                                         <a onclick="rejectOrder({{$order->id}})"  class="btn btn-danger">Reject Order</a>
                                                     @endif 
                                                     
