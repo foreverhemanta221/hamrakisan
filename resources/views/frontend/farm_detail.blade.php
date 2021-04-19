@@ -65,7 +65,7 @@
                                 <?php echo strip_tags($listing->about) ?>
                             </p>
                             <a href="">{{__('farm.read_all')}}</a>
-                          
+
                             <h6 class="mt-3">{{__('farm.contact_farm')}}</h6>
                             <ul class="farm-contacts">
                                 <li><a href="tel:{{$listing->phone}}"><i class="fas fa-phone-alt"></i><span> {{__('farm.call')}}</span></a></li>
@@ -167,7 +167,7 @@
                     </div>
 
                     <!-- cart and ratings -->
-                    <!-- mobile map and reviews here -->    
+                    <!-- mobile map and reviews here -->
                     <div class="col-md-4">
 
                         <!-- local cart -->
@@ -259,16 +259,16 @@
                             </div>
                         </div>
 
-                        
+
                     <!-- products map -->
                     <!-- change copy pasted this two section and added d-md-none class to both -->
                    <div class="farm-map-section d-md-none mt-5">
                     <h2>Find the farm</h2>
-                    <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16463.154945539427!2d84.31807658622488!3d27.570674675022104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994f71d0107128d%3A0x86b7d511d3e1e13b!2sJagatpur%20Agro%20Pvt%20Ltd.!5e0!3m2!1sen!2snp!4v1590690320194!5m2!1sen!2snp" 
-                    frameborder="0" 
-                    style="border:0;" 
-                    allowfullscreen="" 
+                    <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16463.154945539427!2d84.31807658622488!3d27.570674675022104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994f71d0107128d%3A0x86b7d511d3e1e13b!2sJagatpur%20Agro%20Pvt%20Ltd.!5e0!3m2!1sen!2snp!4v1590690320194!5m2!1sen!2snp"
+                    frameborder="0"
+                    style="border:0;"
+                    allowfullscreen=""
                     aria-hidden="false"
                      tabindex="0"
                      class="mt-3"></iframe>
@@ -563,13 +563,17 @@
                    swal({
                        buttons: false,
                        icon: "danger",
-                       timer: 2500,
+                       timer: 5000,
                        text: 'Please Login First !!!'
                    });
                    document.getElementById('minicart').innerHTML = '';
                    // alert('checked here');
+                  @php
+                    if(!Session::has('redirectRoute')){
+                        Session::put('redirectRoute',Request::url());
+                    }
+                  @endphp
                    window.location = '{{route('userlogin')}}'
-
                }
                let base_url = 'https://hamrakisan.com/';
                 let farmId = '{{$listing->id}}';

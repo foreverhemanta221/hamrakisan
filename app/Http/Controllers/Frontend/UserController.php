@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Frontend;
 use App\User;
+use Illuminate\Support\Facades\Session;
 use Throwable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -56,13 +57,19 @@ class UserController extends Controller
         if(Auth::attempt([$field => $request->input('userId'), 'password' => $request->input('password')])){
             $role = Auth::user()->role;
             if(Auth::user()->isVerified){
-            
-            if($role=='farmer'){
-                return redirect()->to('farmerdashboard')->with('success','Logged In successfully');
-            }
-            if ($role=='user'){
-                return redirect()->to('userdashboard')->with('success','Logged In successfully');
-            }
+
+                if(Session::has('redirectRoute')){
+                  $url = Session::get('redirectRoute');
+                    Session::forget('redirectRoute');
+                  return redirect()->to($url)->with('success','Logged In successfully');
+                }
+
+                if($role=='farmer'){
+                    return redirect()->to('farmerdashboard')->with('success','Logged In successfully');
+                }
+                if ($role=='user'){
+                    return redirect()->to('userdashboard')->with('success','Logged In successfully');
+                }
 
             }else{
                 Auth::logout();

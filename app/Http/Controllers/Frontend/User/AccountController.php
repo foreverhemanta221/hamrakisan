@@ -2,9 +2,11 @@
 namespace App\Http\Controllers\Frontend\User;
 use App\Helpers;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AccountController extends Controller
 {
@@ -17,10 +19,11 @@ class AccountController extends Controller
     }
     public function  updateAccount(Request $request){
         $user = Auth::user();
-        $this->validate($request,[
-            'phone' => 'required|string|min:5|max:11|unique:users,phone_no,'.$user->id,
-        ]);
-        
+        if(User::where('phone_no',test_input($request->phone))->count()>0){
+            return redirect()->back()->with('danger','Phone Number already in Use');
+        }
+
+
         try{
             DB::transaction(function ()use($request){
                 // dd($request);
@@ -29,6 +32,12 @@ class AccountController extends Controller
             });
         }catch (\PDOException $e){
             return redirect()->back()->with('danger',$e->getMessage());
+        }
+        if(Session::has('redirectRoute')){
+            $url = Session::get('redirectRoute');
+            Session::forget('redirectRoute');
+
+            return redirect()->to($url)->with('success','Phone Number Updated Successfully');
         }
         return redirect()->back()->with('success','Updated');
     }

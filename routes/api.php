@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | API Routes
-|--------------------------------------------------------------------------n
+|--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -26,7 +26,7 @@ Route::group(['middleware' => ['authkey']], function () {
     //farmreview
     route::post('farmreview/{farmid}','Api\ReviewController@store');
 
-    
+
 
     route::post('all-orders','Api\OrderController@allOrders');
      //order change status by admin
@@ -64,7 +64,7 @@ Route::group(['middleware' => ['userApi']], function () {
     route::resource('user-reviews','Api\User\UserReviewController');
 
     // orders
-    
+
     // user-orders
     route::get('user-orders','Api\OrderController@UserAllOrders');
     route::post('user/orderstatus','Api\OrderController@userOrderstatus');
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['userApi']], function () {
 Route::group(['middleware' => ['farmerUserApi']], function () {
     //order controller
     route::post('order','Api\OrderController@order');
-    
+
     //order details:
     route::get('orderdetail/{order_id}','Api\OrderController@UserOrderDetail');
 });

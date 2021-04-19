@@ -121,7 +121,7 @@ Route::group(['middleware' => ['admin']], function () {
 });
 
 // Route::group(['middleware'=>['locale','verified']],function(){
-    
+
 Route::group(['middleware'=>['locale']],function(){
 
     //auth
@@ -182,7 +182,7 @@ Route::group(['middleware'=>['locale']],function(){
 
 
         //checkout
-        route::get('checkout','Frontend\OrderController@checkout');
+        route::get('checkout','Frontend\OrderController@checkout')->name('checkout');
     });
 
     route::post('logout','Frontend\UserController@logOut')->name('logout');
