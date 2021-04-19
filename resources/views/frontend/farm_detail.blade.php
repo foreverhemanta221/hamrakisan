@@ -35,6 +35,7 @@
                             <div id="farm-slider" class="owl-carousel owl-theme">
                                 @foreach($listing->images as $image)
                                 <img class="owl-lazy"  data-src="{{URL::asset($image->image)}}" alt="">
+
                                 @endforeach
                             </div>
                             <div class="farm-slider-nav ml-3">
