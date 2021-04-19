@@ -17,15 +17,18 @@ class UserOrderResource extends JsonResource
      */
     public function toArray($request)
     {
+
         // dd($this->order_products($this->status));
         // dd($this->order_products($this->orderList()));
         return [
             'orderId'=>$this->id,
+            'totalOrderSum'=>$this->getTotal(),
             'userDetail'=>new UserResource($this->rel_user),
-            'userDetail'=>new FarmListResource($this->rel_farm),
+            'farmDetail'=>new FarmListResource($this->rel_farm),
             'orderStatus'=>$this->status,
-            'orderItems'=>new OrderItemResource($this->order_products($this->status)),
-            'orderDate'=>$this->created_at->format('Y-M-d'),
+            // 'orderItems'=>new OrderItemResource($this->order_products($this->status)),
+            'orderItems'=>OrderItemResource::collection($this->rel_orderItems),
+            'orderDate'=>$this->created_at->format('Y-m-d h:i A'),
         ];
     }
 }

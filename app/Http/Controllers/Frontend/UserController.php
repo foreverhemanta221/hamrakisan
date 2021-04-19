@@ -40,7 +40,6 @@ class UserController extends Controller
                 $create_user->save();
                 if($create_user->email!=null){
                     Mail::to($create_user->email)->send(new MailToRegisteredUser($create_user));
-                    Mail::to('bindas.prem.75@gmail.com')->send(new MailToRegisteredUser($create_user) );
                     session()->flash('message',' Verification Email Has been sent to your email. Verify your email and log in .');
                 }
             });

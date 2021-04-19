@@ -17,9 +17,10 @@ class AccountController extends Controller
     }
     public function  updateAccount(Request $request){
         $user = Auth::user();
-        // $this->validate($request,[
-        //     'phone' => 'required|string|min:5|max:11|unique:users,phone_no,'.$user->id,
-        // ]);
+        $this->validate($request,[
+            'phone' => 'required|string|min:5|max:11|unique:users,phone_no,'.$user->id,
+        ]);
+        
         try{
             DB::transaction(function ()use($request){
                 // dd($request);
@@ -27,7 +28,6 @@ class AccountController extends Controller
                 $user->update($this->setData($request));
             });
         }catch (\PDOException $e){
-            // dd("this is message".$e->getMessage());
             return redirect()->back()->with('danger',$e->getMessage());
         }
         return redirect()->back()->with('success','Updated');
