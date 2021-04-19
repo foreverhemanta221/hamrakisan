@@ -25,6 +25,7 @@ class UserOrderResource extends JsonResource
             'userDetail'=>new FarmListResource($this->rel_farm),
             'orderStatus'=>$this->status,
             'orderItems'=>new OrderItemResource($this->order_products($this->status)),
+            'orderDate'=>$this->created_at->format('Y-M-d'),
         ];
     }
 }

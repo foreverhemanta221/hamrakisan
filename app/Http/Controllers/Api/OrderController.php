@@ -84,13 +84,22 @@ class OrderController extends Controller
     }
 
     public function UserAllOrders($user_id){
-        // dd($user_id);
         $orders = $this->orderRepository->allOrderByUserId($user_id);
         $orders = UserOrderResource::collection($orders);
 
         return  response()->json(['data'=>$orders],200);
 
     }
+
+    public function UserOrderDetail($order_id){
+        
+        $order= Order::find($order_id);
+        if($order){
+            $data = new UserOrderResource($order);
+            return  response()->json(['data'=>$data],200);
+        }
+    }
+
     public function FarmerAllOrders($user_id){
         $user = User::find($user_id);
         if($user){
