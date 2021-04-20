@@ -28,7 +28,7 @@ class OrderController extends Controller
             $dispatchedOrder = $this->orderRepository->getFarmorderByStatus($farm->id,Order::ORDER_DISPATCH);
             $deliveredOrder = $this->orderRepository->getFarmorderByStatus($farm->id,Order::ORDER_DELIVERED);
 
-            return view('frontend.farmer.order')->with('initialOrder',$initialOrder)
+            return view('frontend.farmer.farmorder')->with('initialOrder',$initialOrder)
             ->with('pendingOrder',$pendingOrder)
             ->with('dispatchOrder',$dispatchedOrder)
             ->with('deliveredOrder',$deliveredOrder)

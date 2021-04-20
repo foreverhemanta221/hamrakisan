@@ -16,13 +16,15 @@
             </ul>
         </div>
         <ul class="side-menu">
-            <li class="active"><a href="{{URL::to('farmerdashboard')}}"><i class="fas fa-tachometer-alt"></i> {{__('dashboard.dashboard')}}</a></li>
-             <li><a href="{{URL::to('farmorder')}}"><i class="fas fa-clipboard-list"></i> {{__('dashboard.orders')}}</a></li>
-            <li><a href="{{URL::to('myproduct')}}"><i class="fas fa-carrot"></i> {{__('dashboard.products')}}</a></li>
-            <li><a href="{{URL::to('myfarm')}}"> <i class="fas fa-tractor"></i> {{__('dashboard.farm')}}</a></li>
+            <li class="{{\Request::route()->getName()=='farmerdashboard' ?'active' : ''}}"><a href="{{URL::to('farmerdashboard')}}"><i class="fas fa-tachometer-alt"></i> {{__('dashboard.dashboard')}}</a></li>
+
+             <li class="{{\Request::route()->getName()=='farmorder' ?'active' : ''}}"><a href="{{URL::to('farmorder')}}"><i class="fas fa-clipboard-list"></i> {{__('dashboard.orders')}}</a></li>
+             <li class="{{\Request::route()->getName()=='my-order' ?'active' : ''}}"><a href="{{URL::to('my-order')}}"><i class="fas fa-clipboard-list"></i>{{__('dashboard.my_orders')}}</a></li>
+            <li class="{{\Request::route()->getName()=='myproduct' ?'active' : ''}}"><a href="{{URL::to('myproduct')}}"><i class="fas fa-carrot"></i> {{__('dashboard.products')}}</a></li>
+            <li class="{{\Request::route()->getName()=='myfarm' ?'active' : ''}}"><a href="{{URL::to('myfarm')}}"> <i class="fas fa-tractor"></i> {{__('dashboard.farm')}}</a></li>
             {{--  <li><a href="{{URL::to('farmreview')}}"><i class="fas fa-star-half-alt"></i> Reviews </a></li>  --}}
             {{--  <li><a href=""><i class="fas fa-certificate"></i> Trainings</a></li>  --}}
-            <li><a href="{{URL::asset('myaccount')}}"><i class="fas fa-user-circle"></i> {{__('dashboard.account')}}</a></li>
+            <li class="{{\Request::route()->getName()=='myaccount' ?'active' : ''}}" ><a href="{{URL::asset('myaccount')}}"><i class="fas fa-user-circle"></i> {{__('dashboard.account')}}</a></li>
             <li>
                 <form action="{{route('logout')}}" method="post">
                     @csrf

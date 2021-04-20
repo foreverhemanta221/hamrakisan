@@ -24,6 +24,13 @@
                  <div class="db-body">
                     <h1>Orders</h1>
                     <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-success" role="alert" style="text-align: center;">
+                                    <h6 style="text-align: center;">{{__('dashboard.farm_order_message')}}</h6>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mt-5">
                             <div class="col-xl-12">
                                 <h6>Recent Orders</h6>
