@@ -57,11 +57,11 @@ class UserController extends Controller
         if(Auth::attempt([$field => $request->input('userId'), 'password' => $request->input('password')])){
             $role = Auth::user()->role;
             if(Auth::user()->isVerified){
-
                 if(Session::has('redirectRoute')){
                   $url = Session::get('redirectRoute');
                     Session::forget('redirectRoute');
-                  return redirect()->to($url)->with('success','Logged In successfully');
+                    session()->flash('message', "Logged In successfully");
+                  return redirect()->to($url);
                 }
 
                 if($role=='farmer'){

@@ -15,10 +15,10 @@
             </ul>
         </div>
         <ul class="side-menu">
-            <li class="active"><a href="{{URL::to('userdashboard')}}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li class="active"><a href="{{URL::to('userdashboard')}}"><i class="fas fa-tachometer-alt"></i>  {{__('dashboard.dashboard')}}</a></li>
             <li><a href="{{URL::to('my-order')}}"><i class="fas fa-clipboard-list"></i> Orders</a></li>
-            <li><a href="{{URL::to('myreview')}}"><i class="fas fa-star-half-alt"></i> Reviews </a></li>
-            <li><a href=""><i class="fas fa-certificate"></i> Trainings</a></li>
+{{--            <li><a href="{{URL::to('myreview')}}"><i class="fas fa-star-half-alt"></i> Reviews </a></li>--}}
+{{--            <li><a href=""><i class="fas fa-certificate"></i> Trainings</a></li>--}}
             <li><a href="{{URL::to('myaccount')}}"><i class="fas fa-user-circle"></i> Account</a></li>
             <li>
                 <form action="{{route('logout')}}" method="post">

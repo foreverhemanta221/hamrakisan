@@ -22,8 +22,6 @@ class AccountController extends Controller
         if(User::where('phone_no',test_input($request->phone))->count()>0){
             return redirect()->back()->with('danger','Phone Number already in Use');
         }
-
-
         try{
             DB::transaction(function ()use($request){
                 // dd($request);
@@ -36,8 +34,8 @@ class AccountController extends Controller
         if(Session::has('redirectRoute')){
             $url = Session::get('redirectRoute');
             Session::forget('redirectRoute');
-
-            return redirect()->to($url)->with('success','Phone Number Updated Successfully');
+            session()->flash('message',"Phone Number Updated Successfully You can place your Order Now");
+            return redirect()->to($url);
         }
         return redirect()->back()->with('success','Updated');
     }

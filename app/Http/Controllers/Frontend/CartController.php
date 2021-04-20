@@ -21,7 +21,7 @@ class CartController extends Controller
         $user = Auth::user();
         if($user){
             $cartItems = \Cart::session(Auth::user()->id)->getContent()->groupBy('farm_id');
-           if(Session::get('redirectRoute')){
+           if(Session::has('redirectRoute')){
                Session::forget('redirectRoute');
            }
             return view('frontend.cart')->with('cartDetail',$cartItems);

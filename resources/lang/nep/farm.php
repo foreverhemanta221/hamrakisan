@@ -17,6 +17,7 @@ return [
     'find_the_farm'=>'फार्म भेटाउनुहोस',
     'price_calculator'=>'प्राइस क्यालकुलेटर',
     'add_cart'=>'कार्ट',
+    'book_now'=>'बुक',
     'ratings'=>'रेटिंग्स',
     'people'=>'मानिस',
     'rate_this_farm'=>'मूल्यांकन गर्नुहोस',

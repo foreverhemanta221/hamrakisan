@@ -31,7 +31,7 @@
                                         </div>
                                     </label>
                                     <label>
-                                        <input type="radio" name="payment_method" value="esewa">
+                                        <input type="radio" name="payment_method" value="esewa" disabled>
                                         <div>
                                             <img src="{{URL::to('frontend/img/trainings/esewa.png')}}" alt="">
                                         </div>

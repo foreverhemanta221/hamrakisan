@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="{{URL::asset('frontend/css/main.css')}}">
 @endsection
 @section('content')
-
     <!-- dashboard wrapper------------------------- -->
     <div class="bg-light-wrapper">
         <div class="db-wrapper">
             <!-- Sidebar -->
-            @include('frontend.dashboardincludes.usersidebar')
+            @if(auth()->user()->role=="farmer")
+                @include('frontend.dashboardincludes.farmersidebar')
+            @else
+                @include('frontend.dashboardincludes.usersidebar')
+            @endif
+
             <div id="db-content">
 
                 <div class="container-fluid">
@@ -79,14 +83,14 @@
                                                 </a>
                                                 @endif
                                             </td>
-                                            
+
                                         </tr>
                                         @endif
                                         @endforeach
 
                                         </tbody>
                                     </table>
-                                
+
                                 </div>
                                 <div class="row bg-white">
                                     <div class="col">
