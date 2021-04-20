@@ -16,6 +16,8 @@
     </style>
 @endsection
 @section('content')
+
+
     <!-- dashboard wrapper------------------------- -->
     <div class="bg-light-wrapper">
         <div class="db-wrapper">

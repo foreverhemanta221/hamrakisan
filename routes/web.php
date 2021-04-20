@@ -140,8 +140,8 @@ Route::group(['middleware'=>['locale']],function(){
     Route::get('/','Frontend\PageController@getHomePageData');
     //farmer
     Route::group(['middleware'=>'farmer'],function (){
-        route::get('farmerdashboard','Frontend\Farmer\FarmerController@getFamerDashboard');
-        route::get('myfarm','Frontend\Farmer\FarmerController@loadFarm');
+        route::get('farmerdashboard','Frontend\Farmer\FarmerController@getFamerDashboard')->name('farmerdashboard');
+        route::get('myfarm','Frontend\Farmer\FarmerController@loadFarm')->name('myfarm');
         route::post('postmyfarm','Frontend\Farmer\FarmerController@saveFarm');
         route::post('updatemyfarm','Frontend\Farmer\FarmerController@updateFarm')->name('updatemyfarm');
         route::resource('myproduct','Frontend\Farmer\ProductController');
@@ -150,12 +150,12 @@ Route::group(['middleware'=>['locale']],function(){
         route::get('farmreview','Frontend\Farmer\ReviewController@index');
         route::post('changestatus','Frontend\Farmer\ReviewController@changeStatus');
         route::resource('traingings','Frontend\Farmer\TrainingController');
-        route::get('farmorder','Frontend\Farmer\OrderController@farmOrder');
+        route::get('farmorder','Frontend\Farmer\OrderController@farmOrder')->name('farmorder');
         route::get('farmorder/{order_id}','Frontend\Farmer\OrderController@viewFarmOrders');
     });
 //user
     Route::group(['middleware'=>'user'],function (){
-        route::get('userdashboard','Frontend\User\UserDashboardController@getUserDashboard');
+        route::get('userdashboard','Frontend\User\UserDashboardController@getUserDashboard')->name('userdashboard');
         route::get('myreview','Frontend\User\ReviewController@index');
 
         //cancel order
@@ -167,10 +167,10 @@ Route::group(['middleware'=>['locale']],function(){
     });
 //eitther user and farmer
     route::group(['middleware'=>'userfarmer'],function (){
-        route::get('myaccount','Frontend\User\AccountController@myProfile');
+        route::get('myaccount','Frontend\User\AccountController@myProfile')->name('myaccount');
         route::post('myaccount','Frontend\User\AccountController@updateAccount');
         //myorder
-        route::get('my-order','Frontend\User\OrderConroller@myOrder');
+        route::get('my-order','Frontend\User\OrderConroller@myOrder')->name('my-order');
         route::get('my-order/{order_id}','Frontend\User\OrderConroller@viewmyOrder');
 
         //cart

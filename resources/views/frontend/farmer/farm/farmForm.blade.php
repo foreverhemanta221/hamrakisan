@@ -12,6 +12,7 @@
         }
     </style>
 @endsection
+
 @section('content')
     <!-- ---------------------------farm listing form-------------------------------------- -->
     <section id="listfarm" class="bg-light-wrapper">
@@ -140,6 +141,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-card">
+                        @error('gallery_image')
+                        <small style="color: red">{{$message}}</small>
+                        @enderror
                       <input id="upload-foto-input" type="file" name="gallery_image[]" class="custom-file-input" multiple onchange="handleFiles(this.files)" accept="image/*">
                         <div class="form-group">
                             <div class="upload-decor" id="up-img-decor">

@@ -19,7 +19,7 @@ class AccountController extends Controller
     }
     public function  updateAccount(Request $request){
         $user = Auth::user();
-        if(User::where('phone_no',test_input($request->phone))->count()>0){
+        if(User::where('phone_no',test_input($request->phone))->where('id','!=',$user->id)->count()>0){
             return redirect()->back()->with('danger','Phone Number already in Use');
         }
         try{

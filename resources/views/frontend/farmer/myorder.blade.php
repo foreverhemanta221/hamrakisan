@@ -11,12 +11,7 @@
     <div class="bg-light-wrapper">
         <div class="db-wrapper">
             <!-- Sidebar -->
-            @if(auth()->user()->role=="farmer")
-                @include('frontend.dashboardincludes.farmersidebar')
-            @else
-                @include('frontend.dashboardincludes.usersidebar')
-            @endif
-
+            @include('frontend.dashboardincludes.farmersidebar')
             <div id="db-content">
 
                 <div class="container-fluid">
@@ -26,19 +21,25 @@
                     </button>
                 </div>
                 <!-- dashboard cards -->
-                <div class="db-body">
+                 <div class="db-body">
                     <h1>Orders</h1>
-                    @isset($orders)
                     <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-success" role="alert" style="text-align: center;">
+                                    <h6 style="text-align: center;">{{__('dashboard.my_order_message')}}</h6>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mt-5">
-                           
+                            
                             <div class="col-xl-12">
                                 <h6>Recent Orders</h6>
                                 <div class="db-table-wrapper">
                                     <table id="asdas" class="table table-responsive-sm dashboard-table">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Farm ing</th>
+                                            <th scope="col">Customer</th>
                                             <th scope="col">Ordered</th>
                                             <th scope="col">Worth</th>
                                             <th scope="col">Status</th>
@@ -48,11 +49,10 @@
                                         </thead>
                                         <tbody>
                                         @foreach($orders as $order)
-                                         @if($order->format())
                                         <tr>
                                             <td>
                                                 <div class="customer">
-                                                    <div class="name">{{$order->rel_farm->name}}</div>
+                                                       <div class="name">{{$order->format()['user']['name'] ? $order->format()['user']['name'] : $order->format()['user']['phone'] ?? $order->format()['user']['email'] }}</div>
                                                     <span>{{$order->created_at->format('d,M-Y')}}</span>
                                                 </div>
                                             </td>
@@ -70,29 +70,34 @@
                                               </span>
                                             </td>
                                             <td>
-                                             <span class="order-status {{$order->status=='initial'?? 'pending'}}{{$order->status=='success'? 'delivered' : $order->status }}">{{$order->status}}</span>
+                                                {{-- {{dd($order->status)}} --}}
+                                                <span class="order-status  @if($order->status=='initial') pending @elseif($order->status=='success') delivered  @else cancelled @endif ">{{$order->status}}</span>
                                             </td>
                                             <td>
-                                              <a href="{{URL::to('my-order/'.$order->id)}}" class="">
+                                              <a href="{{URL::to('farmorder/'.$order->id)}}" class="">
                                                   <i class="fa fa-eye" aria-hidden="true"></i>
                                                   View </a>
                                                   <br/>
-                                                @if($order->status=='initial')
-                                                <a onclick="cancelOrder({{$order->id}})"  class="remove-cart-item"  href="">
-                                                  <i class="far fa-times-circle"></i>
-                                                  cancel
-                                                </a>
-                                                @endif
+                                                  @if($order->status=='initial')
+                                                    <a onclick="acceptOrder({{$order->id}})"  class="remove-cart-item"  href="">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                            Accept
+                                                        </a>
+                                                        <br/>
+                                                        <a onclick="rejectOrder({{$order->id}})"  class="remove-cart-item" style="color: red"  href="">
+                                                        <i class="far fa-times-circle"  ></i>
+                                                        Reject
+                                                        </a>
+                                                    @endif
                                             </td>
 
                                         </tr>
-                                        @endif
                                         @endforeach
 
                                         </tbody>
                                     </table>
-
                                 </div>
+                        
                                 <div class="row bg-white">
                                     <div class="col">
                                         <div class="d-flex">
@@ -103,14 +108,16 @@
                                         </div>
                                     </div>
                                 </div>
+                        
                             </div>
                         </div>
                     </div>
-                    @endisset
+
                 </div>
+
                 <!-- dashboard cards -->
+            </div>
         </div>
-    </div>
     </div>
     <!--END  dashboard wrapper------------------------- -->
 @endsection
@@ -135,39 +142,42 @@
             $('#sidebarCollapse').on('click', function () {
                 $('#db-sidebar').toggleClass('active');
                 $(this).toggleClass('active');
-                // $(this).find('svg').css('transform','rotate(180deg)')
-
-
-
-
             });
-
         });
 
-         function cancelOrder(orderId,status) {
-            if(confirm('are you sure you want to cancell this order ?')){
-                let status = '<?php echo App\Models\Order::ORDER_CANCEL ?>'
+        function acceptOrder(orderId) {
+            if(confirm('are you sure you want to accept this order ?')){
+                let status = '<?php echo App\Models\Order::ORDER_SUCCESS ?>'
                 ajaxForStatusChange(orderId,status)
             }
         }
 
-         function ajaxForStatusChange(orderId,status) {
-            let base_url = 'https://hamrakisan.com/';
-            axios.post('order/change-status', {
+        function rejectOrder(orderId) {
+            if(confirm('are you sure you want to accept this order ?')){
+                let status = '<?php echo App\Models\Order::ORDER_REJECT ?>'
+                ajaxForStatusChange(orderId,status)
+            }
+        }
+
+        function ajaxForStatusChange(orderId,status) {
+           let base_url = 'https://hamrakisan.com';
+            axios.post(base_url+'/order/change-status', {
                 orderId: orderId,
                 orderStatus: status
             }).then(function (response) {
 
                 if(response.data.status===false){
-                    {{--window.location = '{{route('userlogin')}}'--}}
+
+                    window.location = '{{route('userlogin')}}'
                 }
                 if(response.data.status===true){
-                     swal({
-                                buttons: true,
-                                icon: "success",
-                                {{--  timer: 2500,  --}}
-                                text: 'Order Cancelled Successfully !!!'
-                            });
+                    swal({
+                        buttons: true,
+                        icon: "success",
+                        {{--  timer: 2500,  --}}
+                        text: 'Order Status Changed Successfully !!!'
+                    });
+
                     window.location.reload();
                     // document.getElementById('minicart').innerHTML = '';
                 }
@@ -175,8 +185,6 @@
                 console.log(error);
             });
         }
-
-
 
 
     </script>

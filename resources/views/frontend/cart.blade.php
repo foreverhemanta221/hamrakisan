@@ -11,8 +11,7 @@
             <h4>Your cart</h4>
             <div class="row">
                 <div class="col">
-                    @if(isset($cartDetail))
-                    
+                    @if($cartDetail->count())
                             @foreach($cartDetail as $farmId=>$farmProducts)
                             <div class="cart">
                                 <div class="cart-header">
@@ -48,18 +47,30 @@
                                 </div>
                             </div>
                              @endforeach
-                        @endif
+                        
                         <div class="cart-footer">
-                            <div class="cart-total-price">
-                                <span>Total:</span> Rs. {{\Cart::session(Auth::user()->id)->getTotal()}}
+                            <div class="cart-total-price cart-total">
+                                <span>Total:</span> Rs. <p id="totalPrice">{{\Cart::session(Auth::user()->id)->getTotal()}}<p>
                             </div>
                             <div class="d-flex justify-content-between mt-3">
                                 <a href="{{URL::to('farm')}}" class="btn-typo">Continue Shopping <i class="fas fa-arrow-right"></i></a>
-                                <a href="{{URL::to('checkout')}}" class="btn btn-primary">Order Now</a>
+                               
+                                    <a href="{{URL::to('checkout')}}" class="btn btn-primary">Order Now</a>
+                               
                             </div>
                         </div>
-
-
+                        @else
+                        <div class="cart-footer">
+                            <div class="cart-item">
+                                <span>Your cart is Empty. Add Some Product On cart first !!!</span>
+                            </div>
+                            <div class="abc">
+                                <a href="{{URL::to('/')}}" >Continue Shopping</a>
+                            </div>
+                            
+                        </div>
+                        @endif
+                        
                 </div>
             </div>
         </div>
@@ -74,6 +85,7 @@
     <script src="{{URL::asset('frontend/js/main.js')}}"></script>
     <script src="{{URL::asset('frontend/js/axios.min.js')}}"></script>
     <script>
+    
         function increaseProductByOne(productId,productPrice) {
             const currentQtyDom = document.querySelector('.qty-'+productId);
             const currentPrice = document.querySelector('.price-'+productId);
@@ -91,6 +103,7 @@
                     currentQtyDom.innerHTML = productQty;
                     console.log(currentQtyDom.innerHTML);
                     currentPrice.innerHTML = productQty*productPrice;
+                    $('.cart-total').text('Rs. ' + productQty*productPrice)
                 }
             }).catch(function (error) {
                 console.log(error);
@@ -100,23 +113,33 @@
             const currentQtyDom = document.querySelector('.qty-'+productId);
             const currentPrice = document.querySelector('.price-'+productId);
             let qty = parseInt(currentQtyDom.innerHTML);
-            let productQty = qty-1;
-            axios.post('/update-cart', {
-                productId: productId,
-                productQty: productQty
-            }).then(function (response) {
-
-                if(response.data.status===false){
-                    window.location = '{{route('userlogin')}}'
-                }
-                if(response.data.status===true){
-                    currentQtyDom.innerHTML = productQty;
-                    console.log(currentQtyDom.innerHTML);
-                    currentPrice.innerHTML = productQty*productPrice;
-                }
-            }).catch(function (error) {
-                console.log(error);
-            });
+            if(qty <= 1){
+                swal({
+                        buttons: true,
+                        icon: "warning",
+                        {{--  timer: 2500,  --}}
+                        text: 'Minimum Quantity Cant Not Be Less Than One !!!'
+                    });
+            }else{
+                let productQty = qty-1;
+                axios.post('/update-cart', {
+                    productId: productId,
+                    productQty: productQty
+                }).then(function (response) {
+                    
+                    if(response.data.status===false){
+                        window.location = '{{route('userlogin')}}'
+                    }
+                    if(response.data.status===true){
+                        currentQtyDom.innerHTML = productQty;
+                        currentPrice.innerHTML = productQty*productPrice;
+                        $('.cart-total').text('Rs. ' + productQty*productPrice)
+                    
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
         }
         function removeFromCart(productId) {
             axios.post('/remove-cart', {

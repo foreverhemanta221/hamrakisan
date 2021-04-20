@@ -26,12 +26,20 @@ class OrderConroller extends Controller
         $cancelled_order = array_merge($cancel_order->toArray(),$rejected_order->toArray());
 
          $allOrders = $this->orderRepository->orderByUserId(Auth::user()->id);
+        if(Auth::user()->role=="user"){
+            return view('frontend.user.order')->with('initialOrder',$initial_order)
+                                                ->with('dispatchOrder',$dispatch_order)
+                                                ->with('deliveredOrder',$delivered_order)
+                                                ->with('cancelOrder',$cancelled_order)
+                                                ->with('orders',$allOrders);
+        }else{
+            return view('frontend.farmer.myorder')->with('initialOrder',$initial_order)
+                                                ->with('dispatchOrder',$dispatch_order)
+                                                ->with('deliveredOrder',$delivered_order)
+                                                ->with('cancelOrder',$cancelled_order)
+                                                ->with('orders',$allOrders);
 
-        return view('frontend.user.order')->with('initialOrder',$initial_order)
-                                            ->with('dispatchOrder',$dispatch_order)
-                                            ->with('deliveredOrder',$delivered_order)
-                                            ->with('cancelOrder',$cancelled_order)
-                                            ->with('orders',$allOrders);
+        }
 
     }
 

@@ -10,11 +10,14 @@ return [
     'recent_orders'=>'Recent Orders',
     'no_order_found'=>'Sorry, At present no any orders are available',
     'customer'=>'Customer',
-    'orders'=>'Orders',
+    'orders'=>'Farm Orders',
+    'my_orders'=>'My Orders',
     'status'=>'Status',
     'worth'=>'Worth',
     'hot_products'=>'Hot Products',
     'sold_to'=>'Sold To',
     'sales_volume'=>'Sales Volume',
-    'sales_worth'=>'Sales Worth'
+    'sales_worth'=>'Sales Worth',
+    'farm_order_message'=>'Orders your farm has got are listed below',
+    'my_order_message'=>'Orders you have made are listed below',
 ];
