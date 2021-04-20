@@ -183,7 +183,7 @@
                                     </div>
                                 <div class="bill-control mt-4">
                                     <div class="cart-bill">Rs. 0</div>
-                                    <button class="btn btn-primary">{{__('farm.add_cart')}}</button>
+                                    <button class="btn btn-primary">{{__('farm.book_now')}}</button>
                                 </div>
                             </form>
                         </div>
@@ -564,7 +564,7 @@
                    swal({
                        buttons: false,
                        icon: "danger",
-                       timer: 5000,
+                       timer: 10000,
                        text: 'Please Login First !!!'
                    });
                    document.getElementById('minicart').innerHTML = '';

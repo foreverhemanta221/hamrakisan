@@ -17,6 +17,7 @@ return [
     'find_the_farm'=>'Find The Farm',
     'price_calculator'=>'Price Calculator',
     'add_cart'=>'Add Cart',
+    'book_now'=>'Book Now',
     'ratings'=>'Ratings',
     'people'=>'people',
     'rate_this_farm'=>'Rate this farm',
