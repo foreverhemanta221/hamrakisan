@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Backend\User;
 use Intervention\Image\Image;
 
 //upload image
@@ -410,4 +412,5 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
+
 ?>

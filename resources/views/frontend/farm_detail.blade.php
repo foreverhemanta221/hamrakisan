@@ -503,6 +503,7 @@
             // minicart ko item qty ghatne
 
             var nowQty =$(this).parents('.qty-selector').find('.qty').text();
+           
             console.log(nowQty)
             // get name
             var itemName = $(this).parents('.col-lg-6').find('.farm-product h4').text()
@@ -555,15 +556,13 @@
         order_from.addEventListener('submit',(e)=>{
             e.preventDefault();
 
-
-
            if(confirm('are you sure want to order ?')){
 
                let check_auth = document.getElementById('auth').value;
                if(check_auth==0){
                    swal({
                        buttons: false,
-                       icon: "danger",
+                       icon: "warning",
                        timer: 10000,
                        text: 'Please Login First !!!'
                    });

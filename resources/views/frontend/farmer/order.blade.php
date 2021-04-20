@@ -164,9 +164,9 @@
                 }
                 if(response.data.status===true){
                     swal({
-                        buttons: false,
+                        buttons: true,
                         icon: "success",
-                        timer: 2500,
+                        {{--  timer: 2500,  --}}
                         text: 'Order Status Changed Successfully !!!'
                     });
 

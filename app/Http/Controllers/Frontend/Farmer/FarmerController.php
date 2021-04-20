@@ -58,6 +58,8 @@ class FarmerController extends Controller
         }
     }
     public function saveFarm(FarmerFarmListRequst $request){
+
+
         if(Auth::user()->rel_listing->count()>0){
             return redirect('myfarm')->with('danger','You already have existing farm');
         }
@@ -75,7 +77,7 @@ class FarmerController extends Controller
                 $listing->facebook = $request->farmFacebook;
                 $listing->youtube = $request->farmYoutube;
                 $listing->user_id = Auth::user()->id;
-                // $listing->save();
+                $listing->save();
 
                // get gallery image
                 if($request->gallery_image){

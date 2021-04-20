@@ -58,9 +58,9 @@
      @if(session()->has('message'))
         <script>
             swal({
-                buttons: false,
+                buttons: true,
                 icon: "success",
-                timer: 3500,
+                {{--  timer: 3500,  --}}
                 text: '{{ session()->get('message') }}'
             });
         </script>
@@ -68,9 +68,9 @@
     @if(session()->has('danger'))
         <script>
             swal({
-                buttons: false,
+                buttons: true,
                 icon: "warning",
-                timer: 3500,
+                {{--  timer: 3500,  --}}
                 text: '{{ session()->get('danger') }}'
             });
         </script>
@@ -79,9 +79,9 @@
     @foreach ($errors->all() as $error)
     <script>
             swal({
-                buttons: false,
+                buttons: true,
                 icon: "warning",
-                timer: 3500,
+                {{--  timer: 3500,  --}}
                 text:  {{ $error }}
             });
         </script>
